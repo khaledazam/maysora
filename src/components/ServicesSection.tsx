@@ -13,7 +13,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
   t,
   onSelectService
 }) => {
-  const isRtl = lang === 'ar';
+  const isRtl = lang !== 'en';
   const [activeModalService, setActiveModalService] = useState<number | null>(null);
 
   const servicesData = [
@@ -182,7 +182,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                   </p>
 
                   <h4 className="text-lg font-bold text-gold-gradient mb-4">
-                    {lang === 'ar' ? 'أبرز مميزات الخدمة:' : 'Key Service Highlights:'}
+                    {lang !== 'en' ? 'أبرز مميزات الخدمة:' : 'Key Service Highlights:'}
                   </h4>
 
                   <ul className="space-y-3 mb-8">

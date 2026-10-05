@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Globe, Menu, X, PhoneCall } from 'lucide-react';
+import { Menu, X, PhoneCall } from 'lucide-react';
 import type { Language, TranslationContent } from '../data/translations';
 
 interface NavbarProps {
@@ -25,13 +25,6 @@ export const Navbar: React.FC<NavbarProps> = ({
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const toggleLanguage = () => {
-    const newLang = lang === 'ar' ? 'en' : 'ar';
-    setLang(newLang);
-    document.documentElement.dir = newLang === 'ar' ? 'rtl' : 'ltr';
-    document.documentElement.lang = newLang;
-  };
 
   const navLinks = [
     { href: '#home', label: t.nav.home },
@@ -66,13 +59,13 @@ export const Navbar: React.FC<NavbarProps> = ({
                 MAYSORA
               </span>
               <span className="text-[10px] sm:text-[11px] text-[#C0B7A6] tracking-widest font-light">
-                {lang === 'ar' ? 'مكتب ميسورة' : 'EST. LUXURY & FINANCE'}
+                {lang === 'en' ? 'EST. LUXURY & FINANCE' : (lang === 'ar-sa' ? 'مكتب ميسورة • نخبة الحج والمال' : 'مكتب ميسورة')}
               </span>
             </div>
           </a>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-7">
+          <nav className="hidden xl:flex items-center gap-6">
             {navLinks.map((link) => (
               <a
                 key={link.href}
@@ -84,38 +77,92 @@ export const Navbar: React.FC<NavbarProps> = ({
             ))}
           </nav>
 
-          {/* Actions & CTA */}
-          <div className="hidden lg:flex items-center gap-4">
-            {/* Language Switcher */}
-            <button
-              onClick={toggleLanguage}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#D4AF37]/30 hover:border-[#D4AF37] text-xs font-semibold text-[#F8F5F0] hover:text-[#D4AF37] bg-black/40 transition-all cursor-pointer"
-              title="Switch Language"
-            >
-              <Globe className="w-3.5 h-3.5 text-[#D4AF37]" />
-              <span>{t.nav.languageName}</span>
-            </button>
+          {/* Desktop Actions, Language/Dialect Switcher & CTA */}
+          <div className="hidden lg:flex items-center gap-3.5">
+            
+            {/* Language & Dialect Switcher Segmented Bar */}
+            <div className="flex items-center p-1 rounded-full bg-black/60 border border-[#D4AF37]/35 backdrop-blur-md shadow-inner text-xs">
+              
+              {/* Saudi Dialect Button */}
+              <button
+                type="button"
+                onClick={() => setLang('ar-sa')}
+                className={`px-3 py-1.5 rounded-full font-semibold transition-all flex items-center gap-1.5 cursor-pointer ${
+                  lang === 'ar-sa'
+                    ? 'bg-gold-gradient text-[#0D0D0D] shadow-md font-bold'
+                    : 'text-[#C0B7A6] hover:text-[#D4AF37]'
+                }`}
+                title="تغيير اللهجة للسعودية"
+              >
+                <span>🇸🇦</span>
+                <span>لهجة سعودية</span>
+              </button>
+
+              {/* Standard Arabic Button */}
+              <button
+                type="button"
+                onClick={() => setLang('ar')}
+                className={`px-2.5 py-1.5 rounded-full font-semibold transition-all flex items-center gap-1 cursor-pointer ${
+                  lang === 'ar'
+                    ? 'bg-gold-gradient text-[#0D0D0D] shadow-md font-bold'
+                    : 'text-[#C0B7A6] hover:text-[#D4AF37]'
+                }`}
+                title="العربية (الفصحى)"
+              >
+                <span>فصحى</span>
+              </button>
+
+              {/* English Switch Button */}
+              <button
+                type="button"
+                onClick={() => setLang('en')}
+                className={`px-3 py-1.5 rounded-full font-semibold transition-all flex items-center gap-1.5 cursor-pointer ${
+                  lang === 'en'
+                    ? 'bg-gold-gradient text-[#0D0D0D] shadow-md font-bold'
+                    : 'text-[#C0B7A6] hover:text-[#D4AF37]'
+                }`}
+                title="Switch Language to English"
+              >
+                <span>🇬🇧</span>
+                <span>English</span>
+              </button>
+            </div>
 
             {/* Free Consultation CTA */}
             <button
               onClick={onOpenConsultationModal}
-              className="relative group overflow-hidden px-5 py-2.5 rounded-full text-xs font-bold text-[#0D0D0D] bg-gold-gradient hover:brightness-110 transition-all shadow-md shadow-[#D4AF37]/20 flex items-center gap-2 cursor-pointer"
+              className="relative group overflow-hidden px-4.5 py-2.5 rounded-full text-xs font-bold text-[#0D0D0D] bg-gold-gradient hover:brightness-110 transition-all shadow-md shadow-[#D4AF37]/20 flex items-center gap-2 cursor-pointer shrink-0"
             >
               <PhoneCall className="w-3.5 h-3.5" />
               <span>{t.nav.bookConsultation}</span>
             </button>
           </div>
 
-          {/* Mobile menu trigger */}
-          <div className="flex items-center gap-3 lg:hidden">
-            <button
-              onClick={toggleLanguage}
-              className="px-2.5 py-1 rounded-full border border-[#D4AF37]/30 text-xs font-medium text-[#F8F5F0] flex items-center gap-1 cursor-pointer"
-            >
-              <Globe className="w-3.5 h-3.5 text-[#D4AF37]" />
-              <span>{lang === 'ar' ? 'EN' : 'عربي'}</span>
-            </button>
+          {/* Mobile Header Controls */}
+          <div className="flex items-center gap-2 lg:hidden">
+            {/* Quick Switcher on Mobile Header */}
+            <div className="flex items-center p-0.5 rounded-full bg-black/60 border border-[#D4AF37]/30 text-[11px]">
+              <button
+                type="button"
+                onClick={() => setLang(lang === 'ar-sa' ? 'en' : 'ar-sa')}
+                className="px-2.5 py-1 rounded-full text-[#FFF0B3] font-medium flex items-center gap-1 cursor-pointer hover:text-[#D4AF37]"
+                title="تبديل اللغة / Switch Language"
+              >
+                {lang === 'ar-sa' ? (
+                  <>
+                    <span>🇬🇧</span>
+                    <span>English</span>
+                  </>
+                ) : (
+                  <>
+                    <span>🇸🇦</span>
+                    <span>سعودي</span>
+                  </>
+                )}
+              </button>
+            </div>
 
+            {/* Hamburger Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 text-[#D4AF37] focus:outline-none"
@@ -130,13 +177,70 @@ export const Navbar: React.FC<NavbarProps> = ({
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
         <div className="lg:hidden glass-nav border-b border-[#D4AF37]/20 px-6 py-6 transition-all animate-fadeIn">
-          <div className="flex flex-col gap-4">
+          
+          {/* Mobile Language & Dialect Selector Section */}
+          <div className="mb-6 pb-5 border-b border-[#D4AF37]/20">
+            <span className="text-xs text-[#C0B7A6] font-medium mb-2.5 block">
+              {lang === 'en' ? 'Language & Dialect / لغة الموقع واللهجة:' : 'اختر لغة الموقع واللهجة:'}
+            </span>
+            <div className="grid grid-cols-3 gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setLang('ar-sa');
+                  setMobileMenuOpen(false);
+                }}
+                className={`py-2 px-2 rounded-xl text-xs font-bold transition-all flex flex-col items-center justify-center gap-1 cursor-pointer ${
+                  lang === 'ar-sa'
+                    ? 'bg-gold-gradient text-[#0D0D0D] shadow-md'
+                    : 'bg-black/50 border border-[#D4AF37]/20 text-[#F8F5F0]'
+                }`}
+              >
+                <span className="text-base">🇸🇦</span>
+                <span>لهجة سعودية</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setLang('ar');
+                  setMobileMenuOpen(false);
+                }}
+                className={`py-2 px-2 rounded-xl text-xs font-bold transition-all flex flex-col items-center justify-center gap-1 cursor-pointer ${
+                  lang === 'ar'
+                    ? 'bg-gold-gradient text-[#0D0D0D] shadow-md'
+                    : 'bg-black/50 border border-[#D4AF37]/20 text-[#F8F5F0]'
+                }`}
+              >
+                <span className="text-base">🌐</span>
+                <span>عربية فصحى</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setLang('en');
+                  setMobileMenuOpen(false);
+                }}
+                className={`py-2 px-2 rounded-xl text-xs font-bold transition-all flex flex-col items-center justify-center gap-1 cursor-pointer ${
+                  lang === 'en'
+                    ? 'bg-gold-gradient text-[#0D0D0D] shadow-md'
+                    : 'bg-black/50 border border-[#D4AF37]/20 text-[#F8F5F0]'
+                }`}
+              >
+                <span className="text-base">🇬🇧</span>
+                <span>English</span>
+              </button>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-3">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-base font-medium text-[#F8F5F0]/90 hover:text-[#D4AF37] transition-colors py-1"
+                className="text-base font-medium text-[#F8F5F0]/90 hover:text-[#D4AF37] transition-colors py-1.5"
               >
                 {link.label}
               </a>

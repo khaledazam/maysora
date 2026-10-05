@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { Language } from './data/translations';
 import { translations } from './data/translations';
 import { Navbar } from './components/Navbar';
@@ -14,7 +14,26 @@ import { FloatingWhatsApp } from './components/FloatingWhatsApp';
 import { Footer } from './components/Footer';
 
 export function App() {
-  const [lang, setLang] = useState<Language>('ar');
+  const [lang, setLang] = useState<Language>(() => {
+    const saved = localStorage.getItem('maysora_lang') as Language;
+    if (saved && (saved === 'ar-sa' || saved === 'ar' || saved === 'en')) {
+      return saved;
+    }
+    return 'ar-sa'; // Default to Saudi dialect
+  });
+
+  useEffect(() => {
+    localStorage.setItem('maysora_lang', lang);
+    const isEn = lang === 'en';
+    document.documentElement.dir = isEn ? 'ltr' : 'rtl';
+    document.documentElement.lang = isEn ? 'en' : 'ar';
+    document.title = isEn
+      ? 'MAYSORA | Luxury Hajj & Umrah Concierge • Shariah Financial Advisory'
+      : (lang === 'ar-sa'
+        ? 'ميسورة | خدمات الحج والعمرة الفاخرة والاستشارات المالية والمحاسبية'
+        : 'MAYSORA | ميسورة - خدمات الحج والعمرة الفاخرة والاستشارات المالية والمحاسبة');
+  }, [lang]);
+
   const t = translations[lang];
 
   // Modal Control

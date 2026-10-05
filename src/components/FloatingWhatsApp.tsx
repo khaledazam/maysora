@@ -7,18 +7,27 @@ interface FloatingWhatsAppProps {
 }
 
 export const FloatingWhatsApp: React.FC<FloatingWhatsAppProps> = ({ lang }) => {
+  const isEn = lang === 'en';
+
   const handleWhatsAppClick = () => {
-    const text = encodeURIComponent(
-      `السلام عليكم، أود التواصل مع مستشار ميسورة للخدمات الخاصة.`
-    );
-    window.open(`https://wa.me/966500000000?text=${text}`, '_blank');
+    let text = 'السلام عليكم، أود التواصل مع مستشار ميسورة للخدمات الخاصة.';
+    if (lang === 'ar-sa') {
+      text = 'السلام عليكم، حيّاك الله.. حاب أستفسر عن خدمات ميسورة الخاصة للحج والعمرة والاستشارات المالية.';
+    } else if (isEn) {
+      text = 'Hello MAYSORA VIP Concierge, I would like to inquire about your private pilgrimage and wealth advisory services.';
+    }
+    window.open(`https://wa.me/966500000000?text=${encodeURIComponent(text)}`, '_blank');
   };
 
+  const tooltipText = lang === 'ar-sa' 
+    ? 'تواصل مباشرة مع مستشارك الخاص 24/7'
+    : (isEn ? 'Chat 24/7 with MAYSORA VIP Concierge' : 'تحدث مباشرة مع مستشار ميسورة 24/7');
+
   return (
-    <div className={`fixed bottom-6 ${lang === 'ar' ? 'left-6' : 'right-6'} z-40 group`}>
+    <div className={`fixed bottom-6 ${!isEn ? 'left-6' : 'right-6'} z-40 group`}>
       {/* Tooltip */}
       <div className="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 hidden group-hover:block whitespace-nowrap bg-black/90 border border-[#D4AF37]/30 text-[#FFF0B3] text-xs px-3 py-1.5 rounded-xl shadow-xl backdrop-blur-md">
-        {lang === 'ar' ? 'تحدث مباشرة مع مستشار ميسورة 24/7' : 'Chat 24/7 with MAYSORA Concierge'}
+        {tooltipText}
       </div>
 
       <button

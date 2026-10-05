@@ -1,4 +1,4 @@
-export type Language = 'ar' | 'en';
+export type Language = 'ar-sa' | 'ar' | 'en';
 
 export interface TranslationContent {
   nav: {
@@ -11,6 +11,7 @@ export interface TranslationContent {
     contact: string;
     bookConsultation: string;
     languageName: string;
+    dialectName: string;
   };
   hero: {
     badge: string;
@@ -125,6 +126,18 @@ export interface TranslationContent {
     consultationTitle: string;
     close: string;
     confirmBtn: string;
+    clientBadge: string;
+    fullName: string;
+    fullNamePlaceholder: string;
+    phone: string;
+    email: string;
+    notes: string;
+    notesPlaceholder: string;
+    submitBtn: string;
+    privacyBadge: string;
+    successTitle: string;
+    successDesc: string;
+    selectedPackageLabel: string;
   };
   footer: {
     tagline: string;
@@ -137,6 +150,267 @@ export interface TranslationContent {
 }
 
 export const translations: Record<Language, TranslationContent> = {
+  // 🇸🇦 اللهجة السعودية الأصيلة والفخمة (Default Arabic)
+  'ar-sa': {
+    nav: {
+      home: 'الرئيسية',
+      services: 'خدماتنا',
+      whyUs: 'ليش ميسورة؟',
+      packages: 'باقات الحج والعمرة',
+      financial: 'الاستشارات والمحاسبة',
+      testimonials: 'آراء عملائنا',
+      contact: 'تواصل معنا',
+      bookConsultation: 'استشارتك مجاناً',
+      languageName: 'English',
+      dialectName: 'لهجة سعودية',
+    },
+    hero: {
+      badge: 'مكتب ميسورة المعتمد • فخامة تليق بضيوف الرحمن وثقة مالية',
+      title: 'رحلة إيمانية تسر خاطرك..',
+      titleHighlight: 'وثقة مالية تدوم لك',
+      subtitle: 'نجمع لك بين أعلى درجات الفخامة في باقات الحج والعمرة الملكية، والاحترافية العالية في الاستشارات المالية والمحاسبة المعتمدة المتوافقة تماماً مع شريعتنا السمحاء.',
+      ctaPackage: 'احجز باقتك الحين',
+      ctaConsultation: 'اطلب استشارتك المالية المجانية',
+      trustYears: '+15',
+      trustYearsLabel: 'سنة من الخبرة والتميّز',
+      trustPilgrims: '12,000+',
+      trustPilgrimsLabel: 'معتمر وحاج تشرّفنا بخدمتهم',
+      trustShariah: '100%',
+      trustShariahLabel: 'حلول متوافقة مع الشريعة',
+      trustAssets: '+500M',
+      trustAssetsLabel: 'ريال استشارات وإدارة أصول',
+    },
+    services: {
+      sectionTag: 'وش نقدّم لك؟',
+      title: 'منظومة متكاملة من الفخامة والخبرة المالية',
+      subtitle: 'نقدّم لعملائنا النخبة تجربة استثنائية تجمع بين كرم الضيافة لضيوف الرحمن وأعلى معايير الحوكمة والاستشارات المحاسبية بالمملكة.',
+      hajjTitle: 'باقات الحج والعمرة VIP',
+      hajjDesc: 'باقات خاصة تضمن لك أقصى درجات الراحة في أفخم فنادق أبراج مكة قبال الحرم مباشرة، مع طيران خاص وخدمة كونسيرج على مدار الساعة تلبّي طلباتك.',
+      hajjFeatures: [
+        'سكن راقي بفنادق 5 نجوم صف أول مطلة على الكعبة',
+        'مخيمات ملكية فاخرة بالمشاعر المقدسة (VIP)',
+        'مواصلات خاصة بسيارات فارهة وسائق خاص تحت أمرك',
+        'مرشد ديني ومساعد شخصي يرافقك على مدار الساعة'
+      ],
+      finTitle: 'الاستشارات المالية وإدارة الثروات',
+      finDesc: 'تخطيط مالي استراتيجي وحلول استثمارية متوافقة 100% مع الشريعة، لحفظ وتنمية ثروات كبار الشخصيات والشركات.',
+      finFeatures: [
+        'تخطيط مالي خاص ومفصّل لرجال الأعمال وكبار الشخصيات',
+        'حساب وإدارة الزكاة والأوقاف وفق الأنظمة المعتمدة',
+        'دراسات جدوى وهيكلة مالية احترافية للشركات',
+        'برامج ادخار واستثمار مجدية لرحلات الحج القادمة'
+      ],
+      accTitle: 'الخدمات المحاسبية وحوكمة الشركات',
+      accDesc: 'إدارة محاسبية دقيقة وتدقيق معتمد وإعداد القوائم المالية المتوافقة مع معايير هيئة الزكاة والضريبة والجمارك (ZATCA) والمعايير السعودية.',
+      accFeatures: [
+        'مسك الدفاتر وإعداد القوائم المالية الدورية بدقة',
+        'الإقرارات الزكوية والضريبية المعتمدة لدى هيئة الزكاة (ZATCA)',
+        'التدقيق الداخلي وإدارة المخاطر وحوكمة الشركات',
+        'استشارات خفض التكاليف والتخطيط المالي المؤسسي'
+      ],
+      learnMore: 'تفاصيل أكثر',
+    },
+    whyUs: {
+      sectionTag: 'ليش تختار ميسورة؟',
+      title: 'معايير النخبة في كل تفصيلة',
+      subtitle: 'نتميّز بالجمع بين السكينة وراحة البال في رحلتك الإيمانية، والدقة المالية المحترفة اللي تضمن لك الأمان الكامل.',
+      items: [
+        {
+          title: 'فخامة استثنائية وباقات على كيفك',
+          desc: 'نصمم باقات سفر حصرية تناسب تطلعاتك وتلبي رغبات كبار الشخصيات مع الاهتمام بأدق التفاصيل.'
+        },
+        {
+          title: 'حلول مالية شرعية 100%',
+          desc: 'كل استشاراتنا وحلولنا المالية والمحاسبية معتمدة ومراجعة من هيئات شرعية موثوقة.'
+        },
+        {
+          title: 'أمان وشفافية محاسبية تامة',
+          desc: 'نضمن لك الدقة والوضوح التام في كافة قيودك المحاسبية وتقارير الزكاة والضريبة.'
+        },
+        {
+          title: 'فريق كونسيرج بخدمتك 24/7',
+          desc: 'فريقنا السعودي المتخصص جاهز لخدمتك دايماً في مكة المكرمة والمدينة المنورة والرياض.'
+        },
+        {
+          title: 'شراكات حصرية مع أفخم الفنادق والطيران',
+          desc: 'أولوية الحجز في أرقى أجنحة وأبراج الحرم المكي مع أفضل الخطوط وشركات الطيران الخاص.'
+        },
+        {
+          title: 'إرشاد ديني واستشارة مالية متكاملة',
+          desc: 'نرافقك بمرشدين متمكنين ومستشارين ماليين لضمان رحلة مباركة وتخطيط مالي محكم.'
+        }
+      ]
+    },
+    packages: {
+      sectionTag: 'باقاتنا الملكية',
+      title: 'باقات الحج والعمرة لكبار الشخصيات',
+      subtitle: 'اختر الباقة اللي تناسبك واستمتع بتجربة ما تنساها في رحاب بيت الله الحرام.',
+      currency: 'ر.س',
+      bookNow: 'احجز الحين',
+      viewDetails: 'تفاصيل الباقة',
+      mostPopular: 'الأكثر طلباً للنخبة',
+      items: [
+        {
+          id: 'exec-umrah',
+          name: 'باقة العمرة التنفيذية',
+          category: 'عمرة فاخرة',
+          price: '18,500',
+          duration: '7 أيام / 6 ليالٍ',
+          hotel: 'فندق فيرمونت برج الساعة مكة (إطلالة مباشرة على الكعبة)',
+          flight: 'طيران درجة رجال الأعمال',
+          financialPerk: 'تشمل استشارة زكوية وتخطيط مالي مجاني',
+          features: [
+            'إقامة في جناح فاخر مطل مباشرة على الكعبة المشرفة',
+            'استقبال وتوديع خاص في المطار بسيارة VIP خاصة',
+            'بوفيه مفتوح إفطار وعشاء فاخر بأعلى المستويات',
+            'مزارات خاصة بسيارة فارهة مع مرشد خاص',
+            'استشارة زكوية وتخطيط مالي مجاني'
+          ]
+        },
+        {
+          id: 'royal-hajj',
+          name: 'باقة الحج الملكية الفاخرة',
+          category: 'حج النخبة VIP',
+          price: '65,000',
+          duration: '12 يوماً',
+          hotel: 'أجنحة دار التوحيد إنتركونتيننتال مكة',
+          flight: 'طيران خاص أو درجة أولى',
+          financialPerk: 'خدمة محاسبية وتدقيق زكوي سنوي شامل',
+          features: [
+            'مخيمات ملكية خاصة ومكيفة بالكامل في منى وعرفة',
+            'بوفيهات عالمية تحت إشراف أشهر الطهاة',
+            'طبيب خاص ومرافق ديني مخصص للباقة',
+            'تنقلات بسيارات فارهة وسائق خاص طول فترة المشاعر',
+            'مراجعة وحساب زكاة المال والأصول مجاناً'
+          ]
+        },
+        {
+          id: 'imperial-custom',
+          name: 'باقة ميسورة الإمبراطورية',
+          category: 'باقة مخصصة بالكامل',
+          price: 'حسب الطلب',
+          duration: 'مرنة حسب رغبتك',
+          hotel: 'أفخم الأجنحة الملكية الخاصة في مكة والمدينة',
+          flight: 'طيران خاص خالي من قيود المواعيد',
+          financialPerk: 'إدارة مالية كاملة لثروة الأسرة والأوقاف',
+          features: [
+            'تخصيص كامل لكافة تفاصيل الرحلة على رغبتك',
+            'طائرة خاصة ومروحيات لنقل المشاعر',
+            'فريق خدمة كامل (سائق، طباخ، مرشد، حارس)',
+            'استشارات مالية ومحاسبية مفتوحة لمدة سنة كاملة',
+            'إدارة الأوقاف والصدقات الجارية بما يرضي الله'
+          ]
+        }
+      ]
+    },
+    financialHub: {
+      sectionTag: 'المكتب المالي والمحاسبي',
+      title: 'استشارات مالية ومحاسبة احترافية متوافقة مع الشريعة',
+      subtitle: 'نضع خبرتنا العريقة في خدمة استثماراتك وتدقيقك المحاسبي مع الالتزام التام بأنظمة المملكة وشريعتنا السمحاء.',
+      consultingTitle: 'قسم الاستشارات المالية وإدارة الثروات',
+      consultingDesc: 'نساعد كبار رجال الأعمال والشركات في بناء استراتيجيات مالية صلبة وتحقيق النمو المستدام.',
+      consultingList: [
+        'تخطيط واستراتيجيات إدارة الثروات العائلية وحفظها',
+        'حساب وتقييم الزكاة الشرعية للأصول والاستثمارات',
+        'تأسيس وإدارة الأوقاف والكيانات الخيرية وتنميتها',
+        'دراسات التقييم المالي والاندماج والاستحواذ بالسوق السعودي'
+      ],
+      accountingTitle: 'قسم الخدمات المحاسبية والتدقيق (ZATCA)',
+      accountingDesc: 'خدمات محاسبية شاملة تضمن الامتثال التنظيمي التام والدقة العالية لكافة القوائم المالية.',
+      accountingList: [
+        'إعداد ومراجعة القوائم المالية السنوية والشهرية بدقة',
+        'تقديم الإقرارات الضريبية والزكوية لهيئة الزكاة والضريبة والجمارك (ZATCA)',
+        'تصميم وتنفيذ أنظمة الرقابة المحاسبية والفوترة الإلكترونية',
+        'خدمات الفحص النافي للجهالة والتدقيق المحاسبي المعتمد'
+      ],
+      calcTitle: 'حاسبة الزكاة والتخطيط المالي للحج',
+      calcSubtitle: 'أداة تفاعلية سريعة لحساب زكاة مالك التقريبية والتخطيط المالي لرحلة الحج المباركة',
+      calcInputWealth: 'إجمالي الثروة / الأموال النقدية والأصول (ر.س):',
+      calcInputYears: 'سنوات التخطيط لرحلة الحج المستهدفة:',
+      calcZakatDue: 'مقدار الزكاة الشرعية الواجبة سنوياً (2.5%):',
+      calcHajjTarget: 'المبلغ المقدر لباقة الحج الملكية:',
+      calcMonthlySave: 'الادخار الشهري الموصى به للرحلة:',
+      calcCta: 'احجز استشارتك المالية المفصلة الحين',
+    },
+    testimonials: {
+      sectionTag: 'شهادات نعتز فيها',
+      title: 'وش قالوا عملاؤنا عن ميسورة؟',
+      subtitle: 'آراء وشهادات نخبة من ضيوف الرحمن ورجال الأعمال اللي شرّفونا بخدمتهم.',
+      items: [
+        {
+          name: 'الشيخ عبد الرحمن السديري',
+          role: 'رجل أعمال',
+          comment: 'تجربة الحج مع ميسورة كانت فوق الخيال وبيّض الله وجوهكم. الفخامة والتنظيم في الحرم والمشاعر، غير الاستشارة المالية والزكوية اللي ريحت بالي وقدموها بمنتهى الاحترافية.',
+          location: 'الرياض، المملكة العربية السعودية',
+          rating: 5
+        },
+        {
+          name: 'د. مها الشمري',
+          role: 'رئيسة مجلس إدارة مجموعة طبية',
+          comment: 'خدمة الكونسيرج والطيران الخاص في عمرة رمضان كانت استثنائية. تعامل راقي واهتمام بأدق التفاصيل، ومكتب ميسورة هو خيارنا الأول والوحيد دائماً.',
+          location: 'جدة، المملكة العربية السعودية',
+          rating: 5
+        },
+        {
+          name: 'المهندس فيصل الدوسري',
+          role: 'رئيس تنفيذي لشركة قابضة',
+          comment: 'اعتمدنا ميسورة لإعادة هيكلة الحسابات والإقرار الزكوي لدى هيئة الزكاة (ZATCA)، وكانت النتيجة دقة واحترافية عالية حفظت لنا الكثير وضمنت الامتثال التام.',
+          location: 'الخبر، المملكة العربية السعودية',
+          rating: 5
+        }
+      ]
+    },
+    contact: {
+      sectionTag: 'تواصل معنا',
+      title: 'حياك الله، حنا هنا لخدمتك ورعاية استثماراتك',
+      subtitle: 'تواصل مع مستشارينا المتخصصين للحصول على ترتيبات خاصة أو استشارة مالية ومحاسبية على أعلى مستوى.',
+      formName: 'الاسم الكريم',
+      formEmail: 'البريد الإلكتروني',
+      formPhone: 'رقم الجوال (مع مفتاح الدولة)',
+      formService: 'نوع الخدمة المطلوبة',
+      formMessage: 'وش استفسارك أو طلبك الخاص؟',
+      formSubmit: 'إرسال الطلب لمستشار ميسورة',
+      serviceOptions: [
+        { value: 'hajj-umrah', label: 'حجز باقة حج أو عمرة VIP' },
+        { value: 'financial-consulting', label: 'استشارة مالية وإدارة ثروات' },
+        { value: 'accounting-zakat', label: 'خدمات محاسبية وحساب زكاة (ZATCA)' },
+        { value: 'all-services', label: 'باقة خدمات شاملة (سفر + مالية)' }
+      ],
+      whatsAppBtn: 'محادثة واتساب مباشرة مع المستشار (24/7)',
+      callUs: 'اتصل بنا مباشرة',
+      address: 'طريق الملك فهد، البرج المالي، الرياض | فرع مكة: أبراج وقف الملك عبدالعزيز',
+      hours: 'متاحون على مدار الساعة لخدمة كبار الشخصيات (24/7)',
+      successMessage: 'أبشر بسعدك! تم استلام طلبك وبنتواصل معك خلال أقرب وقت.'
+    },
+    modal: {
+      bookingTitle: 'طلب حجز باقة خاصة',
+      consultationTitle: 'طلب استشارة مالية ومحاسبية مجانية',
+      close: 'إغلاق',
+      confirmBtn: 'تأكيد وإرسال البيانات',
+      clientBadge: 'عميل ميسورة الخاص • VIP',
+      fullName: 'الاسم الكريم *',
+      fullNamePlaceholder: 'محمد العبدالله',
+      phone: 'رقم الجوال *',
+      email: 'البريد الإلكتروني',
+      notes: 'ملاحظات أو متطلبات خاصة',
+      notesPlaceholder: 'حدد التاريخ المفضل أو أي تفاصيل خاصة تبيها...',
+      submitBtn: 'إرسال الطلب لمستشارك الحين',
+      privacyBadge: 'بياناتك وخصوصيتك بأمان وطلبك مباشر لمستشارينا',
+      successTitle: 'أبشر، تم استلام طلبك بنجاح!',
+      successDesc: 'سيتواصل معك مستشارك الخاص بأقرب وقت لتأكيد كافة التفاصيل وتلبية متطلباتك.',
+      selectedPackageLabel: 'الباقة المحددة:'
+    },
+    footer: {
+      tagline: 'مكتب ميسورة • الرفيق الأمثل لرحلتك الإيمانية والشريك الأوثق لاستثماراتك المالية والمحاسبية بالمملكة.',
+      quickLinks: 'روابط سريعة',
+      servicesHeader: 'خدماتنا الرئيسية',
+      legal: 'الشروط والأحكام • سياسة الخصوصية • ترخيص وزارة الحج والعمرة وهيئة الزكاة',
+      shariahBadge: 'معتمد ومراجع من كبار المستشارين الشرعيين وهيئة الزكاة (ZATCA)',
+      rights: 'جميع الحقوق محفوظة © MAYSORA 2026'
+    }
+  },
+
+  // 🌐 العربية الفصحى
   ar: {
     nav: {
       home: 'الرئيسية',
@@ -148,6 +422,7 @@ export const translations: Record<Language, TranslationContent> = {
       contact: 'تواصل معنا',
       bookConsultation: 'استشارة مجانية',
       languageName: 'English',
+      dialectName: 'العربية (الفصحى)',
     },
     hero: {
       badge: 'مكتب ميسورة المعتمد • فخامة إيمانية وثقة مالية',
@@ -258,7 +533,7 @@ export const translations: Record<Language, TranslationContent> = {
           category: 'حج النخبة',
           price: '65,000',
           duration: '12 يوماً',
-          hotel: 'أجنحة قصر المشرق / دار التوحيد مكة',
+          hotel: 'أجنحة دار التوحيد إنتركونتيننتال مكة',
           flight: 'طيران خاص أو درجة أولى',
           financialPerk: 'خدمة محاسبية وتدقيق زكوي سنوي شامل',
           features: [
@@ -371,7 +646,19 @@ export const translations: Record<Language, TranslationContent> = {
       bookingTitle: 'تأكيد حجز الباقة / الاستشارة',
       consultationTitle: 'طلب استشارة مالية ومحاسبية مجانية',
       close: 'إغلاق',
-      confirmBtn: 'تأكيد وإرسال البيانات'
+      confirmBtn: 'تأكيد وإرسال البيانات',
+      clientBadge: 'عميل ميسورة الخاص • VIP',
+      fullName: 'الاسم الكامل *',
+      fullNamePlaceholder: 'محمد العبدالله',
+      phone: 'رقم الجوال *',
+      email: 'البريد الإلكتروني',
+      notes: 'ملاحظات أو متطلبات خاصة',
+      notesPlaceholder: 'حدد التاريخ المفضل أو أي تفاصيل استشارية...',
+      submitBtn: 'إرسال الطلب الآن',
+      privacyBadge: 'خصوصيتك محمية وطلبك مباشر لمستشارينا',
+      successTitle: 'تم استلام طلبك بنجاح',
+      successDesc: 'سيتواصل معك مستشار ميسورة الخاص لتأكيد كافة التفاصيل وتلبية متطلباتك.',
+      selectedPackageLabel: 'الباقة المحددة:'
     },
     footer: {
       tagline: 'مكتب ميسورة • الرفيق الأمثل لرحلتك الإيمانية والشريك الأوثق لاستثماراتك المالية والمحاسبية.',
@@ -382,6 +669,8 @@ export const translations: Record<Language, TranslationContent> = {
       rights: 'جميع الحقوق محفوظة © MAYSORA 2026'
     }
   },
+
+  // 🇬🇧 English
   en: {
     nav: {
       home: 'Home',
@@ -393,6 +682,7 @@ export const translations: Record<Language, TranslationContent> = {
       contact: 'Contact Us',
       bookConsultation: 'Free Consultation',
       languageName: 'العربية',
+      dialectName: 'English',
     },
     hero: {
       badge: 'MAYSORA Certified • Sacred Pilgrimage & Financial Trust',
@@ -616,7 +906,19 @@ export const translations: Record<Language, TranslationContent> = {
       bookingTitle: 'Confirm Package / Service Inquiry',
       consultationTitle: 'Request Free Financial Consultation',
       close: 'Close',
-      confirmBtn: 'Submit Request'
+      confirmBtn: 'Submit Request',
+      clientBadge: 'MAYSORA PRIVATE CLIENT • VIP',
+      fullName: 'Full Name *',
+      fullNamePlaceholder: 'E.g. Mohammed Al-Abdullah',
+      phone: 'Phone Number *',
+      email: 'Email Address',
+      notes: 'Special Requests or Notes',
+      notesPlaceholder: 'Specify preferred dates or financial consulting details...',
+      submitBtn: 'Submit Request Now',
+      privacyBadge: 'Your privacy is protected. Direct link to our executive advisors.',
+      successTitle: 'Inquiry Successfully Received',
+      successDesc: 'A dedicated MAYSORA private advisor will contact you shortly to cater to all your requirements.',
+      selectedPackageLabel: 'Selected Package:'
     },
     footer: {
       tagline: 'MAYSORA • Your premier companion for sacred pilgrimage and trusted partner for financial & accounting excellence.',

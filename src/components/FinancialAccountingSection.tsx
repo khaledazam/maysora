@@ -13,7 +13,7 @@ export const FinancialAccountingSection: React.FC<FinancialAccountingSectionProp
   t,
   onOpenConsultationModal
 }) => {
-  const isRtl = lang === 'ar';
+  const isRtl = lang !== 'en';
 
   // Calculator State
   const [wealthAmount, setWealthAmount] = useState<number>(500000);
@@ -63,7 +63,7 @@ export const FinancialAccountingSection: React.FC<FinancialAccountingSectionProp
                     {t.financialHub.consultingTitle}
                   </h3>
                   <span className="text-xs text-[#D4AF37] font-medium">
-                    {lang === 'ar' ? 'إدارة الثروات وحوكمة الأوقاف' : 'Wealth & Endowment Governance'}
+                    {lang !== 'en' ? 'إدارة الثروات وحوكمة الأوقاف' : 'Wealth & Endowment Governance'}
                   </span>
                 </div>
               </div>
@@ -105,7 +105,7 @@ export const FinancialAccountingSection: React.FC<FinancialAccountingSectionProp
                     {t.financialHub.accountingTitle}
                   </h3>
                   <span className="text-xs text-[#D4AF37] font-medium">
-                    {lang === 'ar' ? 'اعتماد هيئة الزكاة والضريبة (ZATCA)' : 'ZATCA & Audit Certified'}
+                    {lang !== 'en' ? 'اعتماد هيئة الزكاة والضريبة (ZATCA)' : 'ZATCA & Audit Certified'}
                   </span>
                 </div>
               </div>
@@ -181,7 +181,7 @@ export const FinancialAccountingSection: React.FC<FinancialAccountingSectionProp
                 <div className="flex justify-between items-center mb-2 text-sm font-medium text-[#F8F5F0]">
                   <label>{t.financialHub.calcInputYears}</label>
                   <span className="text-gold-gradient font-bold text-lg">
-                    {targetYears} {lang === 'ar' ? 'سنوات' : 'Years'}
+                    {targetYears} {lang !== 'en' ? (targetYears === 1 ? 'سنة' : 'سنوات') : (targetYears === 1 ? 'Year' : 'Years')}
                   </span>
                 </div>
                 <input
@@ -194,9 +194,9 @@ export const FinancialAccountingSection: React.FC<FinancialAccountingSectionProp
                   className="w-full h-2 bg-[#0D0D0D] rounded-lg appearance-none cursor-pointer accent-[#D4AF37]"
                 />
                 <div className="flex justify-between text-[11px] text-[#C0B7A6]/60 mt-1">
-                  <span>1 {lang === 'ar' ? 'سنة' : 'Year'}</span>
-                  <span>3 {lang === 'ar' ? 'سنوات' : 'Years'}</span>
-                  <span>5 {lang === 'ar' ? 'سنوات' : 'Years'}</span>
+                  <span>1 {lang !== 'en' ? 'سنة' : 'Year'}</span>
+                  <span>3 {lang !== 'en' ? 'سنوات' : 'Years'}</span>
+                  <span>5 {lang !== 'en' ? 'سنوات' : 'Years'}</span>
                 </div>
               </div>
 

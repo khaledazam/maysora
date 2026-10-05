@@ -15,7 +15,7 @@ export const Hero: React.FC<HeroProps> = ({
   onOpenBookingModal,
   onOpenConsultationModal
 }) => {
-  const isRtl = lang === 'ar';
+  const isRtl = lang !== 'en';
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center pt-28 pb-16 overflow-hidden">
