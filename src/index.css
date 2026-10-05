@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400&family=Tajawal:wght@300;400;500;700;800&display=swap');
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-primary: #0D0D0D;
+    --bg-secondary: #141414;
+    --bg-card: #1A1A1A;
+    --gold-primary: #D4AF37;
+    --gold-secondary: #C9A227;
+    --gold-light: #F4E090;
+    --gold-dark: #9A7B1C;
+    --text-primary: #F8F5F0;
+    --text-secondary: #C0B7A6;
+    --border-gold: rgba(212, 175, 55, 0.25);
+  }
+
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: 'Inter', 'Cairo', sans-serif;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+  }
+
+  /* Arabic Typography */
+  [dir="rtl"] {
+    font-family: 'Cairo', 'Tajawal', sans-serif;
+  }
+
+  /* Heading Typography */
+  .font-serif-en {
+    font-family: 'Playfair Display', 'Cormorant Garamond', serif;
+  }
+
+  .font-arabic-heading {
+    font-family: 'Cairo', sans-serif;
+    font-weight: 700;
+  }
+}
+
+/* Gold Gradient Classes */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #FFF0B3 0%, #D4AF37 50%, #AA820A 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bg-gold-gradient {
+  background: linear-gradient(135deg, #D4AF37 0%, #C9A227 50%, #9A7B1C 100%);
+}
+
+.bg-gold-subtle-gradient {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(201, 162, 39, 0.05) 100%);
+}
+
+.border-gold-gradient {
+  border-image: linear-gradient(135deg, #D4AF37, #C9A227, rgba(212, 175, 55, 0.2)) 1;
+}
+
+/* Luxury Glassmorphism */
+.glass-gold-card {
+  background: rgba(26, 26, 26, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5);
+}
+
+.glass-gold-card:hover {
+  border-color: rgba(212, 175, 55, 0.5);
+  box-shadow: 0 16px 48px 0 rgba(212, 175, 55, 0.15);
+}
+
+.glass-nav {
+  background: rgba(13, 13, 13, 0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.18);
+}
+
+/* Gold Glow Animation */
+@keyframes goldPulse {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+  }
+}
+
+.animate-gold-pulse {
+  animation: goldPulse 4s infinite ease-in-out;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0D0D0D;
+}
+::-webkit-scrollbar-thumb {
+  background: #332B10;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #D4AF37;
+}
