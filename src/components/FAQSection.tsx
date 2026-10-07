@@ -29,11 +29,13 @@ export const FAQSection: React.FC<FAQSectionProps> = ({
   const handleWhatsApp = () => {
     trackEvent('whatsapp_click', { location: 'faq_section', lang });
     const text = encodeURIComponent(
-      lang === 'ar-sa'
-        ? 'السلام عليكم، عندي استفسار خاص وأود الحديث مع مستشار ميسورة.'
-        : (lang === 'en'
-          ? 'Hello MAYSORA, I have a specific question regarding your VIP services.'
-          : 'السلام عليكم، أود الاستفسار عن تفاصيل خدمات ميسورة.')
+      lang === 'ar-eg'
+        ? 'مساء الخير، عندي استفسار وحابب أتكلم مع مستشار ميسورة.'
+        : (lang === 'ar-sa'
+          ? 'السلام عليكم، عندي استفسار خاص وأود الحديث مع مستشار ميسورة.'
+          : (lang === 'en'
+            ? 'Hello MAYSORA, I have a specific question regarding your VIP services.'
+            : 'السلام عليكم، أود الاستفسار عن تفاصيل خدمات ميسورة.'))
     );
     window.open(`https://wa.me/201011860173?text=${text}`, '_blank');
   };
@@ -161,11 +163,13 @@ export const FAQSection: React.FC<FAQSectionProps> = ({
               {t.faq.stillHaveQuestions}
             </h3>
             <p className="text-xs text-[#C0B7A6]">
-              {lang === 'ar-sa'
-                ? 'فريق كونسيرج ميسورة ومستشارونا الماليون متاحون لخدمتك على مدار الساعة.'
-                : (lang === 'en'
-                  ? 'MAYSORA concierge chiefs and senior wealth advisors are on standby 24/7.'
-                  : 'فريق كونسيرج ميسورة متاح للإجابة على استفساراتكم على مدار الساعة.')}
+              {lang === 'ar-eg'
+                ? 'فريق كونسيرج ميسورة ومستشارينا متاحين لخدمتك في أي وقت 24/7.'
+                : (lang === 'ar-sa'
+                  ? 'فريق كونسيرج ميسورة ومستشارونا الماليون متاحون لخدمتك على مدار الساعة.'
+                  : (lang === 'en'
+                    ? 'MAYSORA concierge chiefs and senior wealth advisors are on standby 24/7.'
+                    : 'فريق كونسيرج ميسورة متاح للإجابة على استفساراتكم على مدار الساعة.'))}
             </p>
           </div>
 

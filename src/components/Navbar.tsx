@@ -93,6 +93,21 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Language & Dialect Switcher Segmented Bar */}
             <div className="flex items-center p-1 rounded-full bg-black/60 border border-[#D4AF37]/35 backdrop-blur-md shadow-inner text-xs">
               
+              {/* Egyptian Dialect Button (Default) */}
+              <button
+                type="button"
+                onClick={() => setLang('ar-eg')}
+                className={`px-3 py-1.5 rounded-full font-semibold transition-all flex items-center gap-1.5 cursor-pointer ${
+                  lang === 'ar-eg'
+                    ? 'bg-gold-gradient text-[#0D0D0D] shadow-md font-bold'
+                    : 'text-[#C0B7A6] hover:text-[#D4AF37]'
+                }`}
+                title="تغيير اللهجة للمصرية (الافتراضية)"
+              >
+                <span className="font-mono text-[10px] tracking-wider font-bold opacity-75">EG</span>
+                <span>لهجة مصرية</span>
+              </button>
+
               {/* Saudi Dialect Button */}
               <button
                 type="button"
@@ -198,7 +213,23 @@ export const Navbar: React.FC<NavbarProps> = ({
             <span className="text-xs text-[#C0B7A6] font-medium mb-2.5 block">
               {lang === 'en' ? 'Language & Dialect / لغة الموقع واللهجة:' : 'اختر لغة الموقع واللهجة:'}
             </span>
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setLang('ar-eg');
+                  setMobileMenuOpen(false);
+                }}
+                className={`py-2.5 px-2 rounded-xl text-xs font-bold transition-all flex flex-col items-center justify-center gap-1 cursor-pointer ${
+                  lang === 'ar-eg'
+                    ? 'bg-gold-gradient text-[#0D0D0D] shadow-md'
+                    : 'bg-black/50 border border-[#D4AF37]/20 text-[#F8F5F0]'
+                }`}
+              >
+                <span className="font-mono text-xs font-bold text-[#D4AF37]">EG</span>
+                <span>لهجة مصرية</span>
+              </button>
+
               <button
                 type="button"
                 onClick={() => {

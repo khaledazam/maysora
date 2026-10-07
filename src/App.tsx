@@ -24,11 +24,18 @@ import { isAuthenticated } from './services/authService';
 
 export function App() {
   const [lang, setLang] = useState<Language>(() => {
-    const saved = localStorage.getItem('maysora_lang') as Language;
-    if (saved && (saved === 'ar-sa' || saved === 'ar' || saved === 'en')) {
+    // Migration check: ensure existing visitors upgrade to Egyptian dialect as default
+    const migrationKey = 'maysora_lang_default_eg_v1';
+    if (typeof window !== 'undefined' && !localStorage.getItem(migrationKey)) {
+      localStorage.setItem('maysora_lang', 'ar-eg');
+      localStorage.setItem(migrationKey, 'true');
+      return 'ar-eg';
+    }
+    const saved = typeof window !== 'undefined' ? (localStorage.getItem('maysora_lang') as Language) : null;
+    if (saved && (saved === 'ar-eg' || saved === 'ar-sa' || saved === 'ar' || saved === 'en')) {
       return saved;
     }
-    return 'ar-sa'; // Default to Saudi dialect
+    return 'ar-eg'; // Default to Egyptian dialect
   });
 
   const [isBrochureOpen, setIsBrochureOpen] = useState(false);

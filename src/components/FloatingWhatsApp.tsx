@@ -13,7 +13,9 @@ export const FloatingWhatsApp: React.FC<FloatingWhatsAppProps> = ({ lang }) => {
   const handleWhatsAppClick = () => {
     trackEvent('whatsapp_click', { location: 'floating_button', lang });
     let text = 'السلام عليكم، أود التواصل مع مستشار ميسورة للخدمات الخاصة.';
-    if (lang === 'ar-sa') {
+    if (lang === 'ar-eg') {
+      text = 'مساء الخير، حابب أستفسر عن خدمات ميسورة لباقات الحج والعمرة والاستشارات الخاصة.';
+    } else if (lang === 'ar-sa') {
       text = 'السلام عليكم، حيّاك الله.. حاب أستفسر عن خدمات ميسورة الخاصة للحج والعمرة والاستشارات المالية.';
     } else if (isEn) {
       text = 'Hello MAYSORA VIP Concierge, I would like to inquire about your private pilgrimage and wealth advisory services.';
@@ -21,9 +23,11 @@ export const FloatingWhatsApp: React.FC<FloatingWhatsAppProps> = ({ lang }) => {
     window.open(`https://wa.me/201011860173?text=${encodeURIComponent(text)}`, '_blank');
   };
 
-  const tooltipText = lang === 'ar-sa' 
-    ? 'تواصل مباشرة مع بشمهندس أحمد رمضان 24/7'
-    : (isEn ? 'Chat with Eng. Ahmed Ramadan (VIP Concierge)' : 'تواصل مباشرة مع بشمهندس أحمد رمضان: 01011860173');
+  const tooltipText = lang === 'ar-eg'
+    ? 'تكلم مع بشمهندس أحمد رمضان مباشرة 24/7'
+    : (lang === 'ar-sa'
+      ? 'تواصل مباشرة مع بشمهندس أحمد رمضان 24/7'
+      : (isEn ? 'Chat with Eng. Ahmed Ramadan (VIP Concierge)' : 'تواصل مباشرة مع بشمهندس أحمد رمضان: 01011860173'));
 
   return (
     <div className={`fixed bottom-6 ${!isEn ? 'left-6' : 'right-6'} z-40 group`}>

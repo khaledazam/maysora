@@ -13,7 +13,9 @@ export interface ManagedPackage {
   features: string[];
 }
 
-export const DEFAULT_PACKAGES: ManagedPackage[] = [
+export const DEFAULT_PACKAGES: ManagedPackage[] = [];
+
+export const TEMPLATE_PACKAGES: ManagedPackage[] = [
   {
     id: 'exec-umrah',
     name: 'باقة العمرة التنفيذية',
@@ -76,21 +78,25 @@ export const DEFAULT_PACKAGES: ManagedPackage[] = [
   }
 ];
 
-const STORAGE_KEY = 'maysora_managed_packages_pricing_v1';
+const STORAGE_KEY = 'maysora_managed_packages_pricing_v2';
 const EVENT_NAME = 'maysora_prices_updated';
 
 export const getManagedPackages = (): ManagedPackage[] => {
   try {
+    localStorage.removeItem('maysora_managed_packages_pricing_v1');
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return DEFAULT_PACKAGES;
+    if (!raw) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify([]));
+      return [];
+    }
     const parsed = JSON.parse(raw);
-    if (Array.isArray(parsed) && parsed.length > 0) {
+    if (Array.isArray(parsed)) {
       return parsed;
     }
   } catch (e) {
     console.error('Error loading managed packages:', e);
   }
-  return DEFAULT_PACKAGES;
+  return [];
 };
 
 export const saveManagedPackages = (packages: ManagedPackage[]): void => {
@@ -125,8 +131,8 @@ export const updateSinglePackagePrice = (
 };
 
 export const resetPackagesToDefault = (): ManagedPackage[] => {
-  saveManagedPackages(DEFAULT_PACKAGES);
-  return DEFAULT_PACKAGES;
+  saveManagedPackages(TEMPLATE_PACKAGES);
+  return TEMPLATE_PACKAGES;
 };
 
 export const subscribeToPriceUpdates = (listener: (packages: ManagedPackage[]) => void): (() => void) => {

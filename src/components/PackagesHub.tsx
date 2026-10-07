@@ -136,7 +136,29 @@ export const PackagesHub: React.FC<PackagesHubProps> = ({
         {/* Tab 1 Content: Ready Featured Packages Cards */}
         {activeTab === 'packages' && (
           <div className="animate-fadeIn space-y-12">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+            {displayedPackages.length === 0 ? (
+              <div className="glass-gold-card rounded-3xl p-12 text-center max-w-xl mx-auto border border-[#D4AF37]/30 my-6">
+                <Sparkles className="w-12 h-12 text-[#D4AF37] mx-auto mb-4" />
+                <h3 className="text-xl font-bold font-arabic-heading text-[#F8F5F0] mb-2">
+                  {lang === 'ar-eg' ? 'لا توجد عروض جاهزة حالياً' : (lang === 'en' ? 'No Active Packages at the Moment' : 'لا توجد عروض نشطة حالياً')}
+                </h3>
+                <p className="text-sm text-[#C0B7A6] mb-6 leading-relaxed">
+                  {lang === 'ar-eg'
+                    ? 'يتم تحديث العروض والأسعار من لوحة التحكم، وتقدر دلوقتي تفصّل باقتك المخصصة على مزاجك بكل سهولة.'
+                    : (lang === 'en'
+                      ? 'Packages are being updated by the concierge office. You can build your custom package right now.'
+                      : 'يتم تحديث الباقات من لوحة التحكم، أو يمكنك تصميم باقتك الخاصة فوراً.')}
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setActiveTab('customizer')}
+                  className="px-6 py-3 rounded-full bg-gold-gradient text-[#0D0D0D] font-bold text-xs shadow-lg shadow-[#D4AF37]/25 hover:brightness-110 transition-all cursor-pointer"
+                >
+                  {lang === 'ar-eg' ? 'فصّل باقتك على مزاجك' : (lang === 'en' ? 'Customize Your Itinerary' : 'صمّم باقتك الخاصة')}
+                </button>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
               {displayedPackages.map((pkg, index) => {
                 const isFeatured = index === 1; // Royal Hajj featured
 
@@ -231,15 +253,28 @@ export const PackagesHub: React.FC<PackagesHubProps> = ({
                 );
               })}
             </div>
+            )}
 
             {/* Quick Interactive Prompt to Customizer or Comparison */}
             <div className="glass-gold-card rounded-2xl p-6 border border-[#D4AF37]/25 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-start bg-black/40">
               <div>
                 <h4 className="text-base font-bold text-[#F8F5F0] mb-1">
-                  {lang === 'ar-sa' ? 'ودّك بمواصفات خاصة أو مقارنة دقيقة؟' : (lang === 'en' ? 'Need a fully customized itinerary or detailed matrix?' : 'هل ترغب في باقة مخصصة بالكامل؟')}
+                  {lang === 'ar-eg'
+                    ? 'عايز تفصل باقتك بمواصفات معينة على مزاجك؟'
+                    : (lang === 'ar-sa'
+                      ? 'ودّك بمواصفات خاصة أو مقارنة دقيقة؟'
+                      : (lang === 'en'
+                        ? 'Need a fully customized itinerary or detailed matrix?'
+                        : 'هل ترغب في باقة مخصصة بالكامل؟'))}
                 </h4>
                 <p className="text-xs text-[#C0B7A6]">
-                  {lang === 'ar-sa' ? 'تقدر تصمم باقتك بكل تفاصيلها أو تقارن بين كل المزايا بضغطة زر.' : (lang === 'en' ? 'You can configure every aspect or compare tiers side-by-side with one click.' : 'يمكنك تصميم باقتك أو مقارنة كافة الخدمات بسهولة.')}
+                  {lang === 'ar-eg'
+                    ? 'تقدر تظبط كل تفصيلة في رحلتك أو تقارن بين كل المزايا بضغطة زر واحدة.'
+                    : (lang === 'ar-sa'
+                      ? 'تقدر تصمم باقتك بكل تفاصيلها أو تقارن بين كل المزايا بضغطة زر.'
+                      : (lang === 'en'
+                        ? 'You can configure every aspect or compare tiers side-by-side with one click.'
+                        : 'يمكنك تصميم باقتك أو مقارنة كافة الخدمات بسهولة.'))}
                 </p>
               </div>
 
