@@ -3,7 +3,6 @@ import {
   Tag,
   Plus,
   Save,
-  RotateCcw,
   CheckCircle2,
   Building2,
   PlaneTakeoff,
@@ -16,7 +15,7 @@ import {
   type ManagedPackage,
   getManagedPackages,
   saveManagedPackages,
-  resetPackagesToDefault
+  clearAllManagedPackages
 } from '../../services/pricingService';
 import { getManagedHotels } from '../../services/hotelService';
 
@@ -24,31 +23,33 @@ interface PackagePricingManagerProps {
   onBackToSite?: () => void;
 }
 
+const BLANK_PACKAGE: ManagedPackage = {
+  id: '',
+  name: '',
+  category: 'عمرة فاخرة VIP',
+  price: '',
+  currency: 'ر.س',
+  duration: '',
+  hotel: '',
+  flight: '',
+  financialPerk: '',
+  badge: '',
+  isAvailable: true,
+  features: [
+    'إقامة في أجنحة مطلة على الحرم',
+    'استقبال وتوديع خاص في المطار بسيارة VIP',
+    'بوفيه مفتوح لكامل الوجبات',
+    'جولات خاصة للمزارات الشريفة'
+  ]
+};
+
 export const PackagePricingManager: React.FC<PackagePricingManagerProps> = ({ onBackToSite }) => {
   const [packages, setPackages] = useState<ManagedPackage[]>([]);
   const [savedSuccessMessage, setSavedSuccessMessage] = useState<string | null>(null);
   const [isAddModalOpen, setIsAddModalOpen] = useState<boolean>(false);
 
   // New package form state
-  const [newPackage, setNewPackage] = useState<ManagedPackage>({
-    id: '',
-    name: '',
-    category: 'عمرة فاخرة',
-    price: '22,000',
-    currency: 'ر.س',
-    duration: '10 أيام / 9 ليالٍ',
-    hotel: 'فندق العنوان جبل عمر مكة المكرمة',
-    flight: 'طيران درجة رجال الأعمال',
-    financialPerk: 'خدمة كونسيرج وتصاريح نسك VIP',
-    badge: 'باقة جديدة خاصة',
-    isAvailable: true,
-    features: [
-      'إقامة في أفخم الأجنحة المطلة على الحرم',
-      'استقبال كبار الشخصيات بسيارة خاصة',
-      'بوفيه مفتوح لكامل الوجبات',
-      'جولات خاصة للمزارات الشريفة'
-    ]
-  });
+  const [newPackage, setNewPackage] = useState<ManagedPackage>(BLANK_PACKAGE);
 
   useEffect(() => {
     setPackages(getManagedPackages());
@@ -71,11 +72,11 @@ export const PackagePricingManager: React.FC<PackagePricingManagerProps> = ({ on
     setTimeout(() => setSavedSuccessMessage(null), 4000);
   };
 
-  const handleResetDefaults = () => {
-    if (confirm('هل أنت متأكد من استعادة أسعار الباقات الافتراضية؟ سيتم إلغاء التعديلات الحالية.')) {
-      const defs = resetPackagesToDefault();
-      setPackages(defs);
-      setSavedSuccessMessage('تم استرجاع الأسعار الافتراضية بنجاح.');
+  const handleClearAll = () => {
+    if (confirm('هل أنت متأكد من تفريغ ومسح جميع الباقات؟ سيبدأ النظام كنسخة إنتاج نظيفة تماماً دون أي بيانات تجريبية.')) {
+      clearAllManagedPackages();
+      setPackages([]);
+      setSavedSuccessMessage('تم تفريغ ومسح جميع الباقات بنجاح. النظام الآن جاهز للإنتاج.');
       setTimeout(() => setSavedSuccessMessage(null), 3000);
     }
   };
@@ -111,25 +112,7 @@ export const PackagePricingManager: React.FC<PackagePricingManagerProps> = ({ on
     setTimeout(() => setSavedSuccessMessage(null), 4000);
 
     // Reset form
-    setNewPackage({
-      id: '',
-      name: '',
-      category: 'عمرة فاخرة',
-      price: '22,000',
-      currency: 'ر.س',
-      duration: '10 أيام / 9 ليالٍ',
-      hotel: 'فندق العنوان جبل عمر مكة المكرمة',
-      flight: 'طيران درجة رجال الأعمال',
-      financialPerk: 'خدمة كونسيرج وتصاريح نسك VIP',
-      badge: 'باقة جديدة خاصة',
-      isAvailable: true,
-      features: [
-        'إقامة في أفخم الأجنحة المطلة على الحرم',
-        'استقبال كبار الشخصيات بسيارة خاصة',
-        'بوفيه مفتوح لكامل الوجبات',
-        'جولات خاصة للمزارات الشريفة'
-      ]
-    });
+    setNewPackage(BLANK_PACKAGE);
   };
 
   return (
@@ -152,7 +135,7 @@ export const PackagePricingManager: React.FC<PackagePricingManagerProps> = ({ on
               التحكم في أسعار باقات الحج والعمرة والرحلات
             </h2>
             <p className="text-xs sm:text-sm text-[#C0B7A6] max-w-2xl font-light leading-relaxed">
-              عدّل أسعار باقات العمرة والحج، العملات، تفاصيل الإقامة، وأضف باقات موسمية جديدة تظهر فوراً لزوار الموقع في صفحة الباقات والمقارنة.
+              تحديد وإدارة أسعار الباقات بالكامل من خلال الإدارة بدون أي أسعار افتراضية. ما تقوم بإضافته هنا يظهر مباشرة لزوار الموقع.
             </p>
           </div>
 
@@ -160,21 +143,26 @@ export const PackagePricingManager: React.FC<PackagePricingManagerProps> = ({ on
           <div className="flex flex-wrap items-center gap-3">
             <button
               type="button"
-              onClick={() => setIsAddModalOpen(true)}
+              onClick={() => {
+                setNewPackage(BLANK_PACKAGE);
+                setIsAddModalOpen(true);
+              }}
               className="px-4 py-2.5 rounded-xl bg-gold-gradient text-[#0D0D0D] font-bold text-xs hover:brightness-110 shadow-lg shadow-[#D4AF37]/20 transition-all flex items-center gap-2 cursor-pointer"
             >
               <Plus className="w-4 h-4" />
               <span>إضافة باقة جديدة</span>
             </button>
 
-            <button
-              type="button"
-              onClick={handleSaveAll}
-              className="px-4 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#20ba5a] text-white font-bold text-xs shadow-lg shadow-[#25D366]/20 transition-all flex items-center gap-2 cursor-pointer"
-            >
-              <Save className="w-4 h-4" />
-              <span>تطبيق الأسعار الآن</span>
-            </button>
+            {packages.length > 0 && (
+              <button
+                type="button"
+                onClick={handleSaveAll}
+                className="px-4 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#20ba5a] text-white font-bold text-xs shadow-lg shadow-[#25D366]/20 transition-all flex items-center gap-2 cursor-pointer"
+              >
+                <Save className="w-4 h-4" />
+                <span>حفظ التعديلات</span>
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -202,30 +190,29 @@ export const PackagePricingManager: React.FC<PackagePricingManagerProps> = ({ on
       {/* Quick Summary KPIs */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div className="bg-[#121212] p-5 rounded-2xl border border-white/10">
-          <span className="text-xs text-[#C0B7A6] block mb-1">إجمالي الباقات المعروضة</span>
+          <span className="text-xs text-[#C0B7A6] block mb-1">إجمالي الباقات المضافة</span>
           <div className="flex items-baseline gap-2">
             <span className="text-2xl font-bold text-[#F8F5F0]">{packages.length}</span>
-            <span className="text-xs text-[#D4AF37]">باقات نشطة</span>
+            <span className="text-xs text-[#D4AF37]">باقات مسجلة</span>
           </div>
         </div>
 
         <div className="bg-[#121212] p-5 rounded-2xl border border-white/10">
-          <span className="text-xs text-[#C0B7A6] block mb-1">سعر باقة العمرة التنفيذية</span>
+          <span className="text-xs text-[#C0B7A6] block mb-1">الباقات المعروضة للزوار</span>
           <div className="flex items-baseline gap-2">
             <span className="text-2xl font-bold text-gold-gradient font-mono">
-              {packages.find((p) => p.id === 'exec-umrah')?.price || '18,500'}
+              {packages.filter((p) => p.isAvailable).length}
             </span>
-            <span className="text-xs text-[#C0B7A6]">ر.س</span>
+            <span className="text-xs text-[#25D366]">نشطة في الموقع</span>
           </div>
         </div>
 
         <div className="bg-[#121212] p-5 rounded-2xl border border-white/10">
-          <span className="text-xs text-[#C0B7A6] block mb-1">سعر باقة الحج الملكية</span>
+          <span className="text-xs text-[#C0B7A6] block mb-1">وضع نظام التسعير</span>
           <div className="flex items-baseline gap-2">
-            <span className="text-2xl font-bold text-gold-gradient font-mono">
-              {packages.find((p) => p.id === 'royal-hajj')?.price || '65,000'}
+            <span className="text-sm font-bold text-emerald-400">
+              تسعير يدوي مخصص (Production)
             </span>
-            <span className="text-xs text-[#C0B7A6]">ر.س</span>
           </div>
         </div>
       </div>
@@ -237,17 +224,43 @@ export const PackagePricingManager: React.FC<PackagePricingManagerProps> = ({ on
             <Tag className="w-5 h-5 text-[#D4AF37]" />
             <span>قائمة الباقات والأسعار التفاعلية</span>
           </h3>
-          <button
-            type="button"
-            onClick={handleResetDefaults}
-            className="text-xs text-[#C0B7A6] hover:text-[#D4AF37] underline transition-colors cursor-pointer flex items-center gap-1.5"
-          >
-            <RotateCcw className="w-3.5 h-3.5" />
-            <span>استعادة الأسعار الافتراضية</span>
-          </button>
+          {packages.length > 0 && (
+            <button
+              type="button"
+              onClick={handleClearAll}
+              className="text-xs text-red-400 hover:text-red-300 underline transition-colors cursor-pointer flex items-center gap-1.5"
+            >
+              <Trash2 className="w-3.5 h-3.5" />
+              <span>تفريغ وحذف جميع الباقات</span>
+            </button>
+          )}
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {packages.length === 0 ? (
+          <div className="bg-[#121212] rounded-3xl p-12 text-center border border-[#D4AF37]/30 shadow-2xl space-y-4">
+            <div className="w-16 h-16 rounded-full bg-[#D4AF37]/10 mx-auto flex items-center justify-center text-[#D4AF37] border border-[#D4AF37]/25">
+              <Tag className="w-8 h-8" />
+            </div>
+            <h4 className="text-xl font-bold font-arabic-heading text-[#F8F5F0]">
+              لا توجد باقات أو أسعار مسجلة حالياً
+            </h4>
+            <p className="text-xs sm:text-sm text-[#C0B7A6] max-w-lg mx-auto leading-relaxed">
+              تم تجهيز النظام لوضع الإنتاج (Production) ومسح كافة الأسعار الافتراضية. يمكنك الآن إضافة باقاتك المعتمدة وتحديد أسعارها بكل سهولة لتظهر لزوار الموقع فوراً.
+            </p>
+            <button
+              type="button"
+              onClick={() => {
+                setNewPackage(BLANK_PACKAGE);
+                setIsAddModalOpen(true);
+              }}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gold-gradient text-[#0D0D0D] font-bold text-xs shadow-lg shadow-[#D4AF37]/25 hover:brightness-110 cursor-pointer"
+            >
+              <Plus className="w-4 h-4" />
+              <span>إضافة أول باقة وتحديد سعرها</span>
+            </button>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {packages.map((pkg) => (
             <div
               key={pkg.id}
@@ -365,20 +378,19 @@ export const PackagePricingManager: React.FC<PackagePricingManagerProps> = ({ on
                   <span>حفظ التعديلات</span>
                 </button>
 
-                {!['exec-umrah', 'royal-hajj', 'imperial-custom'].includes(pkg.id) && (
-                  <button
-                    type="button"
-                    onClick={() => handleDeletePackage(pkg.id, pkg.name)}
-                    className="p-2 rounded-xl bg-red-950/40 border border-red-500/30 text-red-300 hover:bg-red-900/40 transition-all cursor-pointer"
-                    title="حذف الباقة"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </button>
-                )}
+                <button
+                  type="button"
+                  onClick={() => handleDeletePackage(pkg.id, pkg.name)}
+                  className="p-2 rounded-xl bg-red-950/40 border border-red-500/30 text-red-300 hover:bg-red-900/40 transition-all cursor-pointer"
+                  title="حذف الباقة"
+                >
+                  <Trash2 className="w-4 h-4" />
+                </button>
               </div>
             </div>
           ))}
         </div>
+        )}
       </div>
 
       {/* MODAL: ADD NEW CUSTOM PACKAGE */}

@@ -180,21 +180,7 @@ export const DEFAULT_STAFF: StaffMember[] = [
     isActive: true,
     createdAt: '2026-03-01T00:00:00.000Z',
     lastLogin: '2026-10-07T12:00:00.000Z',
-  },
-  {
-    id: 'staff-omar',
-    name: 'عمر الفيصل',
-    email: 'omar.f@maysoragroup.com',
-    phone: '+966559876543',
-    password: 'Maysora@2026',
-    title: 'مشرف علاقات كبار الشخصيات',
-    department: 'قسم الضيافة والكونسيرج VIP',
-    role: 'financial_consultant',
-    permissions: ROLE_PRESETS.financial_consultant.permissions,
-    isActive: true,
-    createdAt: '2026-03-10T00:00:00.000Z',
-    lastLogin: '2026-10-04T16:20:00.000Z',
-  },
+  }
 ];
 
 const STAFF_STORAGE_KEY = 'maysora_staff_members_v1';
