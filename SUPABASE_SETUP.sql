@@ -68,6 +68,11 @@ ON public.bookings FOR UPDATE
 TO anon, authenticated
 USING (true);
 
+CREATE POLICY "Allow delete on bookings"
+ON public.bookings FOR DELETE
+TO anon, authenticated
+USING (true);
+
 CREATE POLICY "Allow full access on client_profiles"
 ON public.client_profiles FOR ALL
 TO anon, authenticated
@@ -77,3 +82,6 @@ WITH CHECK (true);
 -- 5. Enable Realtime Publications (للمزامنة الفورية دون تحديث الصفحة)
 ALTER PUBLICATION supabase_realtime ADD TABLE public.bookings;
 ALTER PUBLICATION supabase_realtime ADD TABLE public.client_profiles;
+
+-- 6. Clean/Reset All Data Query (لتنظيف كل الداتا وإبقاء المستخدمين كما هي):
+-- TRUNCATE TABLE public.bookings, public.client_profiles;
