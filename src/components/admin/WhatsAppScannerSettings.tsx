@@ -162,14 +162,14 @@ export const WhatsAppScannerSettings: React.FC<WhatsAppScannerSettingsProps> = (
               ...prev,
               connected: qrData.connected,
               phone: qrData.phone || prev.phone,
-              qr: qrData.connected ? null : qrData.qr
+              qr: qrData.connected ? null : (qrData.qr || prev.qr)
             }));
           } else {
             setLine2((prev) => ({
               ...prev,
               connected: qrData.connected,
               phone: qrData.phone || prev.phone,
-              qr: qrData.connected ? null : qrData.qr
+              qr: qrData.connected ? null : (qrData.qr || prev.qr)
             }));
           }
         }
@@ -226,23 +226,30 @@ export const WhatsAppScannerSettings: React.FC<WhatsAppScannerSettingsProps> = (
   const handleRefreshQR = async (sessionId: SessionId) => {
     setIsScanning(true);
     try {
+      let qrRes: Response | null = null;
       try {
-        await fetch('/api/whatsapp/logout', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ sessionId })
-        });
+        qrRes = await fetch(`/api/whatsapp/qr?session=${sessionId}`);
+        if (!qrRes.ok) qrRes = null;
       } catch {
-        await fetch('http://127.0.0.1:3001/api/logout', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ sessionId })
-        });
+        qrRes = null;
+      }
+      if (!qrRes) {
+        try {
+          qrRes = await fetch(`http://127.0.0.1:3001/api/qr?session=${sessionId}`);
+        } catch {}
+      }
+      if (qrRes && qrRes.ok) {
+        const qrData = await qrRes.json();
+        if (sessionId === 'session1') {
+          setLine1((prev) => ({ ...prev, qr: qrData.qr || prev.qr, connected: qrData.connected }));
+        } else {
+          setLine2((prev) => ({ ...prev, qr: qrData.qr || prev.qr, connected: qrData.connected }));
+        }
       }
     } catch (e) {}
     setTimeout(() => {
       setIsScanning(false);
-    }, 1500);
+    }, 800);
   };
 
   const handleDisconnect = async (sessionId: SessionId) => {
