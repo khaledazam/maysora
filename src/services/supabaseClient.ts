@@ -63,7 +63,7 @@ export async function syncBookingToSupabase(booking: AdminBooking): Promise<bool
 }
 
 /**
- * Fetches all bookings from Supabase.
+ * Fetches all active bookings from Supabase, filtering out demo/deleted items.
  */
 export async function fetchBookingsFromSupabase(): Promise<AdminBooking[] | null> {
   try {
@@ -76,27 +76,77 @@ export async function fetchBookingsFromSupabase(): Promise<AdminBooking[] | null
       return null;
     }
 
-    return data.map((row: any) => ({
-      id: row.id,
-      createdAt: row.created_at,
-      name: row.name,
-      phone: row.phone,
-      email: row.email || undefined,
-      tripType: row.trip_type || 'umrah',
-      destination: row.destination || 'مكة المكرمة',
-      serviceOrPackage: row.service_or_package,
-      guestsCount: row.guests_count || 1,
-      travelDate: row.travel_date || undefined,
-      returnDate: row.return_date || undefined,
-      flightDetails: row.flight_details || undefined,
-      hotelName: row.hotel_name || undefined,
-      status: row.status || 'new',
-      isArchived: !!row.is_archived,
-      notes: row.notes || undefined,
-      source: row.source || undefined,
-    }));
+    const mockIds = ['TEST-1791274332273', 'BK-2026-001', 'BK-2026-002', 'BK-2026-003', 'BK-2026-004', 'BK-2026-5766'];
+
+    return data
+      .filter((row: any) => {
+        if (row.status === 'deleted' || row.notes === '__DELETED__') return false;
+        if (mockIds.includes(row.id) || (typeof row.id === 'string' && row.id.startsWith('TEST-'))) return false;
+        if (row.name === '[Deleted Demo]' || row.name === '[Deleted]') return false;
+        return true;
+      })
+      .map((row: any) => ({
+        id: row.id,
+        createdAt: row.created_at,
+        name: row.name,
+        phone: row.phone,
+        email: row.email || undefined,
+        tripType: row.trip_type || 'umrah',
+        destination: row.destination || 'مكة المكرمة',
+        serviceOrPackage: row.service_or_package,
+        guestsCount: row.guests_count || 1,
+        travelDate: row.travel_date || undefined,
+        returnDate: row.return_date || undefined,
+        flightDetails: row.flight_details || undefined,
+        hotelName: row.hotel_name || undefined,
+        status: row.status || 'new',
+        isArchived: !!row.is_archived,
+        notes: row.notes || undefined,
+        source: row.source || undefined,
+      }));
   } catch {
     return null;
+  }
+}
+
+/**
+ * Permanently deletes or marks a booking as deleted in Supabase.
+ */
+export async function deleteBookingFromSupabase(id: string): Promise<boolean> {
+  try {
+    // 1. Attempt hard delete
+    await supabase.from('bookings').delete().eq('id', id);
+    // 2. Soft-delete guarantee to prevent reappearing
+    await supabase.from('bookings').update({
+      status: 'deleted',
+      notes: '__DELETED__',
+      name: '[Deleted]',
+      travel_date: null,
+      return_date: null,
+      is_archived: false
+    }).eq('id', id);
+    return true;
+  } catch (err) {
+    console.warn('Error deleting booking from Supabase:', err);
+    return false;
+  }
+}
+
+/**
+ * Clears all existing bookings in Supabase for production handover.
+ */
+export async function clearAllBookingsFromSupabase(): Promise<boolean> {
+  try {
+    const { data } = await supabase.from('bookings').select('id');
+    if (data && data.length > 0) {
+      for (const item of data) {
+        await deleteBookingFromSupabase(item.id);
+      }
+    }
+    return true;
+  } catch (err) {
+    console.warn('Error clearing all bookings from Supabase:', err);
+    return false;
   }
 }
 

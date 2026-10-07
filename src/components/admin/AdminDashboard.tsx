@@ -44,6 +44,8 @@ import {
   updateBookingDetails,
   toggleArchiveBooking,
   deleteBooking,
+  clearAllAdminBookings,
+  clearAllClientProfiles,
   addNewAdminBooking,
   exportBookingsToCSV,
   getClientProfiles,
@@ -56,7 +58,9 @@ import {
   fetchBookingsFromSupabase,
   fetchClientProfilesFromSupabase,
   syncBookingToSupabase,
-  syncClientProfileToSupabase
+  syncClientProfileToSupabase,
+  deleteBookingFromSupabase,
+  clearAllBookingsFromSupabase
 } from '../../services/supabaseClient';
 
 interface AdminDashboardProps {
@@ -198,10 +202,21 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToSite, on
     }
   };
 
-  const handleDelete = (id: string) => {
+  const handleDelete = async (id: string) => {
     if (window.confirm('هل أنت متأكد من حذف هذا السجل نهائياً؟')) {
       const updated = deleteBooking(id);
       setBookings(updated);
+      await deleteBookingFromSupabase(id);
+    }
+  };
+
+  const handleClearAllData = async () => {
+    if (window.confirm('هل تريد تفريغ ومسح كافة الحجوزات والطلبات التجريبية نهائياً من الذاكرة وقاعدة البيانات لتسليم النظام نظيفاً بالكامل للعميل؟')) {
+      clearAllAdminBookings();
+      clearAllClientProfiles();
+      setBookings([]);
+      setProfiles([]);
+      await clearAllBookingsFromSupabase();
     }
   };
 
@@ -761,7 +776,12 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToSite, on
               </div>
 
               <div className="divide-y divide-white/5">
-                {activeBookings.slice(0, 5).map((item) => (
+                {activeBookings.length === 0 ? (
+                  <div className="py-10 text-center text-[#C0B7A6] text-xs">
+                    لا توجد طلبات أو حجوزات واردة حالياً. النظام جاهز لاستقبال طلبات الزوار المباشرة.
+                  </div>
+                ) : (
+                  activeBookings.slice(0, 5).map((item) => (
                   <div key={item.id} className="py-3.5 flex flex-wrap items-center justify-between gap-3 hover:bg-white/[0.02] px-2 rounded-lg transition-colors">
                     <div>
                       <div className="flex items-center gap-2">
@@ -816,7 +836,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToSite, on
                       </a>
                     </div>
                   </div>
-                ))}
+                )))}
               </div>
             </div>
           </div>
@@ -972,6 +992,18 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToSite, on
                   <option value="cancelled">ملغي</option>
                 </select>
               </div>
+
+              {bookings.length > 0 && (
+                <button
+                  type="button"
+                  onClick={handleClearAllData}
+                  className="px-3.5 py-2 rounded-xl bg-red-950/40 border border-red-500/30 text-red-300 hover:bg-red-900/40 text-xs flex items-center gap-1.5 cursor-pointer shrink-0 transition-colors"
+                  title="تفريغ ومسح السجلات نهائياً لتجهيز النظام للإنتاج"
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
+                  <span>تفريغ السجلات بالكامل</span>
+                </button>
+              )}
             </div>
 
             {/* Bookings Table Card */}
@@ -992,8 +1024,10 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToSite, on
                   <tbody className="divide-y divide-white/5 text-[#E2DACB]">
                     {filteredBookings.length === 0 ? (
                       <tr>
-                        <td colSpan={7} className="py-12 text-center text-neutral-400">
-                          لا توجد نتائج مطابقة لخيارات البحث الحالية.
+                        <td colSpan={7} className="py-14 text-center text-[#C0B7A6] text-xs">
+                          {activeTab === 'archive'
+                            ? 'لا توجد سجلات أو رحلات مؤرشفة حالياً.'
+                            : 'لا توجد حجوزات أو طلبات مسجلة حالياً. النظام جاهز لاستقبال حجوزات العملاء.'}
                         </td>
                       </tr>
                     ) : (

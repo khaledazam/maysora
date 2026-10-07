@@ -69,13 +69,11 @@ export interface AdminBooking {
   campaign?: string;
 }
 
-const STORAGE_KEY_BOOKINGS = 'maysora_admin_bookings_v3';
-const STORAGE_KEY_PROFILES = 'maysora_client_profiles_v3';
+const STORAGE_KEY_BOOKINGS = 'maysora_admin_bookings_prod_v1';
+const STORAGE_KEY_PROFILES = 'maysora_client_profiles_prod_v1';
 
-// Initial realistic seed profiles with rich historical travel archive (Hajj/Umrah + Global Tourism)
+// Initial clean empty states for production
 const INITIAL_SEED_PROFILES: ClientProfile[] = [];
-
-// Initial bookings matching initial profiles
 const INITIAL_SEED_BOOKINGS: AdminBooking[] = [];
 
 /* =========================================================================
@@ -84,7 +82,9 @@ const INITIAL_SEED_BOOKINGS: AdminBooking[] = [];
 
 export function getClientProfiles(): ClientProfile[] {
   try {
+    localStorage.removeItem("maysora_client_profiles_v1");
     localStorage.removeItem("maysora_client_profiles_v2");
+    localStorage.removeItem("maysora_client_profiles_v3");
   } catch {}
   try {
     const raw = localStorage.getItem(STORAGE_KEY_PROFILES);
@@ -208,7 +208,9 @@ export function addTripToClientProfile(
 
 export function getAdminBookings(): AdminBooking[] {
   try {
+    localStorage.removeItem("maysora_admin_bookings_v1");
     localStorage.removeItem("maysora_admin_bookings_v2");
+    localStorage.removeItem("maysora_admin_bookings_v3");
     localStorage.removeItem("maysora_leads_backup");
   } catch {}
   try {
@@ -218,54 +220,31 @@ export function getAdminBookings(): AdminBooking[] {
       return INITIAL_SEED_BOOKINGS;
     }
     const parsed: AdminBooking[] = JSON.parse(raw);
-
-    // Sync any new submissions from localStorage backup
-    const leadsBackupRaw = localStorage.getItem('maysora_leads_backup');
-    if (leadsBackupRaw) {
-      try {
-        const leads: any[] = JSON.parse(leadsBackupRaw);
-        let updated = false;
-        leads.forEach((lead) => {
-          const leadId = lead.id || `LEAD-${lead.phone.replace(/[^0-9]/g, '').slice(-6)}`;
-          const exists = parsed.some((b) => b.id === leadId || (b.phone === lead.phone && b.createdAt === lead.isoDate));
-          if (!exists) {
-            parsed.unshift({
-              id: leadId,
-              createdAt: lead.isoDate || new Date().toISOString(),
-              name: lead.name || 'عميل محتمل',
-              phone: lead.phone || '',
-              email: lead.email !== 'غير محدد' ? lead.email : undefined,
-              tripType: lead.serviceOrPackage?.includes('حج')
-                ? 'hajj'
-                : lead.serviceOrPackage?.includes('عمرة')
-                ? 'umrah'
-                : lead.serviceOrPackage?.includes('سياحة')
-                ? 'luxury_tourism'
-                : 'financial_advisory',
-              destination: lead.serviceOrPackage?.includes('سياحة') ? 'وجهة سياحية فاخرة' : 'مكة المكرمة',
-              serviceOrPackage: lead.serviceOrPackage || 'حجز عام',
-              status: 'new',
-              isArchived: false,
-              notes: lead.messageOrNotes !== 'لا توجد ملاحظات' ? lead.messageOrNotes : undefined,
-              source: lead.utm_source ? `${lead.utm_source} / ${lead.source || 'Form'}` : (lead.source || 'Landing Page'),
-              campaign: lead.utm_campaign,
-            });
-            updated = true;
-          }
-        });
-        if (updated) {
-          localStorage.setItem(STORAGE_KEY_BOOKINGS, JSON.stringify(parsed));
-        }
-      } catch {
-        // ignore
-      }
+    const mockIds = ['TEST-1791274332273', 'BK-2026-001', 'BK-2026-002', 'BK-2026-003', 'BK-2026-004', 'BK-2026-5766'];
+    const cleanList = parsed.filter(b => !mockIds.includes(b.id) && (b.status as string) !== 'deleted' && (b.notes as string) !== '__DELETED__');
+    if (cleanList.length !== parsed.length) {
+      localStorage.setItem(STORAGE_KEY_BOOKINGS, JSON.stringify(cleanList));
     }
-
-    return parsed;
+    return cleanList;
   } catch (err) {
     console.error('Error reading admin bookings:', err);
     return INITIAL_SEED_BOOKINGS;
   }
+}
+
+export function clearAllAdminBookings(): AdminBooking[] {
+  try {
+    localStorage.removeItem(STORAGE_KEY_BOOKINGS);
+    localStorage.removeItem('maysora_leads_backup');
+  } catch {}
+  return [];
+}
+
+export function clearAllClientProfiles(): ClientProfile[] {
+  try {
+    localStorage.removeItem(STORAGE_KEY_PROFILES);
+  } catch {}
+  return [];
 }
 
 export function saveAdminBookings(bookings: AdminBooking[]): void {
