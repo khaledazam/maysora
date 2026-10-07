@@ -145,7 +145,7 @@ export const BrochureModal: React.FC<BrochureModalProps> = ({
         <div class="header">
           <div class="badge">MAYSORA PRIVATE CLIENT CONCIERGE</div>
           <div class="title">${titleText}</div>
-          <div class="subtitle">المملكة العربية السعودية • الرياض • مكة المكرمة • هاتف: 966500000000+</div>
+          <div class="subtitle">المقر الرئيسي: مدينة برج العرب الجديدة، حوض سكرة وأبو حمد • هاتف: 01011860173</div>
         </div>
 
         <div class="grid">

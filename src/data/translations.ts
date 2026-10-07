@@ -583,9 +583,9 @@ export const translations: Record<Language, TranslationContent> = {
       executiveRole: 'المستشار التنفيذي العام ومسؤول كبار الشخصيات',
       executivePhone: '01011860173',
       executiveDisplayPhone: '+20 101 186 0173 (01011860173)',
-      address: 'طريق الملك فهد، البرج المالي، الرياض | فرع مكة: أبراج وقف الملك عبدالعزيز',
+      address: 'مدينة برج العرب الجديدة، حوض سكرة وأبو حمد، الإسكندرية',
       hours: 'متاحون على مدار الساعة لخدمة كبار الشخصيات (24/7)',
-      successMessage: 'أبشر بسعدك! تم استلام طلبك وبنتواصل معك خلال أقرب وقت.'
+      successMessage: 'تمام يا فندم! استلمنا طلبك وهنتواصل معاك في أقرب وقت.'
     },
     modal: {
       bookingTitle: 'طلب حجز باقة خاصة',
@@ -974,7 +974,7 @@ export const translations: Record<Language, TranslationContent> = {
       executiveRole: 'المستشار التنفيذي العام ومسؤول كبار الشخصيات',
       executivePhone: '01011860173',
       executiveDisplayPhone: '+20 101 186 0173 (01011860173)',
-      address: 'طريق الملك فهد، البرج المالي، الرياض | فرع مكة: أبراج وقف الملك عبدالعزيز',
+      address: 'مدينة برج العرب الجديدة، حوض سكرة وأبو حمد، الإسكندرية',
       hours: 'متاحون على مدار الساعة لخدمة كبار الشخصيات (24/7)',
       successMessage: 'أبشر بسعدك! تم استلام طلبك وبنتواصل معك خلال أقرب وقت.'
     },
@@ -1364,7 +1364,7 @@ export const translations: Record<Language, TranslationContent> = {
       executiveRole: 'المستشار التنفيذي العام ومسؤول كبار الشخصيات',
       executivePhone: '01011860173',
       executiveDisplayPhone: '+20 101 186 0173 (01011860173)',
-      address: 'طريق الملك فهد، البرج المالي، الرياض | فرع مكة: أبراج البيت',
+      address: 'مدينة برج العرب الجديدة، حوض سكرة وأبو حمد، الإسكندرية',
       hours: 'من الأحد إلى الخميس: 9:00 صباحاً - 6:00 مساءً (دعم الطوارئ 24/7)',
       successMessage: 'تم استلام طلبك بنجاح! سيتواصل معك مستشار ميسورة الخاص خلال ساعات قليلة.'
     },
@@ -1754,7 +1754,7 @@ export const translations: Record<Language, TranslationContent> = {
       executiveRole: 'Executive Managing Director & VIP Concierge',
       executivePhone: '01011860173',
       executiveDisplayPhone: '+20 101 186 0173 (01011860173)',
-      address: 'King Fahd Road, Financial Tower, Riyadh | Makkah Branch: Abraj Al Bait',
+      address: 'New Borg El Arab City, Hod Sokara & Abu Hamad, Alexandria, Egypt',
       hours: 'Sun - Thu: 9:00 AM - 6:00 PM (24/7 Emergency Support)',
       successMessage: 'Thank you! Your request has been received. A senior MAYSORA advisor will contact you within hours.'
     },

@@ -153,7 +153,9 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                   <MapPin className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-[#F8F5F0] mb-1">المقر الرئيسي والأفرع</h4>
+                  <h4 className="text-sm font-bold text-[#F8F5F0] mb-1">
+                    مقر المكتب الرئيسي
+                  </h4>
                   <p className="text-xs text-[#C0B7A6] leading-relaxed">
                     {t.contact.address}
                   </p>
@@ -346,10 +348,10 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                 <MapPin className="w-6 h-6" />
               </div>
               <h4 className="text-lg font-bold font-arabic-heading text-[#F8F5F0]">
-                مقر ميسورة الرياض • أبراج البيت مكة
+                مقر مكتب ميسورة الرئيسي
               </h4>
               <p className="text-xs text-[#C0B7A6] mt-1">
-                King Fahd Road Financial District, Riyadh & Clock Tower, Makkah
+                {t.contact.address}
               </p>
             </div>
           </div>
