@@ -3,18 +3,21 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   
-  <!-- Homepage -->
+  <!-- Canonical Homepage -->
   <url>
     <loc>https://www.maysoragroup.com/</loc>
     <lastmod>2026-10-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
+    
+    <!-- Alternate Language Links -->
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.maysoragroup.com/" />
     <xhtml:link rel="alternate" hreflang="ar-SA" href="https://www.maysoragroup.com/" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.maysoragroup.com/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://www.maysoragroup.com/?lang=en" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.maysoragroup.com/" />
     
+    <!-- Valid Image Sitemap Entries -->
     <image:image>
       <image:loc>https://www.maysoragroup.com/images/648211000.jpg.jpeg</image:loc>
       <image:title>إطلالة الكعبة المشرفة من أجنحة فندق الصفوة رويال أوركيد مكة</image:title>
@@ -26,78 +29,45 @@
       <image:caption>أبراج الصفوة أمام بوابة الملك عبد العزيز للحرم المكي الشريف مباشرة</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://www.maysoragroup.com/images/hero_bg.webp</image:loc>
-      <image:title>المسجد الحرام والكعبة المشرفة</image:title>
-      <image:caption>رحلة إيمانية ملكية في رحاب الحرم المكي الشريف مع ميسورة</image:caption>
-    </image:image>
-  </url>
-
-  <!-- Hotels & Suites Section -->
-  <url>
-    <loc>https://www.maysoragroup.com/#hotels</loc>
-    <lastmod>2026-10-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.95</priority>
-    <image:image>
-      <image:loc>https://www.maysoragroup.com/images/648211000.jpg.jpeg</image:loc>
-      <image:title>أجنحة فندق الصفوة رويال أوركيد مكة المطلة على الحرم</image:title>
-    </image:image>
-    <image:image>
       <image:loc>https://www.maysoragroup.com/images/648222270.jpg.jpeg</image:loc>
       <image:title>بوفيه الحلويات والمخبوزات الفاخر 5 نجوم - فندق الصفوة</image:title>
+      <image:caption>بوفيه الحلويات الشرقية والغربية الفاخر لضيوف ميسورة في فندق الصفوة</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://www.maysoragroup.com/images/648222260.jpg.jpeg</image:loc>
       <image:title>بوفيه الأطباق الملكية الساخنة - فندق الصفوة رويال أوركيد</image:title>
+      <image:caption>أطباق وبوفيهات طهاة عالميين لضيوف كبار الشخصيات</image:caption>
     </image:image>
-  </url>
-
-  <!-- Ready Packages Hub -->
-  <url>
-    <loc>https://www.maysoragroup.com/#packages</loc>
-    <lastmod>2026-10-07</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://www.maysoragroup.com/images/648222272.jpg.jpeg</image:loc>
+      <image:title>بوفيه السلطات والمقبلات الطازجة - فندق الصفوة رويال أوركيد</image:title>
+      <image:caption>تشكيلة مقبلات ومأكولات طازجة فاخرة</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.maysoragroup.com/images/648210979.jpg.jpeg</image:loc>
+      <image:title>جناح النوم الفاخر مع إطلالة الحرم - فندق الصفوة رويال أوركيد</image:title>
+      <image:caption>تصميم ملكي وإطلالة ساحرة على رحاب الحرم المكي الشريف</image:caption>
+    </image:image>
     <image:image>
       <image:loc>https://www.maysoragroup.com/images/hajj_vip.webp</image:loc>
       <image:title>باقات الحج الملكية الفاخرة VIP 1447</image:title>
+      <image:caption>خدمات الحج الملكي الميسرة وطيران خاص لكبار الشخصيات</image:caption>
     </image:image>
-  </url>
-
-  <!-- Services Hub -->
-  <url>
-    <loc>https://www.maysoragroup.com/#services</loc>
-    <lastmod>2026-10-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-
-  <!-- Financial Hub & Zakat -->
-  <url>
-    <loc>https://www.maysoragroup.com/#financial-hub</loc>
-    <lastmod>2026-10-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
     <image:image>
       <image:loc>https://www.maysoragroup.com/images/fin_consult.webp</image:loc>
       <image:title>استشارات مالية معتمدة وحساب الزكاة ZATCA</image:title>
+      <image:caption>إدارة الثروات العائلية وحوكمة الأوقاف الشرعية</image:caption>
     </image:image>
-  </url>
-
-  <!-- FAQ Section -->
-  <url>
-    <loc>https://www.maysoragroup.com/#faq</loc>
-    <lastmod>2026-10-07</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Contact Section -->
-  <url>
-    <loc>https://www.maysoragroup.com/#contact</loc>
-    <lastmod>2026-10-07</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://www.maysoragroup.com/images/hero_bg.webp</image:loc>
+      <image:title>المسجد الحرام والكعبة المشرفة</image:title>
+      <image:caption>رحلة إيمانية ملكية في رحاب الحرم المكي الشريف مع ميسورة</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.maysoragroup.com/images/logo.webp</image:loc>
+      <image:title>شعار مكتب ميسورة لخدمات الحج والعمرة الفاخرة والاستشارات المالية</image:title>
+      <image:caption>مكتب ميسورة MAYSORA</image:caption>
+    </image:image>
   </url>
 
 </urlset>
