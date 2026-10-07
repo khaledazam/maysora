@@ -6,8 +6,12 @@ export interface TranslationContent {
     services: string;
     whyUs: string;
     packages: string;
+    customizer: string;
+    timeline: string;
+    comparison: string;
     financial: string;
     testimonials: string;
+    faq: string;
     contact: string;
     bookConsultation: string;
     languageName: string;
@@ -28,6 +32,10 @@ export interface TranslationContent {
     trustShariahLabel: string;
     trustAssets: string;
     trustAssetsLabel: string;
+  };
+  partners: {
+    sectionTag: string;
+    items: { name: string; category: string }[];
   };
   services: {
     sectionTag: string;
@@ -57,6 +65,10 @@ export interface TranslationContent {
     sectionTag: string;
     title: string;
     subtitle: string;
+    tabReadyPackages: string;
+    tabCustomizer: string;
+    tabComparison: string;
+    downloadBrochure: string;
     currency: string;
     bookNow: string;
     viewDetails: string;
@@ -71,6 +83,49 @@ export interface TranslationContent {
       hotel: string;
       flight: string;
       financialPerk: string;
+    }[];
+  };
+  customizer: {
+    sectionTag: string;
+    title: string;
+    subtitle: string;
+    step1Title: string;
+    types: { id: string; label: string; icon: string }[];
+    step2Title: string;
+    accommodations: { id: string; label: string; desc: string }[];
+    step3Title: string;
+    transports: { id: string; label: string; desc: string }[];
+    step4Title: string;
+    financialServices: { id: string; label: string; desc: string }[];
+    summaryTitle: string;
+    selectedPackageBadge: string;
+    ctaBtn: string;
+    whatsAppBtn: string;
+    estimateNote: string;
+  };
+  comparison: {
+    sectionTag: string;
+    title: string;
+    subtitle: string;
+    colFeature: string;
+    colExec: string;
+    colRoyal: string;
+    colImperial: string;
+    features: {
+      name: string;
+      exec: string;
+      royal: string;
+      imperial: string;
+    }[];
+  };
+  timeline: {
+    sectionTag: string;
+    title: string;
+    subtitle: string;
+    steps: {
+      number: string;
+      title: string;
+      desc: string;
     }[];
   };
   financialHub: {
@@ -104,6 +159,21 @@ export interface TranslationContent {
       rating: number;
     }[];
   };
+  faq: {
+    sectionTag: string;
+    title: string;
+    subtitle: string;
+    allTab: string;
+    hajjTab: string;
+    financialTab: string;
+    items: {
+      q: string;
+      a: string;
+      category: 'hajj' | 'financial';
+    }[];
+    stillHaveQuestions: string;
+    talkToUs: string;
+  };
   contact: {
     sectionTag: string;
     title: string;
@@ -117,6 +187,10 @@ export interface TranslationContent {
     serviceOptions: { value: string; label: string }[];
     whatsAppBtn: string;
     callUs: string;
+    executiveName: string;
+    executiveRole: string;
+    executivePhone: string;
+    executiveDisplayPhone: string;
     address: string;
     hours: string;
     successMessage: string;
@@ -150,15 +224,19 @@ export interface TranslationContent {
 }
 
 export const translations: Record<Language, TranslationContent> = {
-  // 🇸🇦 اللهجة السعودية الأصيلة والفخمة (Default Arabic)
+  // SA - اللهجة السعودية الأصيلة والفخمة (Default Arabic)
   'ar-sa': {
     nav: {
       home: 'الرئيسية',
       services: 'خدماتنا',
       whyUs: 'ليش ميسورة؟',
-      packages: 'باقات الحج والعمرة',
+      packages: 'باقاتنا',
+      customizer: 'صمّم باقتك',
+      comparison: 'مقارنة الباقات',
+      timeline: 'خطوات الرحلة',
       financial: 'الاستشارات والمحاسبة',
       testimonials: 'آراء عملائنا',
+      faq: 'الأسئلة الشائعة',
       contact: 'تواصل معنا',
       bookConsultation: 'استشارتك مجاناً',
       languageName: 'English',
@@ -179,6 +257,18 @@ export const translations: Record<Language, TranslationContent> = {
       trustShariahLabel: 'حلول متوافقة مع الشريعة',
       trustAssets: '+500M',
       trustAssetsLabel: 'ريال استشارات وإدارة أصول',
+    },
+    partners: {
+      sectionTag: 'اعتمادات وشراكات النخبة المعتمدة',
+      items: [
+        { name: 'فنادق فيرمونت برج الساعة', category: 'أجنحة الحرم الفاخرة' },
+        { name: 'رافلز قصر مكة', category: 'ضيافة ملكية VIP' },
+        { name: 'دار التوحيد إنتركونتيننتال', category: 'إطلالة الكعبة المباشرة' },
+        { name: 'طيران السعودية الخاص', category: 'Private Jet Concierge' },
+        { name: 'هيئة الزكاة والضريبة والجمارك (ZATCA)', category: 'امتثال واعتماد معايير' },
+        { name: 'وزارة الحج والعمرة', category: 'ترخيص رسمي معتمد' },
+        { name: 'الهيئة السعودية للمراجعين (SOCPA)', category: 'معايير محاسبية دولية' }
+      ]
     },
     services: {
       sectionTag: 'وش نقدّم لك؟',
@@ -245,6 +335,10 @@ export const translations: Record<Language, TranslationContent> = {
       sectionTag: 'باقاتنا الملكية',
       title: 'باقات الحج والعمرة لكبار الشخصيات',
       subtitle: 'اختر الباقة اللي تناسبك واستمتع بتجربة ما تنساها في رحاب بيت الله الحرام.',
+      tabReadyPackages: 'باقات النخبة الجاهزة',
+      tabCustomizer: 'صمّم باقتك على كيفك',
+      tabComparison: 'مقارنة الباقات',
+      downloadBrochure: 'تحميل الكتيّب الرقمي للباقات (PDF)',
       currency: 'ر.س',
       bookNow: 'احجز الحين',
       viewDetails: 'تفاصيل الباقة',
@@ -301,6 +395,69 @@ export const translations: Record<Language, TranslationContent> = {
             'إدارة الأوقاف والصدقات الجارية بما يرضي الله'
           ]
         }
+      ]
+    },
+    customizer: {
+      sectionTag: 'صمّم باقتك الملكية',
+      title: 'فصّل رحلتك وخدماتك المالية على كيفك',
+      subtitle: 'اختر مستوى الإقامة، نوع التنقلات، والخدمات المالية والزكوية المناسبة لك ولعائلتك واحصل على ترتيب مخصص فوراً.',
+      step1Title: '1. نوع الرحلة المباركة',
+      types: [
+        { id: 'umrah', label: 'عمرة VIP خاصة', icon: 'Sparkles' },
+        { id: 'hajj', label: 'حج ملكي فاخر', icon: 'Crown' },
+        { id: 'corporate', label: 'عمرة وتنظيم شركات', icon: 'Building2' }
+      ],
+      step2Title: '2. مستوى الإقامة والجناح',
+      accommodations: [
+        { id: 'kaaba-suite', label: 'جناح صف أول بإطلالة الكعبة مباشرة', desc: 'أبراج الساعة أو دار التوحيد بأعلى درجات الخصوصية' },
+        { id: 'royal-penthouse', label: 'بنتهاوس ملكي مع مصعد خاص', desc: 'مساحات فسيحة وخدمة طاهٍ وخادم شخصي 24 ساعة' },
+        { id: 'haram-view', label: 'غرفة فاخرة بإطلالة كاملة على الحرم', desc: 'راحة تامة وقرب فائق من صحن الطواف' }
+      ],
+      step3Title: '3. أسلوب الطيران والتنقل',
+      transports: [
+        { id: 'private-jet', label: 'طيران خاص (Private Jet)', desc: 'مرونة تامة في أوقات الإقلاع بدون أي قيود' },
+        { id: 'business-flight', label: 'طيران درجة أولى / رجال الأعمال', desc: 'استقبال خاص في الصالات الملكية بالمطار' },
+        { id: 'suv-fleet', label: 'أسطول سيارات فارهة مع سائق خاص', desc: 'مرسيدس مايباخ أو كاديلاك إسكاليد تحت تصرفك' }
+      ],
+      step4Title: '4. الامتيازات المالية والمحاسبية المشمولة',
+      financialServices: [
+        { id: 'zakat-audit', label: 'حساب وتدقيق الزكاة الشرعية (ZATCA)', desc: 'إشراف مستشار مالي متخصص ومعتمد' },
+        { id: 'wealth-planning', label: 'هيكلة الأوقاف وإدارة الثروات العائلية', desc: 'حلول استثمارية وحفظ أصول متوافقة مع الشريعة' },
+        { id: 'corporate-tax', label: 'إقرار ضريبي ومحاسبي للشركات', desc: 'مراجعة وتدقيق معتمد للقوائم المالية' }
+      ],
+      summaryTitle: 'ملخص باقتك المصممة',
+      selectedPackageBadge: 'باقة مخصصة للنخبة',
+      ctaBtn: 'طلب تأكيد هذه الباقة المخصصة',
+      whatsAppBtn: 'إرسال المواصفات مباشرة للواتساب',
+      estimateNote: 'سيتواصل معك مستشارك الخاص لتأكيد توفر الأجنحة وحجز الطيران فوراً.'
+    },
+    comparison: {
+      sectionTag: 'مقارنة الباقات الملكية',
+      title: 'اختر المستوى اللي يناسب تطلعاتك',
+      subtitle: 'مقارنة شاملة توضح تفاصيل ومزايا كل باقة لتسهيل اتخاذ قرارك بكل راحة واطمئنان.',
+      colFeature: 'الميزة والخدمة',
+      colExec: 'العمرة التنفيذية',
+      colRoyal: 'الحج الملكي VIP',
+      colImperial: 'ميسورة الإمبراطورية',
+      features: [
+        { name: 'الإقامة الفندقية', exec: 'فيرمونت برج الساعة (إطلالة Haram)', royal: 'دار التوحيد + مخيمات منى VIP', imperial: 'أجنحة وبنتهاوس ملكي خاص بالكامل' },
+        { name: 'درجة الطيران', exec: 'درجة رجال الأعمال', royal: 'طيران خاص أو درجة أولى', imperial: 'طائرة خاصة مخصصة ومروحية للمشاعر' },
+        { name: 'المواصلات الأرضية', exec: 'سيارة فاخرة VIP للمطار', royal: 'سيارة دفع رباعي فارهة وسائق خاص', imperial: 'أسطول كامل تحت أمرك 24/7' },
+        { name: 'الإرشاد والمرافقة', exec: 'مرشد ديني للمزارات', royal: 'مرشد ديني وطبيب خاص للباقة', imperial: 'فريق كامل (مرشد، طاهٍ، حارس، مساعد)' },
+        { name: 'الاستشارة المالية والزكوية', exec: 'استشارة زكوية وتخطيط مجاني', royal: 'تدقيق زكوي ومالي سنوي شامل', imperial: 'إدارة مالية كاملة لثروة العائلة لسنة' },
+        { name: 'خدمة الكونسيرج', exec: 'على مدار الساعة', royal: 'كونسيرج خاص مكرّس', imperial: 'مدير تشريفات ومساعد شخصي دائم' }
+      ]
+    },
+    timeline: {
+      sectionTag: 'رحلتك خطوة بخطوة',
+      title: 'كيف نصنع لك تجربة استثنائية؟',
+      subtitle: 'من أول محادثة وحتى بعد ختام رحلتك المباركة، نرافقك بعناية واهتمام بأدق التفاصيل.',
+      steps: [
+        { number: '01', title: 'جلسة استشارية خاصة', desc: 'نتعرف على تطلعاتك للرحلة، احتياجات العائلة، وأي ترتيبات مالية أو استشارية ترغب بها.' },
+        { number: '02', title: 'التصميم والحجوزات الحصرية', desc: 'نحجز لك أرقى الأجنحة المطلة، وننسق الطيران وتصاريح الحرم وإعداد الملف المالي.' },
+        { number: '03', title: 'الاستقبال الملكي بالمطار', desc: 'استقبال من الطائرة مباشرة، وإنهاء الإجراءات بصالة كبار الشخصيات، ونقل بسيارة فارهة خاصة.' },
+        { number: '04', title: 'السكينة والمرافقة الخاصة', desc: 'مرشد ديني متمكن ومساعد شخصي على مدار 24 ساعة لخدمتك في طوافك وسعيك وصلواتك.' },
+        { number: '05', title: 'حوكمة ما بعد الرحلة', desc: 'تسليمك التقرير المالي والزكوي المعتمد لشركتك أو استثماراتك مع متابعة مستمرة لراحتك.' }
       ]
     },
     financialHub: {
@@ -360,6 +517,48 @@ export const translations: Record<Language, TranslationContent> = {
         }
       ]
     },
+    faq: {
+      sectionTag: 'الأسئلة الشائعة',
+      title: 'كل ما تود معرفته عن خدمات ميسورة',
+      subtitle: 'إجابات شاملة عن استفسارات الحجوزات الملكية والخدمات المالية والزكوية.',
+      allTab: 'جميع الأسئلة',
+      hajjTab: 'الحج والعمرة VIP',
+      financialTab: 'الاستشارات والمحاسبة',
+      items: [
+        {
+          category: 'hajj',
+          q: 'كيف يتم ترتيب الطيران الخاص واستقبال المطار؟',
+          a: 'يتم التنسيق مباشرة مع صالات الطيران الخاص (Private Aviation) بالمطارات، مع توفير مسار سريع واستقبال من سلم الطائرة ونقل الحقائب فوراً لجناحك الفندقي.'
+        },
+        {
+          category: 'hajj',
+          q: 'هل تشمل باقاتكم استخراج تصاريح العمرة والروضة الشريفة؟',
+          a: 'نعم، يتولى فريق الكونسيرج الخاص بنا جدولة واستخراج كافة التصاريح عبر منصة نسك وتنسيق أفضل الأوقات لتجنب الازدحام.'
+        },
+        {
+          category: 'hajj',
+          q: 'هل يمكن تخصيص قائمة الطعام والمرافقين في الباقة الملكية؟',
+          a: 'بالتأكيد، نوفر طهاة متخصصين وقوائم طعام معدّة حسب رغبتك الخاصة، مع إمكانية إضافة مرافق صحي أو ممرض خاص لكبار السن.'
+        },
+        {
+          category: 'financial',
+          q: 'هل حسابات الزكاة والاستشارات معتمدة لدى هيئة الزكاة (ZATCA)؟',
+          a: 'نعم، جميع تقاريرنا المحاسبية والزكوية تُعد وتُدقق وفق معايير هيئة الزكاة والضريبة والجمارك وتصدر بتوقيع محاسبي وقانوني معتمد.'
+        },
+        {
+          category: 'financial',
+          q: 'ما الفرق بين الاستشارة المالية وإدارة الثروات العائلية؟',
+          a: 'الاستشارة المالية تركز على دراسة وضع محدد أو حساب زكاة، بينما إدارة الثروات تشمل حوكمة الأصول وتأسيس الأوقاف والوصايا وتوزيعها بما يحفظ أصول العائلة وفق الشريعة.'
+        },
+        {
+          category: 'financial',
+          q: 'هل تقدمون خدمات تدقيق الحسابات للشركات خارج السعودية؟',
+          a: 'نعم، نقدم استشاراتنا للشركات والمستثمرين في دول الخليج والعالم الراغبين في الاستثمار بالسوق السعودي أو مطابقة أعمالهم للمعايير الشرعية والأنظمة السعودية.'
+        }
+      ],
+      stillHaveQuestions: 'عندك استفسار خاص ما لقيته هنا؟',
+      talkToUs: 'تواصل مع مستشارك المباشر'
+    },
     contact: {
       sectionTag: 'تواصل معنا',
       title: 'حياك الله، حنا هنا لخدمتك ورعاية استثماراتك',
@@ -372,12 +571,17 @@ export const translations: Record<Language, TranslationContent> = {
       formSubmit: 'إرسال الطلب لمستشار ميسورة',
       serviceOptions: [
         { value: 'hajj-umrah', label: 'حجز باقة حج أو عمرة VIP' },
+        { value: 'custom-package', label: 'طلب باقة مخصصة بالكامل' },
         { value: 'financial-consulting', label: 'استشارة مالية وإدارة ثروات' },
         { value: 'accounting-zakat', label: 'خدمات محاسبية وحساب زكاة (ZATCA)' },
         { value: 'all-services', label: 'باقة خدمات شاملة (سفر + مالية)' }
       ],
       whatsAppBtn: 'محادثة واتساب مباشرة مع المستشار (24/7)',
       callUs: 'اتصل بنا مباشرة',
+      executiveName: 'بشمهندس أحمد رمضان',
+      executiveRole: 'المستشار التنفيذي العام ومسؤول كبار الشخصيات',
+      executivePhone: '01011860173',
+      executiveDisplayPhone: '+20 101 186 0173 (01011860173)',
       address: 'طريق الملك فهد، البرج المالي، الرياض | فرع مكة: أبراج وقف الملك عبدالعزيز',
       hours: 'متاحون على مدار الساعة لخدمة كبار الشخصيات (24/7)',
       successMessage: 'أبشر بسعدك! تم استلام طلبك وبنتواصل معك خلال أقرب وقت.'
@@ -410,15 +614,19 @@ export const translations: Record<Language, TranslationContent> = {
     }
   },
 
-  // 🌐 العربية الفصحى
+  // AR - العربية الفصحى
   ar: {
     nav: {
       home: 'الرئيسية',
       services: 'خدماتنا',
       whyUs: 'لماذا ميسورة',
-      packages: 'باقات الحج والعمرة',
+      packages: 'الباقات',
+      customizer: 'تصميم باقة',
+      comparison: 'مقارنة الباقات',
+      timeline: 'مراحل التجربة',
       financial: 'الاستشارات والمحاسبة',
       testimonials: 'آراء عملائنا',
+      faq: 'الأسئلة الشائعة',
       contact: 'تواصل معنا',
       bookConsultation: 'استشارة مجانية',
       languageName: 'English',
@@ -439,6 +647,18 @@ export const translations: Record<Language, TranslationContent> = {
       trustShariahLabel: 'حلول متوافقة مع الشريعة',
       trustAssets: '+500M',
       trustAssetsLabel: 'ريال استشارات مالية وإدارة',
+    },
+    partners: {
+      sectionTag: 'الاعتمادات وشراكات الفخامة',
+      items: [
+        { name: 'فنادق فيرمونت برج الساعة', category: 'أجنحة الحرم الفاخرة' },
+        { name: 'رافلز قصر مكة', category: 'ضيافة ملكية VIP' },
+        { name: 'دار التوحيد إنتركونتيننتال', category: 'إطلالة الكعبة المباشرة' },
+        { name: 'طيران السعودية الخاص', category: 'Private Jet Concierge' },
+        { name: 'هيئة الزكاة والضريبة والجمارك (ZATCA)', category: 'امتثال واعتماد معايير' },
+        { name: 'وزارة الحج والعمرة', category: 'ترخيص رسمي معتمد' },
+        { name: 'الهيئة السعودية للمراجعين (SOCPA)', category: 'معايير محاسبية دولية' }
+      ]
     },
     services: {
       sectionTag: 'خدماتنا الاستثنائية',
@@ -505,6 +725,10 @@ export const translations: Record<Language, TranslationContent> = {
       sectionTag: 'باقاتنا الملكية',
       title: 'باقات الحج والعمرة المصممة للنخبة',
       subtitle: 'اختر الباقة التي تناسب تطلعاتك واحظى بتجربة لا تُنسى في رحاب بيت الله الحرام.',
+      tabReadyPackages: 'الباقات الملكية الجاهزة',
+      tabCustomizer: 'تصميم باقة مخصصة',
+      tabComparison: 'مقارنة الباقات',
+      downloadBrochure: 'تحميل الدليل الشامل للباقات (PDF)',
       currency: 'ر.س',
       bookNow: 'احجز الباقة الآن',
       viewDetails: 'عرض تفاصيل الباقة',
@@ -561,6 +785,69 @@ export const translations: Record<Language, TranslationContent> = {
             'إدارة الأوقاف والصدقات الجارية متوافقة مع الشريعة'
           ]
         }
+      ]
+    },
+    customizer: {
+      sectionTag: 'تصميم الباقة المخصصة',
+      title: 'صمم رحلتك وخدماتك المالية الخاصة',
+      subtitle: 'حدد خيارات الإقامة ودرجة السفر والاستشارات الزكوية المناسبة لاحتياجاتك الشخصية أو المؤسسية.',
+      step1Title: '1. نوع التجربة المستهدفة',
+      types: [
+        { id: 'umrah', label: 'عمرة VIP خاصة', icon: 'Sparkles' },
+        { id: 'hajj', label: 'حج ملكي فاخر', icon: 'Crown' },
+        { id: 'corporate', label: 'برنامج الشركات والتنفيذيين', icon: 'Building2' }
+      ],
+      step2Title: '2. فئة الإقامة الفندقية',
+      accommodations: [
+        { id: 'kaaba-suite', label: 'جناح رئاسي بإطلالة الكعبة المباشرة', desc: 'أفخم أجنحة الصف الأول المواجهة لصحن الحرم' },
+        { id: 'royal-penthouse', label: 'بنتهاوس ملكي مع خدمات كونسيرج خاصة', desc: 'خصوصية كاملة وطاهٍ وخادم شخصي 24/7' },
+        { id: 'haram-view', label: 'غرفة فاخرة بإطلالة كاملة على الحرم', desc: 'موقع استراتيجي وأرقى معايير الراحة الفندقية' }
+      ],
+      step3Title: '3. خدمات الطيران والتنقل',
+      transports: [
+        { id: 'private-jet', label: 'طيران خاص (Private Jet)', desc: 'جدولة رحلات مرنة وخصوصية تامة' },
+        { id: 'business-flight', label: 'طيران درجة رجال الأعمال / الأولى', desc: 'خدمات الصالات الملكية والاستقبال المتميز' },
+        { id: 'suv-fleet', label: 'أسطول سيارات فارهة مع سائق خاص', desc: 'مركبات VIP فاخرة مجهزة لخدمتك طوال الرحلة' }
+      ],
+      step4Title: '4. الاستشارات المالية والزكوية المشمولة',
+      financialServices: [
+        { id: 'zakat-audit', label: 'حساب وتدقيق الزكاة المعتمد (ZATCA)', desc: 'تقرير زكوي ومالي بإشراف مستشار معتمد' },
+        { id: 'wealth-planning', label: 'تخطيط الثروات وإدارة الأوقاف', desc: 'حلول متوافقة تماماً مع أحكام الشريعة الإسلامية' },
+        { id: 'corporate-tax', label: 'الامتثال المحاسبي والضريبي المؤسسي', desc: 'تدقيق حسابات وتجهيز القوائم المالية' }
+      ],
+      summaryTitle: 'ملخص الباقة المصممة',
+      selectedPackageBadge: 'باقة مصممة خصيصاً',
+      ctaBtn: 'طلب اعتماد هذه الباقة',
+      whatsAppBtn: 'إرسال المواصفات عبر WhatsApp',
+      estimateNote: 'سيتواصل معك المستشار المختص لتأكيد توفر الحجوزات وتقديم العرض النهائي.'
+    },
+    comparison: {
+      sectionTag: 'مقارنة الباقات',
+      title: 'مصفوفة مقارنة الباقات الملكية',
+      subtitle: 'نظرة شاملة ومقارنة تفصيلية بين باقاتنا لمساعدتك في اختيار التجربة الأنسب.',
+      colFeature: 'الميزة والخدمة',
+      colExec: 'العمرة التنفيذية',
+      colRoyal: 'الحج الملكي VIP',
+      colImperial: 'ميسورة الإمبراطورية',
+      features: [
+        { name: 'الإقامة الفندقية', exec: 'فيرمونت برج الساعة (إطلالة Haram)', royal: 'دار التوحيد + مخيمات منى VIP', imperial: 'أجنحة وبنتهاوس ملكي خاص بالكامل' },
+        { name: 'درجة الطيران', exec: 'درجة رجال الأعمال', royal: 'طيران خاص أو درجة أولى', imperial: 'طائرة خاصة مخصصة ومروحية للمشاعر' },
+        { name: 'المواصلات الأرضية', exec: 'سيارة فاخرة VIP للمطار', royal: 'سيارة دفع رباعي فارهة وسائق خاص', imperial: 'أسطول كامل تحت أمرك 24/7' },
+        { name: 'الإرشاد والمرافقة', exec: 'مرشد ديني للمزارات', royal: 'مرشد ديني وطبيب خاص للباقة', imperial: 'فريق كامل (مرشد، طاهٍ، حارس، مساعد)' },
+        { name: 'الاستشارة المالية والزكوية', exec: 'استشارة زكوية وتخطيط مجاني', royal: 'تدقيق زكوي ومالي سنوي شامل', imperial: 'إدارة مالية كاملة لثروة العائلة لسنة' },
+        { name: 'خدمة الكونسيرج', exec: 'على مدار الساعة', royal: 'كونسيرج خاص مكرّس', imperial: 'مدير تشريفات ومساعد شخصي دائم' }
+      ]
+    },
+    timeline: {
+      sectionTag: 'مراحل التجربة',
+      title: 'رحلتك الاستثنائية خطوة بخطوة',
+      subtitle: 'نهتم بأدق التفاصيل منذ التواصل الأول وحتى إتمام الرحلة ومتابعة الملف المالي.',
+      steps: [
+        { number: '01', title: 'جلسة الاستشارة والتخطيط', desc: 'فهم متطلباتك الشخصية والعائلية، والخدمات المالية المرجوة.' },
+        { number: '02', title: 'التصميم وتأكيد الحجوزات', desc: 'تأكيد أجنحة الحرم المطلة، وحجوزات الطيران، وإصدار التصاريح الرسمية.' },
+        { number: '03', title: 'الاستقبال الملكي في المطار', desc: 'مسار سريع بصالات كبار الشخصيات، ونقل مباشر بسيارات فارهة خاصة.' },
+        { number: '04', title: 'السكينة والمرافقة الميدانية', desc: 'مساعد شخصي ومرشد ديني على مدار الساعة لتسهيل كافة المناسك والصلوات.' },
+        { number: '05', title: 'إعداد التقارير المالية', desc: 'تسليم التقارير الزكوية والمحاسبية المعتمدة واستمرار الدعم الاستشاري.' }
       ]
     },
     financialHub: {
@@ -620,6 +907,48 @@ export const translations: Record<Language, TranslationContent> = {
         }
       ]
     },
+    faq: {
+      sectionTag: 'الأسئلة الشائعة',
+      title: 'الأسئلة المتكررة حول خدمات ميسورة',
+      subtitle: 'إجابات تفصيلية تغطي باقات السفر الملكية والخدمات المالية والزكوية.',
+      allTab: 'جميع الأسئلة',
+      hajjTab: 'الحج والعمرة VIP',
+      financialTab: 'الاستشارات والمحاسبة',
+      items: [
+        {
+          category: 'hajj',
+          q: 'كيف يتم ترتيب الطيران الخاص واستقبال المطار؟',
+          a: 'يتم التنسيق مباشرة مع صالات الطيران الخاص بالمطارات، مع توفير مسار سريع واستقبال من سلم الطائرة ونقل الأمتعة فوراً إلى الجناح الفندقي.'
+        },
+        {
+          category: 'hajj',
+          q: 'هل تشمل باقاتكم استخراج تصاريح العمرة والروضة الشريفة؟',
+          a: 'نعم، يتولى فريق الكونسيرج الخاص بنا جدولة واستخراج كافة التصاريح عبر منصة نسك الرسمية واختيار أفضل الأوقات لتفادي الزحام.'
+        },
+        {
+          category: 'hajj',
+          q: 'هل يمكن تخصيص قائمة الطعام والمرافقين في الباقة الملكية؟',
+          a: 'بالتأكيد، نوفر طهاة متخصصين وقوائم طعام معدّة وفق رغباتكم، مع إمكانية توفير كادر صحي أو ممرض خاص لكبار السن.'
+        },
+        {
+          category: 'financial',
+          q: 'هل حسابات الزكاة والاستشارات معتمدة لدى هيئة الزكاة (ZATCA)؟',
+          a: 'نعم، جميع تقاريرنا المحاسبية والزكوية تُعد وتُدقق وفق معايير هيئة الزكاة والضريبة والجمارك وتصدر بتوقيع مالي معتمد.'
+        },
+        {
+          category: 'financial',
+          q: 'ما الفرق بين الاستشارة المالية وإدارة الثروات العائلية؟',
+          a: 'الاستشارة المالية تركز على دراسة وضع محدد أو حساب زكاة، بينما إدارة الثروات تشمل حوكمة الأصول وتأسيس الأوقاف والوصايا وتوزيعها بما يحفظ أصول العائلة وفق الشريعة.'
+        },
+        {
+          category: 'financial',
+          q: 'هل تقدمون خدمات تدقيق الحسابات للشركات خارج السعودية؟',
+          a: 'نعم، نقدم استشاراتنا للشركات والمستثمرين في دول الخليج والعالم الراغبين في الاستثمار بالسوق السعودي أو مطابقة أعمالهم للمعايير الشرعية.'
+        }
+      ],
+      stillHaveQuestions: 'هل لديك استفسار آخر؟',
+      talkToUs: 'تحدث مع مستشار ميسورة'
+    },
     contact: {
       sectionTag: 'تواصل مع النخبة',
       title: 'نحن هنا لخدمتك ورعاية رحلتك واستثماراتك',
@@ -632,12 +961,17 @@ export const translations: Record<Language, TranslationContent> = {
       formSubmit: 'إرسال الطلب لمستشار ميسورة',
       serviceOptions: [
         { value: 'hajj-umrah', label: 'حجز باقة حج أو عمرة VIP' },
+        { value: 'custom-package', label: 'طلب باقة مخصصة بالكامل' },
         { value: 'financial-consulting', label: 'استشارة مالية وإدارة ثروات' },
         { value: 'accounting-zakat', label: 'خدمات محاسبية وحساب زكاة' },
         { value: 'all-services', label: 'باقة خدمات شاملة (سفر + مالية)' }
       ],
       whatsAppBtn: 'محادثات WhatsApp المباشرة (خدمة 24/7)',
       callUs: 'اتصل بنا مباشرة',
+      executiveName: 'بشمهندس أحمد رمضان',
+      executiveRole: 'المستشار التنفيذي العام ومسؤول كبار الشخصيات',
+      executivePhone: '01011860173',
+      executiveDisplayPhone: '+20 101 186 0173 (01011860173)',
       address: 'طريق الملك فهد، البرج المالي، الرياض | فرع مكة: أبراج البيت',
       hours: 'من الأحد إلى الخميس: 9:00 صباحاً - 6:00 مساءً (دعم الطوارئ 24/7)',
       successMessage: 'تم استلام طلبك بنجاح! سيتواصل معك مستشار ميسورة الخاص خلال ساعات قليلة.'
@@ -670,15 +1004,19 @@ export const translations: Record<Language, TranslationContent> = {
     }
   },
 
-  // 🇬🇧 English
+  // EN - English
   en: {
     nav: {
       home: 'Home',
       services: 'Services',
       whyUs: 'Why MAYSORA',
       packages: 'Packages',
+      customizer: 'Customizer',
+      comparison: 'Compare',
+      timeline: 'Journey',
       financial: 'Financial & Accounting',
       testimonials: 'Testimonials',
+      faq: 'FAQ',
       contact: 'Contact Us',
       bookConsultation: 'Free Consultation',
       languageName: 'العربية',
@@ -699,6 +1037,18 @@ export const translations: Record<Language, TranslationContent> = {
       trustShariahLabel: 'Shariah-Compliant Solutions',
       trustAssets: '+$500M',
       trustAssetsLabel: 'Assets Advisory & Management',
+    },
+    partners: {
+      sectionTag: 'Prestigious Accreditations & Strategic Alliances',
+      items: [
+        { name: 'Fairmont Makkah Clock Tower', category: 'Luxury Front-Row Suites' },
+        { name: 'Raffles Makkah Palace', category: 'Royal VIP Hospitality' },
+        { name: 'Dar Al Tawhid InterContinental', category: 'Direct Kaaba Panorama' },
+        { name: 'Saudi Private Aviation', category: 'Private Jet Concierge' },
+        { name: 'Saudi Zakat & Tax Authority (ZATCA)', category: 'Regulatory Compliance' },
+        { name: 'Ministry of Hajj & Umrah', category: 'Accredited Operator' },
+        { name: 'Saudi Chartered Accountants (SOCPA)', category: 'Certified Standards' }
+      ]
     },
     services: {
       sectionTag: 'Our Core Offerings',
@@ -765,6 +1115,10 @@ export const translations: Record<Language, TranslationContent> = {
       sectionTag: 'Royal Pilgrimage Packages',
       title: 'Hajj & Umrah Tailored for Executive Leaders',
       subtitle: 'Select the package that elevates your sacred journey to the pinnacle of comfort and spiritual focus.',
+      tabReadyPackages: 'Featured Royal Packages',
+      tabCustomizer: 'Custom Package Builder',
+      tabComparison: 'Package Matrix',
+      downloadBrochure: 'Download Royal Brochure (PDF)',
       currency: 'SAR',
       bookNow: 'Book Package Now',
       viewDetails: 'View Full Itinerary',
@@ -821,6 +1175,69 @@ export const translations: Record<Language, TranslationContent> = {
             'Shariah-compliant endowment (Waqf) structuring'
           ]
         }
+      ]
+    },
+    customizer: {
+      sectionTag: 'Interactive Package Customizer',
+      title: 'Craft Your Bespoke Pilgrimage & Advisory',
+      subtitle: 'Select your preferred accommodation tier, private jet or luxury transport, and bespoke Zakat and wealth governance services.',
+      step1Title: '1. Select Journey Type',
+      types: [
+        { id: 'umrah', label: 'Bespoke VIP Umrah', icon: 'Sparkles' },
+        { id: 'hajj', label: 'Royal VIP Hajj', icon: 'Crown' },
+        { id: 'corporate', label: 'Corporate Delegation', icon: 'Building2' }
+      ],
+      step2Title: '2. Select Accommodation Tier',
+      accommodations: [
+        { id: 'kaaba-suite', label: 'Front-Row Direct Kaaba Suite', desc: 'Clock Royal Tower or Dar Al Tawhid with ultimate privacy' },
+        { id: 'royal-penthouse', label: 'Royal Penthouse with Private Elevator', desc: 'Expansive layouts with 24/7 private chef and butler service' },
+        { id: 'haram-view', label: 'Panoramic Full Haram Suite', desc: 'Exceptional comfort and steps away from the Mataf' }
+      ],
+      step3Title: '3. Aviation & Private Transfers',
+      transports: [
+        { id: 'private-jet', label: 'Private Jet Chartering', desc: 'Absolute scheduling flexibility with private terminal access' },
+        { id: 'business-flight', label: 'First / Business Class Airline', desc: 'VIP lounge greetings and priority transfers' },
+        { id: 'suv-fleet', label: 'Chauffeur-Driven Luxury Fleet', desc: 'Mercedes-Maybach or Cadillac Escalade at your disposal' }
+      ],
+      step4Title: '4. Integrated Financial & Accounting Governance',
+      financialServices: [
+        { id: 'zakat-audit', label: 'Certified ZATCA Zakat Calculation', desc: 'Audited and certified by senior financial advisors' },
+        { id: 'wealth-planning', label: 'Family Endowment (Waqf) Structuring', desc: 'Shariah-compliant preservation and growth framework' },
+        { id: 'corporate-tax', label: 'Corporate Tax & Accounting Review', desc: 'Certified financial statements audit and representation' }
+      ],
+      summaryTitle: 'Your Customized Itinerary Summary',
+      selectedPackageBadge: 'Bespoke Private Tier',
+      ctaBtn: 'Request Confirmation for This Itinerary',
+      whatsAppBtn: 'Send Itinerary Directly to WhatsApp',
+      estimateNote: 'A dedicated MAYSORA private advisor will reach out to confirm suite availability and jet slots.'
+    },
+    comparison: {
+      sectionTag: 'Comprehensive Package Comparison',
+      title: 'Choose the Tier Befitting Your Standards',
+      subtitle: 'Compare key features across all our luxury pilgrimage and financial advisory tiers.',
+      colFeature: 'Feature & Service',
+      colExec: 'Executive Umrah',
+      colRoyal: 'Royal Hajj VIP',
+      colImperial: 'Imperial Bespoke',
+      features: [
+        { name: 'Hotel Accommodation', exec: 'Fairmont Clock Tower (Haram View)', royal: 'Dar Al Tawhid + Mina Royal Camp', imperial: 'Private Palace / Royal Penthouse' },
+        { name: 'Aviation Class', exec: 'Business Class Included', royal: 'First Class or Private Jet Option', imperial: 'Dedicated Chartered Jet & Helicopter' },
+        { name: 'Ground Mobility', exec: 'Luxury VIP Airport Chauffeur', royal: 'Full-Time Private Luxury SUV', imperial: 'Dedicated Luxury Fleet 24/7' },
+        { name: 'Concierge & Guides', exec: 'Private Guided Ziyarat', royal: 'Private Scholar & Dedicated Doctor', imperial: 'Full Private Team (Chef, Escort, Scholar)' },
+        { name: 'Financial & Zakat Perks', exec: 'Free Zakat & Wealth Consultation', royal: 'Annual Corporate Zakat & Asset Audit', imperial: 'Full Multi-Family Office Advisory (1 Year)' },
+        { name: 'Concierge Availability', exec: '24/7 Dedicated Support', royal: 'Dedicated Private Butler', imperial: 'Personal Protocol Chief & Assistant' }
+      ]
+    },
+    timeline: {
+      sectionTag: 'The Journey Steps',
+      title: 'Crafting Your Extraordinary Experience',
+      subtitle: 'From initial consultation to seamless post-pilgrimage financial governance, we guide every milestone.',
+      steps: [
+        { number: '01', title: 'Private Advisory Session', desc: 'Understanding your sacred travel aspirations, family needs, and financial governance objectives.' },
+        { number: '02', title: 'Curated Itinerary & Clearance', desc: 'Securing premier Haram suites, chartering private jets, and issuing all Nusuk VIP permits.' },
+        { number: '03', title: 'Presidential Airport Welcome', desc: 'Tarmac VIP meet & assist, private terminal fast-track, and chauffeured transfer.' },
+        { number: '04', title: 'Spiritual Serenity & Chaperone', desc: 'Accompanied by a dedicated religious scholar and private concierge for all rituals.' },
+        { number: '05', title: 'Post-Pilgrimage Governance', desc: 'Delivery of certified ZATCA Zakat reports, endowment audits, and enduring advisory.' }
       ]
     },
     financialHub: {
@@ -880,6 +1297,48 @@ export const translations: Record<Language, TranslationContent> = {
         }
       ]
     },
+    faq: {
+      sectionTag: 'Frequently Asked Questions',
+      title: 'Everything You Need to Know About MAYSORA',
+      subtitle: 'Comprehensive answers regarding our royal travel arrangements and certified financial advisory.',
+      allTab: 'All Questions',
+      hajjTab: 'VIP Hajj & Umrah',
+      financialTab: 'Financial & Accounting',
+      items: [
+        {
+          category: 'hajj',
+          q: 'How are private aviation and airport welcomes coordinated?',
+          a: 'We coordinate directly with private aviation terminals, arranging tarmac meet-and-assist, private terminal fast-track, and immediate luggage transfer to your suite.'
+        },
+        {
+          category: 'hajj',
+          q: 'Are official Nusuk permits for Umrah and Rawdah included?',
+          a: 'Yes, our dedicated concierge oversees all Nusuk scheduling, securing optimal time slots to avoid crowds.'
+        },
+        {
+          category: 'hajj',
+          q: 'Can dining menus and private staff be customized?',
+          a: 'Certainly. We provide gourmet private chefs catering to specific dietary preferences, along with private medical companions or nurses if required.'
+        },
+        {
+          category: 'financial',
+          q: 'Are your Zakat calculations accredited by Saudi ZATCA?',
+          a: 'Yes, all Zakat filings and accounting audits adhere strictly to ZATCA regulations and are certified by licensed auditors.'
+        },
+        {
+          category: 'financial',
+          q: 'What distinguishes wealth planning from general financial consulting?',
+          a: 'General consulting evaluates specific portfolios, whereas wealth planning structures multi-generational family endowments (Waqf) and trusts under strict Shariah governance.'
+        },
+        {
+          category: 'financial',
+          q: 'Do you advise international firms investing in Saudi Arabia?',
+          a: 'Yes, we advise institutional investors across the GCC and internationally who require compliance with Saudi Vision 2030 and ZATCA standards.'
+        }
+      ],
+      stillHaveQuestions: 'Have a specific inquiry not listed above?',
+      talkToUs: 'Speak Directly With Our Senior Partner'
+    },
     contact: {
       sectionTag: 'Connect With Our Executives',
       title: 'Dedicated to Serving Your Sacred Journey & Investments',
@@ -892,12 +1351,17 @@ export const translations: Record<Language, TranslationContent> = {
       formSubmit: 'Submit Request to MAYSORA Advisor',
       serviceOptions: [
         { value: 'hajj-umrah', label: 'VIP Hajj or Umrah Package' },
+        { value: 'custom-package', label: 'Fully Bespoke Itinerary' },
         { value: 'financial-consulting', label: 'Financial Consulting & Wealth Management' },
         { value: 'accounting-zakat', label: 'Accounting Services & Zakat Auditing' },
         { value: 'all-services', label: 'Integrated Services (Travel + Financial)' }
       ],
       whatsAppBtn: 'Direct 24/7 WhatsApp Executive Concierge',
       callUs: 'Call Corporate Hotline',
+      executiveName: 'Eng. Ahmed Ramadan',
+      executiveRole: 'Executive Managing Director & VIP Concierge',
+      executivePhone: '01011860173',
+      executiveDisplayPhone: '+20 101 186 0173 (01011860173)',
       address: 'King Fahd Road, Financial Tower, Riyadh | Makkah Branch: Abraj Al Bait',
       hours: 'Sun - Thu: 9:00 AM - 6:00 PM (24/7 Emergency Support)',
       successMessage: 'Thank you! Your request has been received. A senior MAYSORA advisor will contact you within hours.'

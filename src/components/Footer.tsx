@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShieldCheck, Award, Lock, ExternalLink } from 'lucide-react';
+import { ShieldCheck, Award, Lock, ExternalLink, Phone } from 'lucide-react';
 import type { Language, TranslationContent } from '../data/translations';
 
 interface FooterProps {
@@ -100,15 +100,25 @@ export const Footer: React.FC<FooterProps> = ({ t }) => {
                 <ExternalLink className="w-4 h-4 text-[#D4AF37]" />
                 <span>عضوية الهيئة السعودية للمراجعين والمحاسبين</span>
               </div>
+              <div className="pt-2 border-t border-white/10 mt-3">
+                <span className="text-[11px] text-[#C0B7A6] block mb-1">المستشار التنفيذي المباشر:</span>
+                <a
+                  href="tel:01011860173"
+                  className="inline-flex items-center gap-2 text-xs font-bold text-[#FFF0B3] hover:text-[#D4AF37] transition-colors"
+                >
+                  <Phone className="w-3.5 h-3.5 text-[#25D366]" />
+                  <span>بشمهندس أحمد رمضان: 01011860173</span>
+                </a>
+              </div>
             </div>
           </div>
 
         </div>
 
         {/* Bottom Rights */}
-        <div className="pt-8 border-t border-[#D4AF37]/15 flex flex-col sm:flex-row items-center justify-between text-xs text-[#C0B7A6]/60 gap-4">
+        <div className="pt-8 border-t border-[#D4AF37]/15 flex flex-col sm:flex-row items-center justify-between text-xs text-[#E2DACB] gap-4">
           <p>{t.footer.rights}</p>
-          <p className="text-[11px]">{t.footer.legal}</p>
+          <p className="text-[11px] text-[#E2DACB]">{t.footer.legal}</p>
         </div>
 
       </div>

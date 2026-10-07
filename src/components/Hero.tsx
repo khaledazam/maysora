@@ -22,11 +22,20 @@ export const Hero: React.FC<HeroProps> = ({
       
       {/* Background Image with Dark & Gold Overlay */}
       <div className="absolute inset-0 z-0">
-        <img
-          src="/images/hero_bg.jpg"
-          alt="Masjid al-Haram at night"
-          className="w-full h-full object-cover object-center scale-105 filter brightness-75 contrast-110 transition-transform duration-10000 hover:scale-100"
-        />
+        <picture>
+          <source srcSet="/images/hero_bg.webp" type="image/webp" />
+          <img
+            src="/images/hero_bg.jpg"
+            alt={isRtl ? "المسجد الحرام والكعبة المشرفة - باقات الحج والعمرة الفاخرة وأجنحة فندق الصفوة ميسورة" : "Masjid al-Haram Kaaba - Luxury Hajj and Umrah Concierge MAYSORA"}
+            width={1440}
+            height={810}
+            loading="eager"
+            // @ts-ignore
+            fetchPriority="high"
+            decoding="async"
+            className="w-full h-full object-cover object-center scale-105 filter brightness-75 contrast-110"
+          />
+        </picture>
         {/* Layered Luxury Gradient Mask */}
         <div className="absolute inset-0 bg-gradient-to-t from-[#0D0D0D] via-[#0D0D0D]/75 to-[#0D0D0D]/40" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.12)_0%,transparent_70%)]" />
@@ -51,11 +60,18 @@ export const Hero: React.FC<HeroProps> = ({
         <div className="mb-6 flex justify-center">
           <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full p-[2px] bg-gradient-to-tr from-[#D4AF37] via-[#FFF0B3] to-[#9A7B1C] shadow-2xl shadow-[#D4AF37]/30">
             <div className="w-full h-full bg-[#0D0D0D] rounded-full overflow-hidden flex items-center justify-center p-1">
-              <img
-                src="/images/logo.jpg"
-                alt="MAYSORA Emblem"
-                className="w-full h-full object-cover"
-              />
+              <picture>
+                <source srcSet="/images/logo.webp" type="image/webp" />
+                <img
+                  src="/images/logo.jpg"
+                  alt={isRtl ? "شعار مكتب ميسورة لخدمات الحج والعمرة الفاخرة والاستشارات المالية" : "MAYSORA Luxury Hajj & Umrah Concierge Logo"}
+                  width={112}
+                  height={112}
+                  loading="eager"
+                  decoding="async"
+                  className="w-full h-full object-cover"
+                />
+              </picture>
             </div>
           </div>
         </div>

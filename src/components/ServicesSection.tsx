@@ -25,6 +25,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
       desc: t.services.hajjDesc,
       features: t.services.hajjFeatures,
       image: '/images/hajj_vip.jpg',
+      webp: '/images/hajj_vip.webp',
       accentColor: 'from-[#D4AF37] to-[#C9A227]'
     },
     {
@@ -35,6 +36,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
       desc: t.services.finDesc,
       features: t.services.finFeatures,
       image: '/images/fin_consult.jpg',
+      webp: '/images/fin_consult.webp',
       accentColor: 'from-[#FFF0B3] to-[#D4AF37]'
     },
     {
@@ -45,6 +47,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
       desc: t.services.accDesc,
       features: t.services.accFeatures,
       image: '/images/hero_bg.jpg',
+      webp: '/images/hero_bg.webp',
       accentColor: 'from-[#D4AF37] to-[#9A7B1C]'
     }
   ];
@@ -80,11 +83,18 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
               >
                 {/* Card Top Image & Overlay */}
                 <div className="relative h-56 overflow-hidden">
-                  <img
-                    src={service.image}
-                    alt={service.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 filter brightness-90"
-                  />
+                  <picture>
+                    <source srcSet={service.webp} type="image/webp" />
+                    <img
+                      src={service.image}
+                      alt={service.title}
+                      width={502}
+                      height={280}
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 filter brightness-90"
+                    />
+                  </picture>
                   <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A] via-[#1A1A1A]/40 to-transparent" />
                   
                   {/* Floating Gold Icon */}

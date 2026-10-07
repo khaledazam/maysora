@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { X, Send, ShieldCheck, CheckCircle2, Sparkles } from 'lucide-react';
+import React, { useState } from 'react';
+import { X, Send, ShieldCheck, CheckCircle2, Sparkles, Loader2 } from 'lucide-react';
 import type { TranslationContent } from '../data/translations';
+import { submitLeadToGoogleSheets } from '../services/leadService';
 
 interface BookingModalProps {
   isOpen: boolean;
@@ -21,22 +22,37 @@ export const BookingModal: React.FC<BookingModalProps> = ({
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [notes, setNotes] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  useEffect(() => {
-    if (isOpen) {
-      setSubmitted(false);
-    }
-  }, [isOpen]);
+  const handleClose = () => {
+    setSubmitted(false);
+    setIsSubmitting(false);
+    setName('');
+    setPhone('');
+    setEmail('');
+    setNotes('');
+    onClose();
+  };
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
+    await submitLeadToGoogleSheets({
+      name,
+      phone,
+      email,
+      serviceOrPackage: initialPackage || title,
+      messageOrNotes: notes,
+      source: initialPackage ? 'Package Customizer' : 'Booking Modal'
+    });
+    setIsSubmitting(false);
     setSubmitted(true);
     setTimeout(() => {
       onClose();
-    }, 3000);
+    }, 3500);
   };
 
   return (
@@ -45,7 +61,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
         
         {/* Close Button */}
         <button
-          onClick={onClose}
+          onClick={handleClose}
           className="absolute top-5 right-5 p-2 rounded-full bg-black/40 text-[#C0B7A6] hover:text-[#D4AF37] transition-colors cursor-pointer"
           aria-label={t.modal.close}
         >
@@ -85,10 +101,11 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
             <form onSubmit={handleSubmit} className="space-y-4 mt-4">
               <div>
-                <label className="block text-xs font-semibold text-[#F8F5F0] mb-1.5">
+                <label htmlFor="modalFullName" className="block text-xs font-semibold text-[#F8F5F0] mb-1.5">
                   {t.modal.fullName}
                 </label>
                 <input
+                  id="modalFullName"
                   type="text"
                   required
                   value={name}
@@ -99,10 +116,11 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-[#F8F5F0] mb-1.5">
+                <label htmlFor="modalPhone" className="block text-xs font-semibold text-[#F8F5F0] mb-1.5">
                   {t.modal.phone}
                 </label>
                 <input
+                  id="modalPhone"
                   type="tel"
                   required
                   value={phone}
@@ -113,10 +131,11 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-[#F8F5F0] mb-1.5">
+                <label htmlFor="modalEmail" className="block text-xs font-semibold text-[#F8F5F0] mb-1.5">
                   {t.modal.email}
                 </label>
                 <input
+                  id="modalEmail"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -126,10 +145,11 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-[#F8F5F0] mb-1.5">
+                <label htmlFor="modalNotes" className="block text-xs font-semibold text-[#F8F5F0] mb-1.5">
                   {t.modal.notes}
                 </label>
                 <textarea
+                  id="modalNotes"
                   rows={3}
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
@@ -140,10 +160,20 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
               <button
                 type="submit"
-                className="w-full py-3.5 rounded-full text-sm font-bold text-[#0D0D0D] bg-gold-gradient hover:brightness-110 shadow-lg flex items-center justify-center gap-2 cursor-pointer transition-all mt-4"
+                disabled={isSubmitting}
+                className="w-full py-3.5 rounded-full text-sm font-bold text-[#0D0D0D] bg-gold-gradient hover:brightness-110 shadow-lg flex items-center justify-center gap-2 cursor-pointer transition-all mt-4 disabled:opacity-75 disabled:cursor-not-allowed"
               >
-                <Send className="w-4 h-4" />
-                <span>{t.modal.submitBtn}</span>
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <span>جاري تأكيد وتسجيل الطلب...</span>
+                  </>
+                ) : (
+                  <>
+                    <Send className="w-4 h-4" />
+                    <span>{t.modal.submitBtn}</span>
+                  </>
+                )}
               </button>
 
               <div className="flex items-center justify-center gap-2 text-[11px] text-[#C0B7A6]/70 pt-1">

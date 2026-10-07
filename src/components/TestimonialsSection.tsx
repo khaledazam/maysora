@@ -54,9 +54,9 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({ t }) =
               {/* Author Details */}
               <div className="pt-6 border-t border-[#D4AF37]/15 flex items-center justify-between">
                 <div>
-                  <h4 className="text-base font-bold font-arabic-heading text-gold-gradient">
+                  <h3 className="text-base font-bold font-arabic-heading text-gold-gradient">
                     {item.name}
-                  </h4>
+                  </h3>
                   <span className="text-xs text-[#C0B7A6] block mt-0.5">
                     {item.role}
                   </span>

@@ -155,12 +155,14 @@ export const FinancialAccountingSection: React.FC<FinancialAccountingSectionProp
               {/* Wealth Input */}
               <div>
                 <div className="flex justify-between items-center mb-2 text-sm font-medium text-[#F8F5F0]">
-                  <label>{t.financialHub.calcInputWealth}</label>
+                  <label htmlFor="wealthAmountSlider">{t.financialHub.calcInputWealth}</label>
                   <span className="text-gold-gradient font-bold text-lg">
                     {wealthAmount.toLocaleString()} {t.packages.currency}
                   </span>
                 </div>
                 <input
+                  id="wealthAmountSlider"
+                  aria-label={t.financialHub.calcInputWealth}
                   type="range"
                   min={50000}
                   max={5000000}
@@ -169,7 +171,7 @@ export const FinancialAccountingSection: React.FC<FinancialAccountingSectionProp
                   onChange={(e) => setWealthAmount(Number(e.target.value))}
                   className="w-full h-2 bg-[#0D0D0D] rounded-lg appearance-none cursor-pointer accent-[#D4AF37]"
                 />
-                <div className="flex justify-between text-[11px] text-[#C0B7A6]/60 mt-1">
+                <div className="flex justify-between text-[11px] text-[#E2DACB] font-medium mt-1">
                   <span>50,000</span>
                   <span>2,500,000</span>
                   <span>5,000,000+</span>
@@ -179,12 +181,14 @@ export const FinancialAccountingSection: React.FC<FinancialAccountingSectionProp
               {/* Target Years Input */}
               <div>
                 <div className="flex justify-between items-center mb-2 text-sm font-medium text-[#F8F5F0]">
-                  <label>{t.financialHub.calcInputYears}</label>
+                  <label htmlFor="targetYearsSlider">{t.financialHub.calcInputYears}</label>
                   <span className="text-gold-gradient font-bold text-lg">
                     {targetYears} {lang !== 'en' ? (targetYears === 1 ? 'سنة' : 'سنوات') : (targetYears === 1 ? 'Year' : 'Years')}
                   </span>
                 </div>
                 <input
+                  id="targetYearsSlider"
+                  aria-label={t.financialHub.calcInputYears}
                   type="range"
                   min={1}
                   max={5}
@@ -193,7 +197,7 @@ export const FinancialAccountingSection: React.FC<FinancialAccountingSectionProp
                   onChange={(e) => setTargetYears(Number(e.target.value))}
                   className="w-full h-2 bg-[#0D0D0D] rounded-lg appearance-none cursor-pointer accent-[#D4AF37]"
                 />
-                <div className="flex justify-between text-[11px] text-[#C0B7A6]/60 mt-1">
+                <div className="flex justify-between text-[11px] text-[#E2DACB] font-medium mt-1">
                   <span>1 {lang !== 'en' ? 'سنة' : 'Year'}</span>
                   <span>3 {lang !== 'en' ? 'سنوات' : 'Years'}</span>
                   <span>5 {lang !== 'en' ? 'سنوات' : 'Years'}</span>

@@ -1,0 +1,24 @@
+# robots.txt for MAYSORA Luxury Hajj, Umrah & Financial Advisory
+# https://www.maysoragroup.com/
+
+User-agent: Googlebot
+User-agent: Googlebot-Image
+User-agent: Bingbot
+User-agent: Applebot
+User-agent: *
+Allow: /
+Allow: /images/
+Allow: /#packages
+Allow: /#hotels
+Allow: /#services
+Allow: /#financial-hub
+Allow: /#faq
+Allow: /#contact
+
+# Disallow internal admin endpoints from crawler indexing
+Disallow: /#admin*
+Disallow: /#dashboard*
+
+# Host & Sitemaps
+Host: https://www.maysoragroup.com
+Sitemap: https://www.maysoragroup.com/sitemap.xml

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { Phone, Mail, MapPin, Clock, MessageSquare, CheckCircle2, Send, ShieldCheck } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, MessageSquare, CheckCircle2, Send, ShieldCheck, Loader2 } from 'lucide-react';
 import type { TranslationContent } from '../data/translations';
+import { submitLeadToGoogleSheets } from '../services/leadService';
+import { trackEvent } from '../services/analytics';
 
 interface ContactSectionProps {
   t: TranslationContent;
@@ -19,10 +21,27 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
     message: ''
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
+    
+    // Find service label
+    const selectedServiceObj = t.contact.serviceOptions.find((opt) => opt.value === formData.service);
+    const serviceLabel = selectedServiceObj ? selectedServiceObj.label : formData.service;
+
+    await submitLeadToGoogleSheets({
+      name: formData.name,
+      phone: formData.phone,
+      email: formData.email,
+      serviceOrPackage: serviceLabel,
+      messageOrNotes: formData.message,
+      source: 'Contact Section'
+    });
+
+    setIsSubmitting(false);
     setSubmitted(true);
     setTimeout(() => {
       setSubmitted(false);
@@ -31,10 +50,11 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
   };
 
   const handleWhatsAppRedirect = () => {
+    trackEvent('whatsapp_click', { location: 'contact_section' });
     const text = encodeURIComponent(
-      `السلام عليكم مكتب ميسورة، أود الاستفسار عن الخدمات الخاصة بكم (حج/عمرة/استشارات مالية).`
+      `السلام عليكم ورحمة الله، أود التواصل مع بشمهندس أحمد رمضان بخصوص خدمات ميسورة VIP (حج/عمرة/استشارات مالية).`
     );
-    window.open(`https://wa.me/966500000000?text=${text}`, '_blank');
+    window.open(`https://wa.me/201011860173?text=${text}`, '_blank');
   };
 
   return (
@@ -63,26 +83,66 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
           {/* Left Column: Direct Info & WhatsApp */}
           <div className="lg:col-span-5 space-y-6">
             
-            {/* Quick WhatsApp Direct Button */}
-            <div className="glass-gold-card rounded-3xl p-6 border-2 border-[#D4AF37]/40 bg-gradient-to-br from-[#1A1A1A] to-[#0D0D0D]">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-full bg-[#25D366]/20 flex items-center justify-center text-[#25D366]">
-                  <MessageSquare className="w-5 h-5" />
+            {/* Executive Direct Contact Card (بشمهندس أحمد رمضان) */}
+            <div className="glass-gold-card rounded-3xl p-6 border-2 border-[#D4AF37]/50 bg-gradient-to-br from-[#1C1810] via-[#141414] to-[#0D0D0D] relative overflow-hidden shadow-2xl">
+              <div className="absolute -top-12 -right-12 w-32 h-32 bg-[#D4AF37]/15 rounded-full blur-2xl pointer-events-none" />
+              
+              <div className="flex items-start justify-between gap-3 mb-4">
+                <div>
+                  <span className="text-[10px] uppercase font-bold tracking-widest text-[#D4AF37] bg-[#D4AF37]/10 px-2.5 py-1 rounded-full border border-[#D4AF37]/30 block w-fit mb-2">
+                    المستشار التنفيذي المباشر
+                  </span>
+                  <h3 className="text-xl font-bold text-[#F8F5F0] font-arabic-heading">
+                    {t.contact.executiveName || 'بشمهندس أحمد رمضان'}
+                  </h3>
+                  <p className="text-xs text-[#C0B7A6] font-light">
+                    {t.contact.executiveRole || 'المسؤول التنفيذي لخدمات كبار الشخصيات والشراكات'}
+                  </p>
                 </div>
-                <h3 className="text-lg font-bold text-[#F8F5F0]">
-                  {t.contact.whatsAppBtn}
-                </h3>
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#D4AF37] to-[#8C7335] flex items-center justify-center text-[#0D0D0D] font-bold text-lg shadow-md shrink-0">
+                  AR
+                </div>
               </div>
-              <p className="text-xs text-[#C0B7A6] mb-6 font-light leading-relaxed">
-                تحدث فوراً مع مستشار المشتريات والخدمات الخاصة لكبار الشخصيات عبر تطبيق WhatsApp على مدار الساعة.
-              </p>
-              <button
-                onClick={handleWhatsAppRedirect}
-                className="w-full py-3 rounded-full text-xs font-bold text-white bg-[#25D366] hover:bg-[#20ba5a] transition-colors shadow-lg flex items-center justify-center gap-2 cursor-pointer"
-              >
-                <MessageSquare className="w-4 h-4 fill-white" />
-                <span>فتح المحادثة الفورية في WhatsApp</span>
-              </button>
+
+              {/* Direct Phone Highlight */}
+              <div className="bg-[#0A0A0A]/90 rounded-2xl p-4 border border-[#D4AF37]/30 mb-5 flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-[#D4AF37]/15 flex items-center justify-center text-[#D4AF37]">
+                    <Phone className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] text-[#C0B7A6] block">رقم الاتصال المباشر والواتساب</span>
+                    <a
+                      href="tel:01011860173"
+                      className="text-lg font-bold text-[#FFF0B3] font-mono tracking-wider hover:text-[#D4AF37] transition-colors dir-ltr block"
+                    >
+                      01011860173
+                    </a>
+                  </div>
+                </div>
+                <span className="text-[10px] px-2 py-1 rounded bg-[#25D366]/15 text-[#25D366] font-semibold border border-[#25D366]/30">
+                  متاح 24/7
+                </span>
+              </div>
+
+              {/* Buttons Dual: Call & WhatsApp */}
+              <div className="grid grid-cols-2 gap-3">
+                <button
+                  type="button"
+                  onClick={handleWhatsAppRedirect}
+                  className="py-3 px-4 rounded-xl text-xs font-bold text-white bg-[#25D366] hover:bg-[#20ba5a] transition-all shadow-lg shadow-[#25D366]/20 flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  <MessageSquare className="w-4 h-4 fill-white" />
+                  <span>محادثة واتساب</span>
+                </button>
+                <a
+                  href="tel:01011860173"
+                  className="py-3 px-4 rounded-xl text-xs font-bold text-[#0D0D0D] bg-gold-gradient hover:brightness-110 transition-all shadow-lg shadow-[#D4AF37]/20 flex items-center justify-center gap-2 text-center"
+                >
+                  <Phone className="w-4 h-4" />
+                  <span>اتصال هاتفي</span>
+                </a>
+              </div>
             </div>
 
             {/* Office Info Details */}
@@ -93,7 +153,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                   <MapPin className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-[#F8F5F0] mb-1">المقر الرئيسي والأفراع</h4>
+                  <h4 className="text-sm font-bold text-[#F8F5F0] mb-1">المقر الرئيسي والأفرع</h4>
                   <p className="text-xs text-[#C0B7A6] leading-relaxed">
                     {t.contact.address}
                   </p>
@@ -106,10 +166,12 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                 </div>
                 <div>
                   <h4 className="text-sm font-bold text-[#F8F5F0] mb-1">{t.contact.callUs}</h4>
-                  <p className="text-xs text-[#C0B7A6] leading-relaxed">
-                    المملكة العربية السعودية: +966 11 800 9000
+                  <p className="text-xs text-[#C0B7A6] leading-relaxed space-y-1">
+                    <span>مباشر (مصر / دولي): <strong className="text-[#FFF0B3] font-mono">01011860173</strong> (بشمهندس أحمد رمضان)</span>
                     <br />
-                    الدولي / الإمارات: +971 4 800 9000
+                    <span>المملكة العربية السعودية: +966 11 800 9000</span>
+                    <br />
+                    <span>الدولي / الإمارات: +971 4 800 9000</span>
                   </p>
                 </div>
               </div>
@@ -120,7 +182,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                 </div>
                 <div>
                   <h4 className="text-sm font-bold text-[#F8F5F0] mb-1">البريد الإلكتروني المباشر</h4>
-                  <p className="text-xs text-[#C0B7A6]">vip@maysora.com | info@maysora.com</p>
+                  <p className="text-xs text-[#C0B7A6]">vip@maysoragroup.com | info@maysoragroup.com</p>
                 </div>
               </div>
 
@@ -159,10 +221,11 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   {/* Name */}
                   <div>
-                    <label className="block text-xs font-semibold text-[#F8F5F0] mb-2">
+                    <label htmlFor="contactFormName" className="block text-xs font-semibold text-[#F8F5F0] mb-2">
                       {t.contact.formName} *
                     </label>
                     <input
+                      id="contactFormName"
                       type="text"
                       required
                       value={formData.name}
@@ -174,10 +237,11 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
 
                   {/* Phone */}
                   <div>
-                    <label className="block text-xs font-semibold text-[#F8F5F0] mb-2">
+                    <label htmlFor="contactFormPhone" className="block text-xs font-semibold text-[#F8F5F0] mb-2">
                       {t.contact.formPhone} *
                     </label>
                     <input
+                      id="contactFormPhone"
                       type="tel"
                       required
                       value={formData.phone}
@@ -191,10 +255,11 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   {/* Email */}
                   <div>
-                    <label className="block text-xs font-semibold text-[#F8F5F0] mb-2">
+                    <label htmlFor="contactFormEmail" className="block text-xs font-semibold text-[#F8F5F0] mb-2">
                       {t.contact.formEmail} *
                     </label>
                     <input
+                      id="contactFormEmail"
                       type="email"
                       required
                       value={formData.email}
@@ -206,10 +271,12 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
 
                   {/* Service Selection */}
                   <div>
-                    <label className="block text-xs font-semibold text-[#F8F5F0] mb-2">
+                    <label htmlFor="contactFormService" className="block text-xs font-semibold text-[#F8F5F0] mb-2">
                       {t.contact.formService}
                     </label>
                     <select
+                      id="contactFormService"
+                      aria-label={t.contact.formService}
                       value={formData.service}
                       onChange={(e) => setFormData({ ...formData, service: e.target.value })}
                       className="w-full px-4 py-3 rounded-xl bg-[#0D0D0D] border border-[#D4AF37]/30 text-sm text-[#F8F5F0] focus:outline-none focus:border-[#D4AF37]"
@@ -225,10 +292,11 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
 
                 {/* Message */}
                 <div>
-                  <label className="block text-xs font-semibold text-[#F8F5F0] mb-2">
+                  <label htmlFor="contactFormMessage" className="block text-xs font-semibold text-[#F8F5F0] mb-2">
                     {t.contact.formMessage}
                   </label>
                   <textarea
+                    id="contactFormMessage"
                     rows={4}
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
@@ -240,10 +308,20 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                 {/* Submit Button */}
                 <button
                   type="submit"
-                  className="w-full py-4 rounded-full text-sm font-bold text-[#0D0D0D] bg-gold-gradient hover:brightness-110 shadow-xl shadow-[#D4AF37]/20 flex items-center justify-center gap-2 cursor-pointer transition-all"
+                  disabled={isSubmitting}
+                  className="w-full py-4 rounded-full text-sm font-bold text-[#0D0D0D] bg-gold-gradient hover:brightness-110 shadow-xl shadow-[#D4AF37]/20 flex items-center justify-center gap-2 cursor-pointer transition-all disabled:opacity-75 disabled:cursor-not-allowed"
                 >
-                  <Send className="w-4 h-4" />
-                  <span>{t.contact.formSubmit}</span>
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <span>جاري إرسال الطلب وحفظ البيانات...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-4 h-4" />
+                      <span>{t.contact.formSubmit}</span>
+                    </>
+                  )}
                 </button>
 
                 <div className="flex items-center justify-center gap-2 text-[11px] text-[#C0B7A6]/70 pt-2">

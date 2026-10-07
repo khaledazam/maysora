@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, PhoneCall } from 'lucide-react';
+import { Menu, X, PhoneCall, Lock } from 'lucide-react';
 import type { Language, TranslationContent } from '../data/translations';
 
 interface NavbarProps {
@@ -7,13 +7,15 @@ interface NavbarProps {
   setLang: (lang: Language) => void;
   t: TranslationContent;
   onOpenConsultationModal: () => void;
+  onOpenAdmin: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
   lang,
   setLang,
   t,
-  onOpenConsultationModal
+  onOpenConsultationModal,
+  onOpenAdmin
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -29,10 +31,11 @@ export const Navbar: React.FC<NavbarProps> = ({
   const navLinks = [
     { href: '#home', label: t.nav.home },
     { href: '#services', label: t.nav.services },
-    { href: '#why-us', label: t.nav.whyUs },
     { href: '#packages', label: t.nav.packages },
+    { href: '#hotels', label: lang === 'en' ? 'Hotels & Suites' : 'فنادق الحرم' },
+    { href: '#journey', label: t.nav.timeline },
     { href: '#financial-hub', label: t.nav.financial },
-    { href: '#testimonials', label: t.nav.testimonials },
+    { href: '#faq', label: t.nav.faq },
     { href: '#contact', label: t.nav.contact },
   ];
 
@@ -47,11 +50,18 @@ export const Navbar: React.FC<NavbarProps> = ({
           <a href="#home" className="flex items-center gap-3 group">
             <div className="relative w-11 h-11 rounded-full p-[1px] bg-gradient-to-r from-[#D4AF37] via-[#FFF0B3] to-[#9A7B1C] shadow-lg shadow-[#D4AF37]/20 group-hover:scale-105 transition-transform">
               <div className="w-full h-full bg-[#0D0D0D] rounded-full flex items-center justify-center overflow-hidden">
-                <img 
-                  src="/images/logo.jpg" 
-                  alt="MAYSORA Logo" 
-                  className="w-full h-full object-cover"
-                />
+                <picture>
+                  <source srcSet="/images/logo.webp" type="image/webp" />
+                  <img 
+                    src="/images/logo.jpg" 
+                    alt="MAYSORA Logo" 
+                    width={44}
+                    height={44}
+                    loading="eager"
+                    decoding="async"
+                    className="w-full h-full object-cover"
+                  />
+                </picture>
               </div>
             </div>
             <div className="flex flex-col">
@@ -65,12 +75,12 @@ export const Navbar: React.FC<NavbarProps> = ({
           </a>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden xl:flex items-center gap-6">
+          <nav className="hidden xl:flex items-center gap-4 2xl:gap-5">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium text-[#F8F5F0]/80 hover:text-[#D4AF37] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-[#D4AF37] after:scale-x-0 hover:after:scale-x-100 after:transition-transform"
+                className="text-xs 2xl:text-sm font-medium text-[#F8F5F0]/80 hover:text-[#D4AF37] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-[#D4AF37] after:scale-x-0 hover:after:scale-x-100 after:transition-transform"
               >
                 {link.label}
               </a>
@@ -94,7 +104,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }`}
                 title="تغيير اللهجة للسعودية"
               >
-                <span>🇸🇦</span>
+                <span className="font-mono text-[10px] tracking-wider font-bold opacity-75">SA</span>
                 <span>لهجة سعودية</span>
               </button>
 
@@ -123,7 +133,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }`}
                 title="Switch Language to English"
               >
-                <span>🇬🇧</span>
+                <span className="font-mono text-[10px] tracking-wider font-bold opacity-75">EN</span>
                 <span>English</span>
               </button>
             </div>
@@ -135,6 +145,17 @@ export const Navbar: React.FC<NavbarProps> = ({
             >
               <PhoneCall className="w-3.5 h-3.5" />
               <span>{t.nav.bookConsultation}</span>
+            </button>
+
+            {/* Admin Portal Entry */}
+            <button
+              type="button"
+              onClick={onOpenAdmin}
+              className="p-2 rounded-full bg-black/60 border border-white/10 hover:border-[#D4AF37]/50 text-[#C0B7A6] hover:text-[#D4AF37] transition-all cursor-pointer"
+              title="بوابة دخول الإدارة (Admin Login)"
+              aria-label="تسجيل دخول الإدارة"
+            >
+              <Lock className="w-3.5 h-3.5" />
             </button>
           </div>
 
@@ -149,15 +170,9 @@ export const Navbar: React.FC<NavbarProps> = ({
                 title="تبديل اللغة / Switch Language"
               >
                 {lang === 'ar-sa' ? (
-                  <>
-                    <span>🇬🇧</span>
-                    <span>English</span>
-                  </>
+                  <span>English</span>
                 ) : (
-                  <>
-                    <span>🇸🇦</span>
-                    <span>سعودي</span>
-                  </>
+                  <span>سعودي</span>
                 )}
               </button>
             </div>
@@ -190,13 +205,13 @@ export const Navbar: React.FC<NavbarProps> = ({
                   setLang('ar-sa');
                   setMobileMenuOpen(false);
                 }}
-                className={`py-2 px-2 rounded-xl text-xs font-bold transition-all flex flex-col items-center justify-center gap-1 cursor-pointer ${
+                className={`py-2.5 px-2 rounded-xl text-xs font-bold transition-all flex flex-col items-center justify-center gap-1 cursor-pointer ${
                   lang === 'ar-sa'
                     ? 'bg-gold-gradient text-[#0D0D0D] shadow-md'
                     : 'bg-black/50 border border-[#D4AF37]/20 text-[#F8F5F0]'
                 }`}
               >
-                <span className="text-base">🇸🇦</span>
+                <span className="font-mono text-xs font-bold text-[#D4AF37]">SA</span>
                 <span>لهجة سعودية</span>
               </button>
 
@@ -206,13 +221,13 @@ export const Navbar: React.FC<NavbarProps> = ({
                   setLang('ar');
                   setMobileMenuOpen(false);
                 }}
-                className={`py-2 px-2 rounded-xl text-xs font-bold transition-all flex flex-col items-center justify-center gap-1 cursor-pointer ${
+                className={`py-2.5 px-2 rounded-xl text-xs font-bold transition-all flex flex-col items-center justify-center gap-1 cursor-pointer ${
                   lang === 'ar'
                     ? 'bg-gold-gradient text-[#0D0D0D] shadow-md'
                     : 'bg-black/50 border border-[#D4AF37]/20 text-[#F8F5F0]'
                 }`}
               >
-                <span className="text-base">🌐</span>
+                <span className="font-mono text-xs font-bold text-[#D4AF37]">AR</span>
                 <span>عربية فصحى</span>
               </button>
 
@@ -222,13 +237,13 @@ export const Navbar: React.FC<NavbarProps> = ({
                   setLang('en');
                   setMobileMenuOpen(false);
                 }}
-                className={`py-2 px-2 rounded-xl text-xs font-bold transition-all flex flex-col items-center justify-center gap-1 cursor-pointer ${
+                className={`py-2.5 px-2 rounded-xl text-xs font-bold transition-all flex flex-col items-center justify-center gap-1 cursor-pointer ${
                   lang === 'en'
                     ? 'bg-gold-gradient text-[#0D0D0D] shadow-md'
                     : 'bg-black/50 border border-[#D4AF37]/20 text-[#F8F5F0]'
                 }`}
               >
-                <span className="text-base">🇬🇧</span>
+                <span className="font-mono text-xs font-bold text-[#D4AF37]">EN</span>
                 <span>English</span>
               </button>
             </div>
@@ -254,6 +269,18 @@ export const Navbar: React.FC<NavbarProps> = ({
                 className="w-full py-3 rounded-full text-sm font-bold text-[#0D0D0D] bg-gold-gradient text-center shadow-lg cursor-pointer"
               >
                 {t.nav.bookConsultation}
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onOpenAdmin();
+                }}
+                className="w-full py-2.5 rounded-full text-xs font-semibold text-[#C0B7A6] hover:text-[#D4AF37] bg-white/5 border border-white/10 flex items-center justify-center gap-2 cursor-pointer transition-colors"
+              >
+                <Lock className="w-3.5 h-3.5" />
+                <span>بوابة دخول الإدارة (Admin)</span>
               </button>
             </div>
           </div>
