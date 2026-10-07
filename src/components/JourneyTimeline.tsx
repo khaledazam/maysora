@@ -4,13 +4,12 @@ import type { Language, TranslationContent } from '../data/translations';
 interface JourneyTimelineProps {
   lang: Language;
   t: TranslationContent;
-  onOpenConsultationModal: () => void;
+  onOpenConsultationModal?: () => void;
 }
 
 export const JourneyTimeline: React.FC<JourneyTimelineProps> = ({
   lang,
-  t,
-  onOpenConsultationModal
+  t
 }) => {
   const isRtl = lang !== 'en';
 
@@ -73,14 +72,13 @@ export const JourneyTimeline: React.FC<JourneyTimelineProps> = ({
 
         {/* Action Callout */}
         <div className="mt-16 text-center">
-          <button
-            type="button"
-            onClick={onOpenConsultationModal}
+          <a
+            href="#packages"
             className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-xs font-bold text-[#0D0D0D] bg-gold-gradient hover:brightness-110 shadow-xl shadow-[#D4AF37]/20 cursor-pointer transition-all"
           >
-            <span>{t.nav.bookConsultation}</span>
+            <span>{t.packages.bookNow}</span>
             {isRtl ? <ArrowLeft className="w-4 h-4" /> : <ArrowRight className="w-4 h-4" />}
-          </button>
+          </a>
         </div>
 
       </div>

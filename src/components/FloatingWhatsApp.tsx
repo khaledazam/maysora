@@ -12,13 +12,13 @@ export const FloatingWhatsApp: React.FC<FloatingWhatsAppProps> = ({ lang }) => {
 
   const handleWhatsAppClick = () => {
     trackEvent('whatsapp_click', { location: 'floating_button', lang });
-    let text = 'السلام عليكم، أود التواصل مع مستشار ميسورة للخدمات الخاصة.';
+    let text = 'السلام عليكم، أود التواصل مع فريق ميسورة لخدمات الحج والعمرة الملكية.';
     if (lang === 'ar-eg') {
-      text = 'مساء الخير، حابب أستفسر عن خدمات ميسورة لباقات الحج والعمرة والاستشارات الخاصة.';
+      text = 'مساء الخير، حابب أستفسر عن خدمات ميسورة لباقات الحج والعمرة الفاخرة.';
     } else if (lang === 'ar-sa') {
-      text = 'السلام عليكم، حيّاك الله.. حاب أستفسر عن خدمات ميسورة الخاصة للحج والعمرة والاستشارات المالية.';
+      text = 'السلام عليكم، حيّاك الله.. حاب أستفسر عن خدمات ميسورة الخاصة للحج والعمرة وباقات النخبة VIP.';
     } else if (isEn) {
-      text = 'Hello MAYSORA VIP Concierge, I would like to inquire about your private pilgrimage and wealth advisory services.';
+      text = 'Hello MAYSORA VIP Concierge, I would like to inquire about your bespoke royal pilgrimage packages and VIP suites.';
     }
     window.open(`https://wa.me/201011860173?text=${encodeURIComponent(text)}`, '_blank');
   };

@@ -39,7 +39,7 @@ export const PackagePricingManager: React.FC<PackagePricingManagerProps> = ({ on
     duration: '10 أيام / 9 ليالٍ',
     hotel: 'فندق العنوان جبل عمر مكة المكرمة',
     flight: 'طيران درجة رجال الأعمال',
-    financialPerk: 'استشارة محاسبية وزكوية مجانية',
+    financialPerk: 'خدمة كونسيرج وتصاريح نسك VIP',
     badge: 'باقة جديدة خاصة',
     isAvailable: true,
     features: [
@@ -120,7 +120,7 @@ export const PackagePricingManager: React.FC<PackagePricingManagerProps> = ({ on
       duration: '10 أيام / 9 ليالٍ',
       hotel: 'فندق العنوان جبل عمر مكة المكرمة',
       flight: 'طيران درجة رجال الأعمال',
-      financialPerk: 'استشارة محاسبية وزكوية مجانية',
+      financialPerk: 'خدمة كونسيرج وتصاريح نسك VIP',
       badge: 'باقة جديدة خاصة',
       isAvailable: true,
       features: [
@@ -141,7 +141,7 @@ export const PackagePricingManager: React.FC<PackagePricingManagerProps> = ({ on
           <div className="space-y-2">
             <div className="flex items-center gap-2">
               <span className="text-[11px] font-bold tracking-widest text-[#D4AF37] uppercase bg-[#D4AF37]/15 px-3 py-1 rounded-full border border-[#D4AF37]/30">
-                لوحة التحكم المالية • PACKAGES PRICING HUB
+                لوحة إدارة الباقات والأسعار • PACKAGES PRICING HUB
               </span>
               <span className="text-[11px] text-[#25D366] bg-[#25D366]/10 px-2.5 py-0.5 rounded-full border border-[#25D366]/30 font-semibold flex items-center gap-1">
                 <span className="w-2 h-2 rounded-full bg-[#25D366] animate-pulse" />
@@ -340,7 +340,7 @@ export const PackagePricingManager: React.FC<PackagePricingManagerProps> = ({ on
                   </div>
 
                   <div>
-                    <label className="text-[10px] text-[#A0937D] block mb-1">الميزة المالية المرفقة:</label>
+                    <label className="text-[10px] text-[#A0937D] block mb-1">ميزة الكونسيرج المرفقة:</label>
                     <div className="flex items-center gap-2 bg-[#0D0D0D] px-3 py-2 rounded-xl border border-white/5">
                       <ShieldCheck className="w-4 h-4 text-[#D4AF37] shrink-0" />
                       <input
@@ -468,12 +468,12 @@ export const PackagePricingManager: React.FC<PackagePricingManagerProps> = ({ on
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-[#F8F5F0] mb-1">الميزة المالية المرفقة</label>
+                <label className="block text-xs font-semibold text-[#F8F5F0] mb-1">ميزة الكونسيرج المرفقة</label>
                 <input
                   type="text"
                   value={newPackage.financialPerk}
                   onChange={(e) => setNewPackage({ ...newPackage, financialPerk: e.target.value })}
-                  placeholder="استشارة زكوية وتخطيط مالي مجاني"
+                  placeholder="تصاريح نسك رسمية وخدمة كونسيرج 24/7"
                   className="w-full px-4 py-2.5 rounded-xl bg-[#0D0D0D] border border-white/10 text-xs text-[#F8F5F0] focus:outline-none focus:border-[#D4AF37]"
                 />
               </div>

@@ -42,7 +42,7 @@ export interface StaffMember {
 export const ROLE_PRESETS: Record<StaffRole, { label: string; description: string; permissions: StaffPermissions }> = {
   super_admin: {
     label: 'مدير عام (Super Admin)',
-    description: 'كامل الصلاحيات الإدارية والمالية وإدارة الموظفين والربط السحابي',
+    description: 'كامل الصلاحيات الإدارية والتشغيلية وإدارة الموظفين والربط السحابي',
     permissions: {
       canViewBookings: true,
       canEditBookings: true,
@@ -105,8 +105,8 @@ export const ROLE_PRESETS: Record<StaffRole, { label: string; description: strin
     },
   },
   financial_consultant: {
-    label: 'مستشار مالي ومحاسبي',
-    description: 'مراجعة الاستشارات المالية والزكوية وتقارير العملاء وتصدير البيانات',
+    label: 'مشرف كونسيرج وضيافة VIP',
+    description: 'متابعة حجوزات كبار الشخصيات وترتيب الخدمات الخاصة وتصدير التقارير',
     permissions: {
       canViewBookings: true,
       canEditBookings: false,
@@ -168,18 +168,18 @@ export const DEFAULT_STAFF: StaffMember[] = [
     lastLogin: '2026-10-06T11:30:00.000Z',
   },
   {
-    id: 'staff-sarah',
-    name: 'سارة المنصور',
-    email: 'sarah.m@maysoragroup.com',
-    phone: '+966501234567',
+    id: 'staff-souma-shaaban',
+    name: 'أستاذة سومة شعبان',
+    email: 'souma.shaaban@maysoragroup.com',
+    phone: '01017776863',
     password: 'Maysora@2026',
-    title: 'أخصائية حجوزات الحج والعمرة',
+    title: 'مسؤولة خدمة العملاء والتنسيق',
     department: 'قسم الحجوزات والعمليات',
     role: 'bookings_officer',
     permissions: ROLE_PRESETS.bookings_officer.permissions,
     isActive: true,
     createdAt: '2026-03-01T00:00:00.000Z',
-    lastLogin: '2026-10-05T09:15:00.000Z',
+    lastLogin: '2026-10-07T12:00:00.000Z',
   },
   {
     id: 'staff-omar',
@@ -187,8 +187,8 @@ export const DEFAULT_STAFF: StaffMember[] = [
     email: 'omar.f@maysoragroup.com',
     phone: '+966559876543',
     password: 'Maysora@2026',
-    title: 'مستشار مالي وإدارة أوقاف',
-    department: 'قسم الاستشارات المالية والزكاة',
+    title: 'مشرف علاقات كبار الشخصيات',
+    department: 'قسم الضيافة والكونسيرج VIP',
     role: 'financial_consultant',
     permissions: ROLE_PRESETS.financial_consultant.permissions,
     isActive: true,

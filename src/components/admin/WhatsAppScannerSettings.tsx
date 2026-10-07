@@ -76,7 +76,7 @@ export const WhatsAppScannerSettings: React.FC<WhatsAppScannerSettingsProps> = (
   const [testRecipientPhone, setTestRecipientPhone] = useState<string>('01011860173');
   const [selectedTemplate, setSelectedTemplate] = useState<string>('welcome');
   const [customTestMessage, setCustomTestMessage] = useState<string>(
-    'السلام عليكم ورحمة الله، مرحباً بكم في ميسورة لخدمات الحج والعمرة الفاخرة والاستشارات المالية. يسعدنا رعاية كافة تفاصيل رحلتكم.'
+    'السلام عليكم ورحمة الله، مرحباً بكم في ميسورة لخدمات الحج والعمرة الفاخرة والكونسيرج الملكي. يسعدنا رعاية كافة تفاصيل رحلتكم.'
   );
   const [isSendingTest, setIsSendingTest] = useState<boolean>(false);
   const [testSentSuccess, setTestSentSuccess] = useState<boolean>(false);
@@ -289,7 +289,7 @@ export const WhatsAppScannerSettings: React.FC<WhatsAppScannerSettingsProps> = (
     setSelectedTemplate(tmpl);
     if (tmpl === 'welcome') {
       setCustomTestMessage(
-        'السلام عليكم ورحمة الله، مرحباً بكم في ميسورة لخدمات الحج والعمرة الفاخرة والاستشارات المالية. يسعدنا رعاية كافة تفاصيل رحلتكم.'
+        'السلام عليكم ورحمة الله، مرحباً بكم في ميسورة لخدمات الحج والعمرة الفاخرة والكونسيرج الملكي. يسعدنا رعاية كافة تفاصيل رحلتكم.'
       );
     } else if (tmpl === 'booking_confirm') {
       setCustomTestMessage(

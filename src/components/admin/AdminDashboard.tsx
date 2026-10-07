@@ -21,12 +21,12 @@ import {
   Award,
   Palmtree,
   Briefcase,
-  FileText,
   UserCheck,
   Tag,
   QrCode,
   ShieldCheck,
-  Hotel
+  Hotel,
+  Crown
 } from 'lucide-react';
 import { WhatsAppScannerSettings } from './WhatsAppScannerSettings';
 import { PackagePricingManager } from './PackagePricingManager';
@@ -384,7 +384,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToSite, on
     umrah: { label: 'عمرة VIP', icon: Building, color: 'text-emerald-300', bg: 'bg-emerald-950/40 border-emerald-500/30' },
     luxury_tourism: { label: 'سياحة وترفيه عالمي', icon: Palmtree, color: 'text-cyan-300', bg: 'bg-cyan-950/40 border-cyan-500/30' },
     business_travel: { label: 'رحلة عمل واستثمار', icon: Briefcase, color: 'text-indigo-300', bg: 'bg-indigo-950/40 border-indigo-500/30' },
-    financial_advisory: { label: 'استشارات مالية وزكاة', icon: FileText, color: 'text-purple-300', bg: 'bg-purple-950/40 border-purple-500/30' },
+    financial_advisory: { label: 'كونسيرج وخدمات خاصة', icon: Crown, color: 'text-purple-300', bg: 'bg-purple-950/40 border-purple-500/30' },
   };
 
   const tierConfig: Record<ClientProfile['tier'], { label: string; badge: string; border: string }> = {
@@ -397,7 +397,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToSite, on
   const getWhatsAppLink = (phone: string, name: string) => {
     const cleanPhone = phone.replace(/[^0-9]/g, '');
     const message = encodeURIComponent(
-      `السلام عليكم ورحمة الله وبركاته، سعادة ${name} المحترم.\nمعكم مكتب ميسورة لخدمات الحج والعمرة الفاخرة والاستشارات والسياحة العالمية. نسعد بتواصلكم ونود متابعة تفاصيل رحلتكم وتقديم أرقى التسهيلات لكريمتكم.`
+      `السلام عليكم ورحمة الله وبركاته، سعادة ${name} المحترم.\nمعكم مكتب ميسورة لخدمات الحج والعمرة الفاخرة والكونسيرج والسياحة الملكية. نسعد بتواصلكم ونود متابعة تفاصيل رحلتكم وتقديم أرقى التسهيلات لكريمتكم.`
     );
     return `https://wa.me/${cleanPhone}?text=${message}`;
   };
@@ -951,7 +951,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToSite, on
                   <option value="umrah">عمرة VIP</option>
                   <option value="luxury_tourism">سياحة وترفيه عالمي</option>
                   <option value="business_travel">رحلات عمل واستثمار</option>
-                  <option value="financial_advisory">استشارات وزكاة</option>
+                  <option value="financial_advisory">كونسيرج وخدمات خاصة</option>
                 </select>
               </div>
 
@@ -1541,7 +1541,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToSite, on
                     <option value="hajj">باقة حج ملكي VIP</option>
                     <option value="umrah">عمرة VIP فاخرة</option>
                     <option value="business_travel">رحلة عمل واستثمار</option>
-                    <option value="financial_advisory">استشارات مالية وحوكمة</option>
+                    <option value="financial_advisory">كونسيرج ملكي وخدمات خاصة</option>
                   </select>
                 </div>
 
@@ -1731,7 +1731,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToSite, on
                     <option value="umrah">عمرة VIP</option>
                     <option value="luxury_tourism">سياحة وترفيه عالمي</option>
                     <option value="business_travel">رحلات عمل واستثمار</option>
-                    <option value="financial_advisory">استشارات مالية وزكاة</option>
+                    <option value="financial_advisory">كونسيرج وخدمات خاصة</option>
                   </select>
                 </div>
 
@@ -1898,7 +1898,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToSite, on
                     <option value="hajj">حج ملكي فاخر</option>
                     <option value="luxury_tourism">سياحة وترفيه عالمي فاخر</option>
                     <option value="business_travel">رحلات عمل واستثمار</option>
-                    <option value="financial_advisory">استشارات وزكاة</option>
+                    <option value="financial_advisory">كونسيرج وخدمات خاصة</option>
                   </select>
                 </div>
 

@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, PhoneCall, Lock } from 'lucide-react';
+import { Menu, X, Lock } from 'lucide-react';
 import type { Language, TranslationContent } from '../data/translations';
 
 interface NavbarProps {
   lang: Language;
   setLang: (lang: Language) => void;
   t: TranslationContent;
-  onOpenConsultationModal: () => void;
   onOpenAdmin: () => void;
 }
 
@@ -14,7 +13,6 @@ export const Navbar: React.FC<NavbarProps> = ({
   lang,
   setLang,
   t,
-  onOpenConsultationModal,
   onOpenAdmin
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -34,7 +32,6 @@ export const Navbar: React.FC<NavbarProps> = ({
     { href: '#packages', label: t.nav.packages },
     { href: '#hotels', label: lang === 'en' ? 'Hotels & Suites' : 'فنادق الحرم' },
     { href: '#journey', label: t.nav.timeline },
-    { href: '#financial-hub', label: t.nav.financial },
     { href: '#faq', label: t.nav.faq },
     { href: '#contact', label: t.nav.contact },
   ];
@@ -69,7 +66,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 MAYSORA
               </span>
               <span className="text-[10px] sm:text-[11px] text-[#C0B7A6] tracking-widest font-light">
-                {lang === 'en' ? 'EST. LUXURY & FINANCE' : (lang === 'ar-sa' ? 'مكتب ميسورة • نخبة الحج والمال' : 'مكتب ميسورة')}
+                {lang === 'en' ? 'EST. ROYAL PILGRIMAGE & CONCIERGE' : (lang === 'ar-sa' ? 'مكتب ميسورة • ضيافة الحج الفاخرة' : 'مكتب ميسورة • ضيافة الحج والعمرة الفاخرة')}
               </span>
             </div>
           </a>
@@ -93,7 +90,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Language & Dialect Switcher Segmented Bar */}
             <div className="flex items-center p-1 rounded-full bg-black/60 border border-[#D4AF37]/35 backdrop-blur-md shadow-inner text-xs">
               
-              {/* Egyptian Dialect Button (Default) */}
+              {/* Arabic Button (Default Egyptian) */}
               <button
                 type="button"
                 onClick={() => setLang('ar-eg')}
@@ -102,10 +99,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                     ? 'bg-gold-gradient text-[#0D0D0D] shadow-md font-bold'
                     : 'text-[#C0B7A6] hover:text-[#D4AF37]'
                 }`}
-                title="تغيير اللهجة للمصرية (الافتراضية)"
+                title="العربي (الافتراضي)"
               >
                 <span className="font-mono text-[10px] tracking-wider font-bold opacity-75">EG</span>
-                <span>لهجة مصرية</span>
+                <span>عربي</span>
               </button>
 
               {/* Saudi Dialect Button */}
@@ -123,20 +120,6 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <span>لهجة سعودية</span>
               </button>
 
-              {/* Standard Arabic Button */}
-              <button
-                type="button"
-                onClick={() => setLang('ar')}
-                className={`px-2.5 py-1.5 rounded-full font-semibold transition-all flex items-center gap-1 cursor-pointer ${
-                  lang === 'ar'
-                    ? 'bg-gold-gradient text-[#0D0D0D] shadow-md font-bold'
-                    : 'text-[#C0B7A6] hover:text-[#D4AF37]'
-                }`}
-                title="العربية (الفصحى)"
-              >
-                <span>فصحى</span>
-              </button>
-
               {/* English Switch Button */}
               <button
                 type="button"
@@ -152,15 +135,6 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <span>English</span>
               </button>
             </div>
-
-            {/* Free Consultation CTA */}
-            <button
-              onClick={onOpenConsultationModal}
-              className="relative group overflow-hidden px-4.5 py-2.5 rounded-full text-xs font-bold text-[#0D0D0D] bg-gold-gradient hover:brightness-110 transition-all shadow-md shadow-[#D4AF37]/20 flex items-center gap-2 cursor-pointer shrink-0"
-            >
-              <PhoneCall className="w-3.5 h-3.5" />
-              <span>{t.nav.bookConsultation}</span>
-            </button>
 
             {/* Admin Portal Entry */}
             <button
@@ -213,7 +187,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <span className="text-xs text-[#C0B7A6] font-medium mb-2.5 block">
               {lang === 'en' ? 'Language & Dialect / لغة الموقع واللهجة:' : 'اختر لغة الموقع واللهجة:'}
             </span>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            <div className="grid grid-cols-3 gap-2">
               <button
                 type="button"
                 onClick={() => {
@@ -227,7 +201,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }`}
               >
                 <span className="font-mono text-xs font-bold text-[#D4AF37]">EG</span>
-                <span>لهجة مصرية</span>
+                <span>عربي</span>
               </button>
 
               <button
@@ -244,22 +218,6 @@ export const Navbar: React.FC<NavbarProps> = ({
               >
                 <span className="font-mono text-xs font-bold text-[#D4AF37]">SA</span>
                 <span>لهجة سعودية</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => {
-                  setLang('ar');
-                  setMobileMenuOpen(false);
-                }}
-                className={`py-2.5 px-2 rounded-xl text-xs font-bold transition-all flex flex-col items-center justify-center gap-1 cursor-pointer ${
-                  lang === 'ar'
-                    ? 'bg-gold-gradient text-[#0D0D0D] shadow-md'
-                    : 'bg-black/50 border border-[#D4AF37]/20 text-[#F8F5F0]'
-                }`}
-              >
-                <span className="font-mono text-xs font-bold text-[#D4AF37]">AR</span>
-                <span>عربية فصحى</span>
               </button>
 
               <button
@@ -292,15 +250,6 @@ export const Navbar: React.FC<NavbarProps> = ({
               </a>
             ))}
             <div className="pt-4 border-t border-[#D4AF37]/20 flex flex-col gap-3">
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onOpenConsultationModal();
-                }}
-                className="w-full py-3 rounded-full text-sm font-bold text-[#0D0D0D] bg-gold-gradient text-center shadow-lg cursor-pointer"
-              >
-                {t.nav.bookConsultation}
-              </button>
 
               <button
                 type="button"

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plane, Landmark, Calculator, CheckCircle2, ChevronRight, ChevronLeft, X } from 'lucide-react';
+import { Plane, Crown, CheckCircle2, ChevronRight, ChevronLeft, X } from 'lucide-react';
 import type { Language, TranslationContent } from '../data/translations';
 
 interface ServicesSectionProps {
@@ -30,25 +30,14 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
     },
     {
       id: 2,
-      key: 'financial-consulting',
-      icon: Landmark,
+      key: 'vip-concierge',
+      icon: Crown,
       title: t.services.finTitle,
       desc: t.services.finDesc,
       features: t.services.finFeatures,
-      image: '/images/fin_consult.jpg',
-      webp: '/images/fin_consult.webp',
+      image: '/images/648211000.jpg.jpeg',
+      webp: '/images/648211000.jpg.jpeg',
       accentColor: 'from-[#FFF0B3] to-[#D4AF37]'
-    },
-    {
-      id: 3,
-      key: 'accounting-zakat',
-      icon: Calculator,
-      title: t.services.accTitle,
-      desc: t.services.accDesc,
-      features: t.services.accFeatures,
-      image: '/images/hero_bg.jpg',
-      webp: '/images/hero_bg.webp',
-      accentColor: 'from-[#D4AF37] to-[#9A7B1C]'
     }
   ];
 
@@ -72,8 +61,8 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
           </p>
         </div>
 
-        {/* 3 Luxury Service Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* Luxury Service Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 max-w-5xl mx-auto gap-8">
           {servicesData.map((service) => {
             const IconComponent = service.icon;
             return (

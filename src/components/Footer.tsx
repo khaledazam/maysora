@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShieldCheck, Award, Lock, ExternalLink, Phone } from 'lucide-react';
+import { ShieldCheck, Award, Lock, Phone, MapPin } from 'lucide-react';
 import type { Language, TranslationContent } from '../data/translations';
 
 interface FooterProps {
@@ -35,6 +35,14 @@ export const Footer: React.FC<FooterProps> = ({ t }) => {
               {t.footer.tagline}
             </p>
 
+            <a
+              href="#contact"
+              className="flex items-start gap-2 text-xs text-[#FFF0B3] hover:text-[#D4AF37] transition-colors group"
+            >
+              <MapPin className="w-4 h-4 text-[#D4AF37] shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
+              <span className="leading-relaxed">مدينة برج العرب الجديدة، حوض سكرة وأبو حمد، الإسكندرية</span>
+            </a>
+
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#D4AF37]/10 border border-[#D4AF37]/25 text-[11px] text-[#FFF0B3]">
               <ShieldCheck className="w-3.5 h-3.5 text-[#D4AF37]" />
               <span>{t.footer.shariahBadge}</span>
@@ -60,9 +68,6 @@ export const Footer: React.FC<FooterProps> = ({ t }) => {
                 <a href="#packages" className="hover:text-[#D4AF37] transition-colors">{t.nav.packages}</a>
               </li>
               <li>
-                <a href="#financial-hub" className="hover:text-[#D4AF37] transition-colors">{t.nav.financial}</a>
-              </li>
-              <li>
                 <a href="#contact" className="hover:text-[#D4AF37] transition-colors">{t.nav.contact}</a>
               </li>
             </ul>
@@ -76,8 +81,7 @@ export const Footer: React.FC<FooterProps> = ({ t }) => {
             <ul className="space-y-2.5 text-xs">
               <li className="hover:text-[#D4AF37] transition-colors">{t.services.hajjTitle}</li>
               <li className="hover:text-[#D4AF37] transition-colors">{t.services.finTitle}</li>
-              <li className="hover:text-[#D4AF37] transition-colors">{t.services.accTitle}</li>
-              <li className="hover:text-[#D4AF37] transition-colors">إدارة الأوقاف والاستشارات الزكوية</li>
+              <li className="hover:text-[#D4AF37] transition-colors">حجز أجنحة فندق الصفوة رويال أوركيد</li>
               <li className="hover:text-[#D4AF37] transition-colors">طيران خاص وخدمات كونسيرج 24/7</li>
             </ul>
           </div>
@@ -93,21 +97,28 @@ export const Footer: React.FC<FooterProps> = ({ t }) => {
                 <span>مرخص من وزارة الحج والعمرة برقم VIP-9920</span>
               </div>
               <div className="flex items-center gap-2 text-[#C0B7A6]">
-                <Lock className="w-4 h-4 text-[#D4AF37]" />
-                <span>إعداد الزكاة وفق متطلبات هيئة الزكاة والضريبة (ZATCA)</span>
+                <ShieldCheck className="w-4 h-4 text-[#D4AF37]" />
+                <span>شراكة ضيافة معتمدة مع أجنحة الحرم الفاخرة</span>
               </div>
               <div className="flex items-center gap-2 text-[#C0B7A6]">
-                <ExternalLink className="w-4 h-4 text-[#D4AF37]" />
-                <span>عضوية الهيئة السعودية للمراجعين والمحاسبين</span>
+                <Lock className="w-4 h-4 text-[#D4AF37]" />
+                <span>حماية وخصوصية تامة لبيانات كبار الشخصيات VIP</span>
               </div>
-              <div className="pt-2 border-t border-white/10 mt-3">
-                <span className="text-[11px] text-[#C0B7A6] block mb-1">المستشار التنفيذي المباشر:</span>
+              <div className="pt-2 border-t border-white/10 mt-3 space-y-1.5">
+                <span className="text-[11px] text-[#C0B7A6] block mb-1">فريق التواصل والمستشارين:</span>
                 <a
                   href="tel:01011860173"
-                  className="inline-flex items-center gap-2 text-xs font-bold text-[#FFF0B3] hover:text-[#D4AF37] transition-colors"
+                  className="flex items-center gap-2 text-xs font-bold text-[#FFF0B3] hover:text-[#D4AF37] transition-colors"
                 >
-                  <Phone className="w-3.5 h-3.5 text-[#25D366]" />
-                  <span>بشمهندس أحمد رمضان: 01011860173</span>
+                  <Phone className="w-3.5 h-3.5 text-[#25D366] shrink-0" />
+                  <span>المهندس أحمد رمضان: <span className="font-mono">01011860173</span></span>
+                </a>
+                <a
+                  href="tel:01017776863"
+                  className="flex items-center gap-2 text-xs font-bold text-[#FFF0B3] hover:text-[#D4AF37] transition-colors"
+                >
+                  <Phone className="w-3.5 h-3.5 text-[#25D366] shrink-0" />
+                  <span>الأستاذة سومة شعبان: <span className="font-mono">01017776863</span></span>
                 </a>
               </div>
             </div>

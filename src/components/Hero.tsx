@@ -6,14 +6,12 @@ interface HeroProps {
   lang: Language;
   t: TranslationContent;
   onOpenBookingModal: () => void;
-  onOpenConsultationModal: () => void;
 }
 
 export const Hero: React.FC<HeroProps> = ({
   lang,
   t,
-  onOpenBookingModal,
-  onOpenConsultationModal
+  onOpenBookingModal
 }) => {
   const isRtl = lang !== 'en';
 
@@ -64,7 +62,7 @@ export const Hero: React.FC<HeroProps> = ({
                 <source srcSet="/images/logo.webp" type="image/webp" />
                 <img
                   src="/images/logo.jpg"
-                  alt={isRtl ? "شعار مكتب ميسورة لخدمات الحج والعمرة الفاخرة والاستشارات المالية" : "MAYSORA Luxury Hajj & Umrah Concierge Logo"}
+                  alt={isRtl ? "شعار مكتب ميسورة لخدمات الحج والعمرة الفاخرة والكونسيرج الملكي" : "MAYSORA Luxury Hajj & Umrah Concierge Logo"}
                   width={112}
                   height={112}
                   loading="eager"
@@ -92,10 +90,10 @@ export const Hero: React.FC<HeroProps> = ({
         </p>
 
         {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mb-16">
+        <div className="flex items-center justify-center mb-16">
           <button
             onClick={onOpenBookingModal}
-            className="w-full sm:w-auto px-8 py-4 rounded-full text-sm font-bold text-[#0D0D0D] bg-gold-gradient hover:brightness-110 transition-all shadow-xl shadow-[#D4AF37]/25 flex items-center justify-center gap-3 cursor-pointer group"
+            className="w-full sm:w-auto px-10 py-4.5 rounded-full text-base font-bold text-[#0D0D0D] bg-gold-gradient hover:brightness-110 transition-all shadow-xl shadow-[#D4AF37]/25 flex items-center justify-center gap-3 cursor-pointer group"
           >
             <span>{t.hero.ctaPackage}</span>
             {isRtl ? (
@@ -103,14 +101,6 @@ export const Hero: React.FC<HeroProps> = ({
             ) : (
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             )}
-          </button>
-
-          <button
-            onClick={onOpenConsultationModal}
-            className="w-full sm:w-auto px-8 py-4 rounded-full text-sm font-bold text-[#F8F5F0] bg-black/60 border border-[#D4AF37]/40 hover:border-[#D4AF37] hover:bg-[#D4AF37]/10 transition-all flex items-center justify-center gap-2 cursor-pointer"
-          >
-            <ShieldCheck className="w-4 h-4 text-[#D4AF37]" />
-            <span>{t.hero.ctaConsultation}</span>
           </button>
         </div>
 

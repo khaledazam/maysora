@@ -9,7 +9,6 @@ import { WhyChooseUs } from './components/WhyChooseUs';
 import { PackagesHub } from './components/PackagesHub';
 import { HotelsShowcase } from './components/HotelsShowcase';
 import { JourneyTimeline } from './components/JourneyTimeline';
-import { FinancialAccountingSection } from './components/FinancialAccountingSection';
 import { TestimonialsSection } from './components/TestimonialsSection';
 import { FAQSection } from './components/FAQSection';
 import { ContactSection } from './components/ContactSection';
@@ -66,10 +65,10 @@ export function App() {
     document.documentElement.dir = isEn ? 'ltr' : 'rtl';
     document.documentElement.lang = isEn ? 'en' : 'ar';
     document.title = isEn
-      ? 'MAYSORA | Luxury VIP Hajj & Umrah • Al Safwah Royal Suites & Shariah Advisory'
+      ? 'MAYSORA | Luxury VIP Hajj & Umrah • Al Safwah Royal Suites & Bespoke Concierge'
       : (lang === 'ar-sa'
-        ? 'ميسورة | باقات الحج والعمرة الفاخرة • أجنحة فندق الصفوة المطلة على الكعبة • استشارات مالية وزكاة ZATCA'
-        : 'مكتب ميسورة | باقات الحج والعمرة الملكية • حجز فندق الصفوة رويال أوركيد مكة • استشارات مالية وزكاة ZATCA');
+        ? 'ميسورة | باقات الحج والعمرة الفاخرة • أجنحة فندق الصفوة المطلة على الكعبة • خدمات VIP متكاملة'
+        : 'مكتب ميسورة | باقات الحج والعمرة الملكية • حجز فندق الصفوة رويال أوركيد مكة • خدمات راقية متكاملة');
   }, [lang]);
 
   const t = translations[lang];
@@ -82,12 +81,6 @@ export function App() {
 
   const handleOpenBookingModal = () => {
     setModalTitle(t.modal.bookingTitle);
-    setSelectedPackage(undefined);
-    setIsModalOpen(true);
-  };
-
-  const handleOpenConsultationModal = () => {
-    setModalTitle(t.modal.consultationTitle);
     setSelectedPackage(undefined);
     setIsModalOpen(true);
   };
@@ -148,7 +141,6 @@ export function App() {
         lang={lang}
         setLang={setLang}
         t={t}
-        onOpenConsultationModal={handleOpenConsultationModal}
         onOpenAdmin={() => {
           setView('admin');
           window.location.hash = '#admin';
@@ -161,7 +153,6 @@ export function App() {
         lang={lang}
         t={t}
         onOpenBookingModal={handleOpenBookingModal}
-        onOpenConsultationModal={handleOpenConsultationModal}
       />
 
       {/* Accreditations & Partners Trust Bar */}
@@ -201,15 +192,8 @@ export function App() {
       <JourneyTimeline
         lang={lang}
         t={t}
-        onOpenConsultationModal={handleOpenConsultationModal}
       />
 
-      {/* Financial & Accounting Hub + Calculator */}
-      <FinancialAccountingSection
-        lang={lang}
-        t={t}
-        onOpenConsultationModal={handleOpenConsultationModal}
-      />
 
       {/* Client Testimonials */}
       <TestimonialsSection t={t} />
@@ -218,7 +202,6 @@ export function App() {
       <FAQSection
         lang={lang}
         t={t}
-        onOpenConsultationModal={handleOpenConsultationModal}
       />
 
       {/* Contact Section */}

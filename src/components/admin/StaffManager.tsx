@@ -498,7 +498,7 @@ export const StaffManager: React.FC = () => {
                     type="text"
                     value={formData.department}
                     onChange={(e) => setFormData({ ...formData, department: e.target.value })}
-                    placeholder="قسم الحجوزات / خدمة العملاء / المالية"
+                    placeholder="قسم الحجوزات / خدمة العملاء / الكونسيرج VIP"
                     className="w-full px-4 py-2.5 rounded-xl bg-[#0D0D0D] border border-white/10 text-xs text-[#F8F5F0] focus:outline-none focus:border-[#D4AF37]"
                   />
                 </div>

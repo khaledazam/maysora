@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Sparkles, Crown, Building2, Check, ArrowRight, ArrowLeft, MessageSquare, ShieldCheck, Hotel, Plane, FileSpreadsheet } from 'lucide-react';
+import { Sparkles, Crown, Building2, Check, ArrowRight, ArrowLeft, MessageSquare, ShieldCheck, Hotel, Plane } from 'lucide-react';
 import type { Language, TranslationContent } from '../data/translations';
 import { trackEvent } from '../services/analytics';
 
@@ -37,9 +37,9 @@ export const PackageCustomizer: React.FC<PackageCustomizerProps> = ({
 
   const handleWhatsAppCustom = () => {
     trackEvent('whatsapp_click', { location: 'customizer', package: customSummaryText });
-    let msg = `السلام عليكم مكتب ميسورة، قمت بتصميم باقة مخصصة عبر الموقع وأود تأكيدها:\n- النوع: ${activeTypeObj.label}\n- الإقامة: ${activeAccObj.label}\n- الطيران والتنقل: ${activeTransportObj.label}\n- الخدمة المالية: ${activeFinancialObj.label}`;
+    let msg = `السلام عليكم مكتب ميسورة، قمت بتصميم باقة مخصصة عبر الموقع وأود تأكيدها:\n- النوع: ${activeTypeObj.label}\n- الإقامة: ${activeAccObj.label}\n- الطيران والتنقل: ${activeTransportObj.label}\n- المزايا الإضافية: ${activeFinancialObj.label}`;
     if (lang === 'en') {
-      msg = `Hello MAYSORA Concierge, I have tailored a bespoke package on your website and would like to confirm availability:\n- Type: ${activeTypeObj.label}\n- Accommodation: ${activeAccObj.label}\n- Transport: ${activeTransportObj.label}\n- Financial Advisory: ${activeFinancialObj.label}`;
+      msg = `Hello MAYSORA Concierge, I have tailored a bespoke package on your website and would like to confirm availability:\n- Type: ${activeTypeObj.label}\n- Accommodation: ${activeAccObj.label}\n- Transport: ${activeTransportObj.label}\n- Concierge Perk: ${activeFinancialObj.label}`;
     }
     window.open(`https://wa.me/201011860173?text=${encodeURIComponent(msg)}`, '_blank');
   };
@@ -187,10 +187,10 @@ export const PackageCustomizer: React.FC<PackageCustomizerProps> = ({
               </div>
             </div>
 
-            {/* Step 4: Financial Governance */}
+            {/* Step 4: Concierge & Spiritual Guidance Perks */}
             <div className="glass-gold-card rounded-3xl p-6 sm:p-7 border border-[#D4AF37]/20">
               <h3 className="text-base sm:text-lg font-bold font-arabic-heading text-[#F8F5F0] mb-4 flex items-center gap-2">
-                <FileSpreadsheet className="w-5 h-5 text-[#D4AF37]" />
+                <ShieldCheck className="w-5 h-5 text-[#D4AF37]" />
                 <span>{t.customizer.step4Title}</span>
               </h3>
               <div className="space-y-3">

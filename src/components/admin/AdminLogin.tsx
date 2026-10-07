@@ -65,7 +65,7 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onSuccess, onBackToSite 
             تسجيل دخول المشرفين
           </h1>
           <p className="text-xs text-[#C0B7A6]">
-            مكتب ميسورة لخدمات الحج والعمرة الفاخرة والاستشارات المالية
+            مكتب ميسورة لخدمات الحج والعمرة الفاخرة والكونسيرج الملكي
           </p>
         </div>
 

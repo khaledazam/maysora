@@ -362,7 +362,7 @@ export function exportBookingsToCSV(bookings: AdminBooking[]): void {
     umrah: 'عمرة VIP',
     luxury_tourism: 'سياحة وترفيه فاخر',
     business_travel: 'رحلة عمل واستثمار',
-    financial_advisory: 'استشارات مالية وحساب زكاة',
+    financial_advisory: 'خدمات كونسيرج ورعاية خاصة',
   };
 
   const rows = bookings.map((b) => [

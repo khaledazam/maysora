@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Phone, Mail, MapPin, Clock, MessageSquare, CheckCircle2, Send, ShieldCheck, Loader2 } from 'lucide-react';
+import { Phone, MapPin, Clock, MessageSquare, CheckCircle2, Send, ShieldCheck, Loader2, ExternalLink, Navigation } from 'lucide-react';
 import type { TranslationContent } from '../data/translations';
 import { submitLeadToGoogleSheets } from '../services/leadService';
 import { trackEvent } from '../services/analytics';
@@ -52,7 +52,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
   const handleWhatsAppRedirect = () => {
     trackEvent('whatsapp_click', { location: 'contact_section' });
     const text = encodeURIComponent(
-      `السلام عليكم ورحمة الله، أود التواصل مع بشمهندس أحمد رمضان بخصوص خدمات ميسورة VIP (حج/عمرة/استشارات مالية).`
+      `السلام عليكم ورحمة الله، أود التواصل مع بشمهندس أحمد رمضان بخصوص خدمات ميسورة VIP (حج / عمرة / كونسيرج خاص).`
     );
     window.open(`https://wa.me/201011860173?text=${text}`, '_blank');
   };
@@ -168,25 +168,23 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                 </div>
                 <div>
                   <h4 className="text-sm font-bold text-[#F8F5F0] mb-1">{t.contact.callUs}</h4>
-                  <p className="text-xs text-[#C0B7A6] leading-relaxed space-y-1">
-                    <span>مباشر (مصر / دولي): <strong className="text-[#FFF0B3] font-mono">01011860173</strong> (بشمهندس أحمد رمضان)</span>
-                    <br />
-                    <span>المملكة العربية السعودية: +966 11 800 9000</span>
-                    <br />
-                    <span>الدولي / الإمارات: +971 4 800 9000</span>
-                  </p>
+                  <div className="text-xs text-[#C0B7A6] leading-relaxed space-y-1.5">
+                    <div className="flex items-center gap-2">
+                      <span>المهندس أحمد رمضان:</span>
+                      <a href="tel:01011860173" className="text-[#FFF0B3] font-mono font-bold hover:text-[#D4AF37] transition-colors" dir="ltr">
+                        01011860173
+                      </a>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span>الأستاذة سومة شعبان:</span>
+                      <a href="tel:01017776863" className="text-[#FFF0B3] font-mono font-bold hover:text-[#D4AF37] transition-colors" dir="ltr">
+                        01017776863
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-[#D4AF37]/10 flex items-center justify-center text-[#D4AF37] shrink-0">
-                  <Mail className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="text-sm font-bold text-[#F8F5F0] mb-1">البريد الإلكتروني المباشر</h4>
-                  <p className="text-xs text-[#C0B7A6]">vip@maysoragroup.com | info@maysoragroup.com</p>
-                </div>
-              </div>
 
               <div className="flex items-start gap-4">
                 <div className="w-10 h-10 rounded-xl bg-[#D4AF37]/10 flex items-center justify-center text-[#D4AF37] shrink-0">
@@ -302,7 +300,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                     rows={4}
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    placeholder="اكتب هنا التفاصيل الخاصة برحلتك أو متطلبات استشارتك المالية..."
+                    placeholder="اكتب هنا تفاصيل رحلتك أو متطلباتك الخاصة..."
                     className="w-full px-4 py-3 rounded-xl bg-[#0D0D0D] border border-[#D4AF37]/30 text-sm text-[#F8F5F0] focus:outline-none focus:border-[#D4AF37]"
                   />
                 </div>
@@ -338,20 +336,70 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
 
         </div>
 
-        {/* Map View Placeholder Card */}
-        <div className="mt-16 rounded-3xl overflow-hidden glass-gold-card border border-[#D4AF37]/20 p-2 h-72 relative">
-          <div className="w-full h-full bg-[#0D0D0D] rounded-2xl relative overflow-hidden flex items-center justify-center">
-            {/* Dark Styled Map Overlay Graphic */}
-            <div className="absolute inset-0 bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:16px_16px] opacity-20" />
-            <div className="relative z-10 text-center p-6">
-              <div className="w-12 h-12 rounded-full bg-gold-gradient mx-auto flex items-center justify-center text-[#0D0D0D] mb-3 shadow-lg">
-                <MapPin className="w-6 h-6" />
-              </div>
-              <h4 className="text-lg font-bold font-arabic-heading text-[#F8F5F0]">
+        {/* Interactive Google Map Section */}
+        <div className="mt-16 space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <span className="text-xs font-bold tracking-widest text-[#D4AF37] uppercase block mb-1">
+                الموقع الجغرافي • خريطة الوصول
+              </span>
+              <h3 className="text-xl sm:text-2xl font-bold font-arabic-heading text-[#F8F5F0]">
                 مقر مكتب ميسورة الرئيسي
-              </h4>
-              <p className="text-xs text-[#C0B7A6] mt-1">
-                {t.contact.address}
+              </h3>
+              <p className="text-xs text-[#C0B7A6] mt-0.5">
+                مدينة برج العرب الجديدة، حوض سكرة وأبو حمد، الإسكندرية
+              </p>
+            </div>
+            <div className="flex items-center gap-2 flex-wrap">
+              <a
+                href="https://www.google.com/maps/dir/?api=1&destination=%D9%85%D8%AF%D9%8A%D9%86%D8%A9%20%D8%A8%D8%B1%D8%AC%20%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%20%D8%A7%D9%84%D8%AC%D8%AF%D9%8A%D8%AF%D8%A9%D8%8C%20%D8%AD%D9%88%D8%B6%20%D8%B3%D9%83%D8%B1%D8%A9%20%D9%88%D8%A3%D8%A8%D9%88%20%D8%AD%D9%85%D8%AF%D8%8C%20%D8%A7%D9%84%D8%A5%D8%B3%D9%83%D9%86%D8%AF%D8%B1%D9%8A%D8%A9"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-bold text-[#0D0D0D] bg-gold-gradient hover:brightness-110 shadow-md shadow-[#D4AF37]/20 transition-all cursor-pointer"
+              >
+                <Navigation className="w-3.5 h-3.5" />
+                <span>الاتجاهات عبر الخريطة</span>
+              </a>
+              <a
+                href="https://www.google.com/maps/search/?api=1&query=%D9%85%D8%AF%D9%8A%D9%86%D8%A9%20%D8%A8%D8%B1%D8%AC%20%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%20%D8%A7%D9%84%D8%AC%D8%AF%D9%8A%D8%AF%D8%A9%D8%8C%20%D8%AD%D9%88%D8%B6%20%D8%B3%D9%83%D8%B1%D8%A9%20%D9%88%D8%A3%D8%A8%D9%88%20%D8%AD%D9%85%D8%AF%D8%8C%20%D8%A7%D9%84%D8%A5%D8%B3%D9%83%D9%86%D8%AF%D8%B1%D9%8A%D8%A9"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-semibold text-[#FFF0B3] bg-white/5 hover:bg-white/10 border border-[#D4AF37]/30 transition-all"
+              >
+                <ExternalLink className="w-3.5 h-3.5" />
+                <span>فتح في Google Maps</span>
+              </a>
+            </div>
+          </div>
+
+          <div className="rounded-3xl overflow-hidden glass-gold-card border border-[#D4AF37]/30 shadow-2xl h-80 sm:h-[440px] relative">
+            {/* Real Interactive Google Maps Embed */}
+            <iframe
+              title="موقع مقر مكتب ميسورة الرئيسي على خريطة Google"
+              src="https://maps.google.com/maps?q=%D9%85%D8%AF%D9%8A%D9%86%D8%A9%20%D8%A8%D8%B1%D8%AC%20%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%20%D8%A7%D9%84%D8%AC%D8%AF%D9%8A%D8%AF%D8%A9%D8%8C%20%D8%AD%D9%88%D8%B6%20%D8%B3%D9%83%D8%B1%D8%A9%20%D9%88%D8%A3%D8%A8%D9%88%20%D8%AD%D9%85%D8%AF%D8%8C%20%D8%A7%D9%84%D8%A5%D8%B3%D9%83%D9%86%D8%AF%D8%B1%D9%8A%D8%A9&t=&z=14&ie=UTF8&iwloc=&output=embed"
+              className="w-full h-full border-0 filter contrast-105"
+              loading="lazy"
+              allowFullScreen
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+
+            {/* Floating Luxury Location Badge */}
+            <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 max-w-sm p-4 sm:p-5 rounded-2xl bg-[#0D0D0D]/90 backdrop-blur-xl border border-[#D4AF37]/40 shadow-2xl pointer-events-none hidden sm:block">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-9 h-9 rounded-xl bg-gold-gradient flex items-center justify-center text-[#0D0D0D] shadow-md shrink-0">
+                  <MapPin className="w-5 h-5" />
+                </div>
+                <div>
+                  <span className="text-[10px] font-bold text-[#D4AF37] uppercase tracking-wider block">
+                    المقر الرئيسي المعتمد • الإسكندرية
+                  </span>
+                  <h4 className="text-sm font-bold text-[#F8F5F0]">
+                    مكتب ميسورة لخدمات الحج والعمرة
+                  </h4>
+                </div>
+              </div>
+              <p className="text-xs text-[#C0B7A6] leading-relaxed">
+                مدينة برج العرب الجديدة، حوض سكرة وأبو حمد، الإسكندرية
               </p>
             </div>
           </div>

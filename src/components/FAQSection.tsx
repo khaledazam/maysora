@@ -6,13 +6,12 @@ import { trackEvent } from '../services/analytics';
 interface FAQSectionProps {
   lang: Language;
   t: TranslationContent;
-  onOpenConsultationModal: () => void;
+  onOpenConsultationModal?: () => void;
 }
 
 export const FAQSection: React.FC<FAQSectionProps> = ({
   lang,
-  t,
-  onOpenConsultationModal
+  t
 }) => {
   const [activeTab, setActiveTab] = useState<'all' | 'hajj' | 'financial'>('all');
   const [openIndex, setOpenIndex] = useState<number | null>(0); // First item open by default
@@ -164,12 +163,12 @@ export const FAQSection: React.FC<FAQSectionProps> = ({
             </h3>
             <p className="text-xs text-[#C0B7A6]">
               {lang === 'ar-eg'
-                ? 'فريق كونسيرج ميسورة ومستشارينا متاحين لخدمتك في أي وقت 24/7.'
+                ? 'فريق كونسيرج ميسورة ومستشارونا متاحين لخدمتك في أي وقت 24/7.'
                 : (lang === 'ar-sa'
-                  ? 'فريق كونسيرج ميسورة ومستشارونا الماليون متاحون لخدمتك على مدار الساعة.'
+                  ? 'فريق كونسيرج ميسورة ومستشارونا متاحون لخدمتك على مدار الساعة.'
                   : (lang === 'en'
-                    ? 'MAYSORA concierge chiefs and senior wealth advisors are on standby 24/7.'
-                    : 'فريق كونسيرج ميسورة متاح للإجابة على استفساراتكم على مدار الساعة.'))}
+                    ? 'MAYSORA concierge chiefs and VIP pilgrimage advisors are on standby 24/7.'
+                    : 'فريق كونسيرج ميسورة متاح للإجابة على كافة استفساراتكم على مدار الساعة.'))}
             </p>
           </div>
 
@@ -183,14 +182,13 @@ export const FAQSection: React.FC<FAQSectionProps> = ({
               <span>WhatsApp</span>
             </button>
 
-            <button
-              type="button"
-              onClick={onOpenConsultationModal}
+            <a
+              href="#contact"
               className="px-5 py-2.5 rounded-full text-xs font-bold text-[#0D0D0D] bg-gold-gradient hover:brightness-110 shadow-md shadow-[#D4AF37]/20 flex items-center gap-2 cursor-pointer transition-all"
             >
               <PhoneCall className="w-3.5 h-3.5" />
               <span>{t.faq.talkToUs}</span>
-            </button>
+            </a>
           </div>
         </div>
 
