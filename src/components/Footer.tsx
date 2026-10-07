@@ -94,7 +94,7 @@ export const Footer: React.FC<FooterProps> = ({ t }) => {
               </div>
               <div className="flex items-center gap-2 text-[#C0B7A6]">
                 <Lock className="w-4 h-4 text-[#D4AF37]" />
-                <span>معتمد من هيئة الزكاة والضريبة والجمارك (ZATCA)</span>
+                <span>إعداد الزكاة وفق متطلبات هيئة الزكاة والضريبة (ZATCA)</span>
               </div>
               <div className="flex items-center gap-2 text-[#C0B7A6]">
                 <ExternalLink className="w-4 h-4 text-[#D4AF37]" />

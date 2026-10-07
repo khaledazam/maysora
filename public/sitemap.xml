@@ -10,13 +10,6 @@
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     
-    <!-- Alternate Language Links -->
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.maysoragroup.com/" />
-    <xhtml:link rel="alternate" hreflang="ar-SA" href="https://www.maysoragroup.com/" />
-    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.maysoragroup.com/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.maysoragroup.com/?lang=en" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.maysoragroup.com/" />
-    
     <!-- Valid Image Sitemap Entries -->
     <image:image>
       <image:loc>https://www.maysoragroup.com/images/648211000.jpg.jpeg</image:loc>
@@ -55,7 +48,7 @@
     </image:image>
     <image:image>
       <image:loc>https://www.maysoragroup.com/images/fin_consult.webp</image:loc>
-      <image:title>استشارات مالية معتمدة وحساب الزكاة ZATCA</image:title>
+      <image:title>استشارات مالية وإعداد حساب الزكاة وفق متطلبات ZATCA</image:title>
       <image:caption>إدارة الثروات العائلية وحوكمة الأوقاف الشرعية</image:caption>
     </image:image>
     <image:image>

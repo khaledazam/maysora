@@ -105,7 +105,7 @@ export const FinancialAccountingSection: React.FC<FinancialAccountingSectionProp
                     {t.financialHub.accountingTitle}
                   </h3>
                   <span className="text-xs text-[#D4AF37] font-medium">
-                    {lang !== 'en' ? 'اعتماد هيئة الزكاة والضريبة (ZATCA)' : 'ZATCA & Audit Certified'}
+                    {lang !== 'en' ? 'وفق متطلبات هيئة الزكاة والضريبة (ZATCA)' : 'In Compliance with ZATCA Standards'}
                   </span>
                 </div>
               </div>

@@ -294,7 +294,7 @@ export const translations: Record<Language, TranslationContent> = {
       accDesc: 'إدارة محاسبية دقيقة وتدقيق معتمد وإعداد القوائم المالية المتوافقة مع معايير هيئة الزكاة والضريبة والجمارك (ZATCA) والمعايير السعودية.',
       accFeatures: [
         'مسك الدفاتر وإعداد القوائم المالية الدورية بدقة',
-        'الإقرارات الزكوية والضريبية المعتمدة لدى هيئة الزكاة (ZATCA)',
+        'إعداد الإقرارات الزكوية والضريبية وفق متطلبات هيئة الزكاة (ZATCA)',
         'التدقيق الداخلي وإدارة المخاطر وحوكمة الشركات',
         'استشارات خفض التكاليف والتخطيط المالي المؤسسي'
       ],
@@ -421,7 +421,7 @@ export const translations: Record<Language, TranslationContent> = {
       ],
       step4Title: '4. الامتيازات المالية والمحاسبية المشمولة',
       financialServices: [
-        { id: 'zakat-audit', label: 'حساب وتدقيق الزكاة الشرعية (ZATCA)', desc: 'إشراف مستشار مالي متخصص ومعتمد' },
+        { id: 'zakat-audit', label: 'إعداد وحساب الزكاة وفق متطلبات (ZATCA)', desc: 'إشراف مستشار مالي مؤهل' },
         { id: 'wealth-planning', label: 'هيكلة الأوقاف وإدارة الثروات العائلية', desc: 'حلول استثمارية وحفظ أصول متوافقة مع الشريعة' },
         { id: 'corporate-tax', label: 'إقرار ضريبي ومحاسبي للشركات', desc: 'مراجعة وتدقيق معتمد للقوائم المالية' }
       ],
@@ -542,8 +542,8 @@ export const translations: Record<Language, TranslationContent> = {
         },
         {
           category: 'financial',
-          q: 'هل حسابات الزكاة والاستشارات معتمدة لدى هيئة الزكاة (ZATCA)؟',
-          a: 'نعم، جميع تقاريرنا المحاسبية والزكوية تُعد وتُدقق وفق معايير هيئة الزكاة والضريبة والجمارك وتصدر بتوقيع محاسبي وقانوني معتمد.'
+          q: 'هل يتم إعداد حسابات الزكاة والاستشارات وفق متطلبات هيئة الزكاة (ZATCA)؟',
+          a: 'نعم، تُعد وتُدقق تقارير حساب الزكاة وفق متطلبات ومعايير هيئة الزكاة والضريبة والجمارك (ZATCA) بالتعاون مع محاسبين قانونيين مؤهلين.'
         },
         {
           category: 'financial',
@@ -608,8 +608,8 @@ export const translations: Record<Language, TranslationContent> = {
       tagline: 'مكتب ميسورة • الرفيق الأمثل لرحلتك الإيمانية والشريك الأوثق لاستثماراتك المالية والمحاسبية بالمملكة.',
       quickLinks: 'روابط سريعة',
       servicesHeader: 'خدماتنا الرئيسية',
-      legal: 'الشروط والأحكام • سياسة الخصوصية • ترخيص وزارة الحج والعمرة وهيئة الزكاة',
-      shariahBadge: 'معتمد ومراجع من كبار المستشارين الشرعيين وهيئة الزكاة (ZATCA)',
+      legal: 'الشروط والأحكام • سياسة الخصوصية • التوافق مع متطلبات الحج وهيئة الزكاة',
+      shariahBadge: 'إعداد ومراجعة وفق الضوابط الشرعية ومتطلبات هيئة الزكاة (ZATCA)',
       rights: 'جميع الحقوق محفوظة © MAYSORA 2026'
     }
   },
@@ -811,7 +811,7 @@ export const translations: Record<Language, TranslationContent> = {
       ],
       step4Title: '4. الاستشارات المالية والزكوية المشمولة',
       financialServices: [
-        { id: 'zakat-audit', label: 'حساب وتدقيق الزكاة المعتمد (ZATCA)', desc: 'تقرير زكوي ومالي بإشراف مستشار معتمد' },
+        { id: 'zakat-audit', label: 'إعداد وحساب الزكاة وفق متطلبات (ZATCA)', desc: 'تقرير زكوي ومالي بإشراف مستشار مالي مؤهل' },
         { id: 'wealth-planning', label: 'تخطيط الثروات وإدارة الأوقاف', desc: 'حلول متوافقة تماماً مع أحكام الشريعة الإسلامية' },
         { id: 'corporate-tax', label: 'الامتثال المحاسبي والضريبي المؤسسي', desc: 'تدقيق حسابات وتجهيز القوائم المالية' }
       ],
@@ -932,8 +932,8 @@ export const translations: Record<Language, TranslationContent> = {
         },
         {
           category: 'financial',
-          q: 'هل حسابات الزكاة والاستشارات معتمدة لدى هيئة الزكاة (ZATCA)؟',
-          a: 'نعم، جميع تقاريرنا المحاسبية والزكوية تُعد وتُدقق وفق معايير هيئة الزكاة والضريبة والجمارك وتصدر بتوقيع مالي معتمد.'
+          q: 'هل يتم إعداد حسابات الزكاة والاستشارات وفق متطلبات هيئة الزكاة (ZATCA)؟',
+          a: 'نعم، تُعد وتُدقق تقارير حساب الزكاة وفق متطلبات ومعايير هيئة الزكاة والضريبة والجمارك (ZATCA) بالتعاون مع محاسبين قانونيين مؤهلين.'
         },
         {
           category: 'financial',
@@ -1201,7 +1201,7 @@ export const translations: Record<Language, TranslationContent> = {
       ],
       step4Title: '4. Integrated Financial & Accounting Governance',
       financialServices: [
-        { id: 'zakat-audit', label: 'Certified ZATCA Zakat Calculation', desc: 'Audited and certified by senior financial advisors' },
+        { id: 'zakat-audit', label: 'ZATCA-Compliant Zakat Calculation', desc: 'Prepared and audited in accordance with ZATCA regulations' },
         { id: 'wealth-planning', label: 'Family Endowment (Waqf) Structuring', desc: 'Shariah-compliant preservation and growth framework' },
         { id: 'corporate-tax', label: 'Corporate Tax & Accounting Review', desc: 'Certified financial statements audit and representation' }
       ],
@@ -1237,7 +1237,7 @@ export const translations: Record<Language, TranslationContent> = {
         { number: '02', title: 'Curated Itinerary & Clearance', desc: 'Securing premier Haram suites, chartering private jets, and issuing all Nusuk VIP permits.' },
         { number: '03', title: 'Presidential Airport Welcome', desc: 'Tarmac VIP meet & assist, private terminal fast-track, and chauffeured transfer.' },
         { number: '04', title: 'Spiritual Serenity & Chaperone', desc: 'Accompanied by a dedicated religious scholar and private concierge for all rituals.' },
-        { number: '05', title: 'Post-Pilgrimage Governance', desc: 'Delivery of certified ZATCA Zakat reports, endowment audits, and enduring advisory.' }
+        { number: '05', title: 'Post-Pilgrimage Governance', desc: 'Delivery of ZATCA-compliant Zakat reports, endowment audits, and enduring advisory.' }
       ]
     },
     financialHub: {
@@ -1322,8 +1322,8 @@ export const translations: Record<Language, TranslationContent> = {
         },
         {
           category: 'financial',
-          q: 'Are your Zakat calculations accredited by Saudi ZATCA?',
-          a: 'Yes, all Zakat filings and accounting audits adhere strictly to ZATCA regulations and are certified by licensed auditors.'
+          q: 'Are your Zakat calculations prepared in accordance with Saudi ZATCA requirements?',
+          a: 'Yes, all Zakat calculations and accounting reviews are prepared in strict adherence to ZATCA regulations in collaboration with certified accounting professionals.'
         },
         {
           category: 'financial',
