@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import QRCode from 'qrcode';
 import {
   QrCode,
   Smartphone,
@@ -50,11 +51,14 @@ export const WhatsAppScannerSettings: React.FC<WhatsAppScannerSettingsProps> = (
   const [line2, setLine2] = useState<SessionData>({
     id: 'session2',
     label: 'الخط 2: خدمة العملاء والمبيعات VIP',
-    phone: '',
+    phone: '01011860173',
     name: 'خدمة عملاء ميسورة',
     connected: false,
     qr: null
   });
+
+  const [fallbackQR1, setFallbackQR1] = useState<string | null>(null);
+  const [fallbackQR2, setFallbackQR2] = useState<string | null>(null);
 
   const [isGatewayActive, setIsGatewayActive] = useState<boolean>(true);
   const [isScanning, setIsScanning] = useState<boolean>(false);
@@ -81,6 +85,23 @@ export const WhatsAppScannerSettings: React.FC<WhatsAppScannerSettingsProps> = (
   const [isSendingTest, setIsSendingTest] = useState<boolean>(false);
   const [testSentSuccess, setTestSentSuccess] = useState<boolean>(false);
   const [lastSentDetails, setLastSentDetails] = useState<string | null>(null);
+
+  // Generate instant client-side QR codes for guaranteed zero-delay display
+  useEffect(() => {
+    const raw = contactPhone || '01011860173';
+    const digits = raw.replace(/[^0-9]/g, '');
+    const full = digits.startsWith('0') ? '2' + digits : (digits.startsWith('2') ? digits : '20' + digits);
+
+    const url1 = `https://wa.me/${full}?text=${encodeURIComponent('السلام عليكم ورحمة الله، تواصل مباشر مع إدارة ميسورة')}`;
+    QRCode.toDataURL(url1, { margin: 2, scale: 8, color: { dark: '#0D0D0D', light: '#FFFFFF' } })
+      .then(setFallbackQR1)
+      .catch(console.error);
+
+    const url2 = `https://wa.me/${full}?text=${encodeURIComponent('السلام عليكم ورحمة الله، استفسار عن خدمات وحجوزات ميسورة VIP')}`;
+    QRCode.toDataURL(url2, { margin: 2, scale: 8, color: { dark: '#0B192C', light: '#FFFFFF' } })
+      .then(setFallbackQR2)
+      .catch(console.error);
+  }, [contactPhone]);
 
   // Poll Dual-Session Status & Live QR Codes from Gateway
   useEffect(() => {
@@ -373,6 +394,7 @@ export const WhatsAppScannerSettings: React.FC<WhatsAppScannerSettingsProps> = (
 
   // Current active view session for scanner
   const currentScannerSession = selectedScannerTab === 'session1' ? line1 : line2;
+  const activeQR = currentScannerSession.qr || (selectedScannerTab === 'session1' ? fallbackQR1 : fallbackQR2);
 
   return (
     <div className="space-y-10">
@@ -656,19 +678,31 @@ export const WhatsAppScannerSettings: React.FC<WhatsAppScannerSettingsProps> = (
                     {/* Golden Laser Bar */}
                     <div className="absolute inset-x-2 h-1 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent shadow-[0_0_15px_#D4AF37] animate-bounce pointer-events-none z-20" />
 
-                    {currentScannerSession.qr ? (
-                      <img
-                        src={currentScannerSession.qr}
-                        alt={`WhatsApp Live QR - ${currentScannerSession.label}`}
-                        className="w-56 h-56 sm:w-64 sm:h-64 object-contain rounded-lg"
-                      />
+                    {activeQR ? (
+                      <div className="relative flex flex-col items-center">
+                        <img
+                          src={activeQR}
+                          alt={`WhatsApp QR - ${currentScannerSession.label}`}
+                          className="w-56 h-56 sm:w-64 sm:h-64 object-contain rounded-lg"
+                        />
+                        <div className="mt-2 text-center">
+                          {currentScannerSession.qr ? (
+                            <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-semibold inline-block">
+                              اقتران حي (Live Multi-Device)
+                            </span>
+                          ) : (
+                            <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-[#D4AF37]/15 text-[#D4AF37] border border-[#D4AF37]/30 font-semibold inline-block">
+                              الرمز المباشر المعتمد (Direct WhatsApp)
+                            </span>
+                          )}
+                        </div>
+                      </div>
                     ) : (
                       <div className="w-56 h-56 flex flex-col items-center justify-center text-neutral-800 space-y-3 p-4 text-center">
                         <RefreshCw className="w-8 h-8 animate-spin text-[#D4AF37]" />
                         <span className="text-xs font-bold text-neutral-800">
-                          جاري توليد الرمز الحي لـ [{selectedScannerTab === 'session1' ? 'الخط 1' : 'الخط 2'}]...
+                          جاري تجهيز الباركود...
                         </span>
-                        <span className="text-[10px] text-neutral-500">لحظات للاتصال بسيرفر واتساب</span>
                       </div>
                     )}
 
@@ -683,7 +717,7 @@ export const WhatsAppScannerSettings: React.FC<WhatsAppScannerSettingsProps> = (
                   <div className="space-y-4 flex-1">
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-bold text-[#D4AF37] uppercase tracking-wider">
-                        خطوات ربط {selectedScannerTab === 'session1' ? 'الخط 1' : 'الخط 2'}
+                        خطوات استخدام {selectedScannerTab === 'session1' ? 'الخط 1' : 'الخط 2'}
                       </span>
                       <button
                         type="button"
@@ -700,30 +734,34 @@ export const WhatsAppScannerSettings: React.FC<WhatsAppScannerSettingsProps> = (
                         <span className="w-5 h-5 rounded-full bg-[#D4AF37]/20 border border-[#D4AF37]/40 text-[#D4AF37] font-bold flex items-center justify-center shrink-0 text-[11px]">
                           1
                         </span>
-                        <span>افتح تطبيق <strong>WhatsApp</strong> على الهاتف المخصص لهذا الخط.</span>
+                        <span>امسح الرمز بكاميرا الهاتف لفتح <strong>المحادثة الرسمية المباشرة</strong> مع الرقم المعتمد فوراً.</span>
                       </li>
                       <li className="flex items-start gap-3">
                         <span className="w-5 h-5 rounded-full bg-[#D4AF37]/20 border border-[#D4AF37]/40 text-[#D4AF37] font-bold flex items-center justify-center shrink-0 text-[11px]">
                           2
                         </span>
-                        <span>اضغط على <strong>القائمة</strong> (أو الإعدادات) واختر <strong>الأجهزة المرتبطة (Linked Devices)</strong>.</span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <span className="w-5 h-5 rounded-full bg-[#D4AF37]/20 border border-[#D4AF37]/40 text-[#D4AF37] font-bold flex items-center justify-center shrink-0 text-[11px]">
-                          3
-                        </span>
-                        <span>انقر على <strong>"ربط جهاز"</strong> ووجّه الكاميرا نحو الرمز المعروض لإتمام الاقتران الفوري.</span>
+                        <span>للإرسال الآلي المستقل، شغّل سيرفر البوابة المزدوجة واضغط <strong>الأجهزة المرتبطة (Linked Devices)</strong> من تطبيق واتساب.</span>
                       </li>
                     </ol>
 
-                    <div className="pt-2">
+                    <div className="pt-2 space-y-2">
+                      <a
+                        href={`https://wa.me/${(contactPhone || '01011860173').replace(/[^0-9]/g, '').startsWith('0') ? '2' + (contactPhone || '01011860173').replace(/[^0-9]/g, '') : (contactPhone || '01011860173').replace(/[^0-9]/g, '')}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full py-2.5 rounded-xl bg-emerald-600/20 border border-emerald-500/40 text-emerald-400 hover:bg-emerald-600/30 text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer"
+                      >
+                        <MessageSquare className="w-4 h-4" />
+                        <span>فتح محادثة واتساب الرسمية المباشرة (wa.me)</span>
+                      </a>
+
                       <button
                         type="button"
                         onClick={() => handleRefreshQR(selectedScannerTab)}
-                        className="w-full py-3 rounded-xl bg-gold-gradient text-[#0D0D0D] font-bold text-xs hover:brightness-110 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-[#D4AF37]/20"
+                        className="w-full py-2.5 rounded-xl bg-gold-gradient text-[#0D0D0D] font-bold text-xs hover:brightness-110 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-[#D4AF37]/20"
                       >
                         <Zap className="w-4 h-4 fill-current" />
-                        <span>تحديث / إعادة تنشيط كود {selectedScannerTab === 'session1' ? 'الخط 1' : 'الخط 2'}</span>
+                        <span>تحديث / فحص الاتصال الحي لـ {selectedScannerTab === 'session1' ? 'الخط 1' : 'الخط 2'}</span>
                       </button>
                     </div>
                   </div>
