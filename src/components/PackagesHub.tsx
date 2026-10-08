@@ -6,6 +6,7 @@ import { PackageComparison } from './PackageComparison';
 import {
   getManagedPackages,
   subscribeToPriceUpdates,
+  loadManagedPackagesFromCloud,
   type ManagedPackage
 } from '../services/pricingService';
 
@@ -29,6 +30,11 @@ export const PackagesHub: React.FC<PackagesHubProps> = ({
   const isRtl = lang !== 'en';
 
   useEffect(() => {
+    loadManagedPackagesFromCloud().then((cloud) => {
+      if (cloud && cloud.length > 0) {
+        setManagedPackages(cloud);
+      }
+    });
     return subscribeToPriceUpdates(setManagedPackages);
   }, []);
 

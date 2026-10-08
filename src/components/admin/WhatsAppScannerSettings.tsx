@@ -18,6 +18,7 @@ import {
   ArrowLeftRight,
   UserCheck
 } from 'lucide-react';
+import { fetchSettingsFromSupabase, syncSettingsToSupabase } from '../../services/supabaseClient';
 
 interface WhatsAppScannerSettingsProps {
   onNotify?: (message: string) => void;
@@ -52,7 +53,7 @@ export const WhatsAppScannerSettings: React.FC<WhatsAppScannerSettingsProps> = (
     id: 'session2',
     label: 'الخط 2: خدمة العملاء والمبيعات VIP',
     phone: '01011860173',
-    name: 'خدمة عملاء ميسورة',
+    name: 'خدمة عملاء ميسورا',
     connected: false,
     qr: null
   });
@@ -80,7 +81,7 @@ export const WhatsAppScannerSettings: React.FC<WhatsAppScannerSettingsProps> = (
   const [testRecipientPhone, setTestRecipientPhone] = useState<string>('01011860173');
   const [selectedTemplate, setSelectedTemplate] = useState<string>('welcome');
   const [customTestMessage, setCustomTestMessage] = useState<string>(
-    'السلام عليكم ورحمة الله، مرحباً بكم في ميسورة لخدمات الحج والعمرة الفاخرة والكونسيرج الملكي. يسعدنا رعاية كافة تفاصيل رحلتكم.'
+    'السلام عليكم ورحمة الله، مرحباً بكم في ميسورا لخدمات الحج والعمرة الفاخرة والكونسيرج الملكي. يسعدنا رعاية كافة تفاصيل رحلتكم.'
   );
   const [isSendingTest, setIsSendingTest] = useState<boolean>(false);
   const [testSentSuccess, setTestSentSuccess] = useState<boolean>(false);
@@ -92,12 +93,12 @@ export const WhatsAppScannerSettings: React.FC<WhatsAppScannerSettingsProps> = (
     const digits = raw.replace(/[^0-9]/g, '');
     const full = digits.startsWith('0') ? '2' + digits : (digits.startsWith('2') ? digits : '20' + digits);
 
-    const url1 = `https://wa.me/${full}?text=${encodeURIComponent('السلام عليكم ورحمة الله، تواصل مباشر مع إدارة ميسورة')}`;
+    const url1 = `https://wa.me/${full}?text=${encodeURIComponent('السلام عليكم ورحمة الله، تواصل مباشر مع إدارة ميسورا')}`;
     QRCode.toDataURL(url1, { margin: 2, scale: 8, color: { dark: '#0D0D0D', light: '#FFFFFF' } })
       .then(setFallbackQR1)
       .catch(console.error);
 
-    const url2 = `https://wa.me/${full}?text=${encodeURIComponent('السلام عليكم ورحمة الله، استفسار عن خدمات وحجوزات ميسورة VIP')}`;
+    const url2 = `https://wa.me/${full}?text=${encodeURIComponent('السلام عليكم ورحمة الله، استفسار عن خدمات وحجوزات ميسورا VIP')}`;
     QRCode.toDataURL(url2, { margin: 2, scale: 8, color: { dark: '#0B192C', light: '#FFFFFF' } })
       .then(setFallbackQR2)
       .catch(console.error);
@@ -207,12 +208,19 @@ export const WhatsAppScannerSettings: React.FC<WhatsAppScannerSettingsProps> = (
     };
   }, [selectedScannerTab]);
 
-  // Load saved settings from localStorage
+  // Load saved settings from localStorage & Supabase Cloud
   useEffect(() => {
     const savedName = localStorage.getItem('maysora_admin_contact_name');
     const savedPhone = localStorage.getItem('maysora_admin_contact_phone');
     if (savedName) setContactName(savedName);
     if (savedPhone) setContactPhone(savedPhone);
+
+    fetchSettingsFromSupabase().then((cloud) => {
+      if (cloud) {
+        if (cloud.contactName) setContactName(cloud.contactName);
+        if (cloud.contactPhone) setContactPhone(cloud.contactPhone);
+      }
+    });
   }, []);
 
   // Switch Active Sending Line via API
@@ -309,6 +317,7 @@ export const WhatsAppScannerSettings: React.FC<WhatsAppScannerSettingsProps> = (
     e.preventDefault();
     localStorage.setItem('maysora_admin_contact_name', contactName);
     localStorage.setItem('maysora_admin_contact_phone', contactPhone);
+    syncSettingsToSupabase({ contactName, contactPhone }).catch(() => {});
     setIsSaved(true);
     setTimeout(() => setIsSaved(false), 3000);
   };
@@ -317,11 +326,11 @@ export const WhatsAppScannerSettings: React.FC<WhatsAppScannerSettingsProps> = (
     setSelectedTemplate(tmpl);
     if (tmpl === 'welcome') {
       setCustomTestMessage(
-        'السلام عليكم ورحمة الله، مرحباً بكم في ميسورة لخدمات الحج والعمرة الفاخرة والكونسيرج الملكي. يسعدنا رعاية كافة تفاصيل رحلتكم.'
+        'السلام عليكم ورحمة الله، مرحباً بكم في ميسورا لخدمات الحج والعمرة الفاخرة والكونسيرج الملكي. يسعدنا رعاية كافة تفاصيل رحلتكم.'
       );
     } else if (tmpl === 'booking_confirm') {
       setCustomTestMessage(
-        'سعادة العميل الكريم، تم استلام وتأكيد بيانات حجزكم بنجاح لدى ميسورة. معكم المستشار لمتابعة كافة الترتيبات الخاصة.'
+        'سعادة العميل الكريم، تم استلام وتأكيد بيانات حجزكم بنجاح لدى ميسورا. معكم المستشار لمتابعة كافة الترتيبات الخاصة.'
       );
     } else if (tmpl === 'flight_reminder') {
       setCustomTestMessage(

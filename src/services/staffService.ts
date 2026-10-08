@@ -183,13 +183,22 @@ export const DEFAULT_STAFF: StaffMember[] = [
   }
 ];
 
+import { fetchStaffFromSupabase, syncStaffToSupabase } from './supabaseClient';
+
 const STAFF_STORAGE_KEY = 'maysora_staff_members_v1';
+const STAFF_EVENT_NAME = 'maysora_staff_updated';
+
+let hasStartedStaffCloudFetch = false;
 
 export function getStaffMembers(): StaffMember[] {
+  if (typeof window !== 'undefined' && !hasStartedStaffCloudFetch) {
+    hasStartedStaffCloudFetch = true;
+    loadStaffFromCloud().catch(() => {});
+  }
+
   try {
     const raw = localStorage.getItem(STAFF_STORAGE_KEY);
     if (!raw) {
-      saveStaffMembers(DEFAULT_STAFF);
       return DEFAULT_STAFF;
     }
     const parsed = JSON.parse(raw);
@@ -202,12 +211,48 @@ export function getStaffMembers(): StaffMember[] {
   return DEFAULT_STAFF;
 }
 
+/**
+ * Loads staff members directly from Supabase Cloud Database.
+ */
+export async function loadStaffFromCloud(): Promise<StaffMember[]> {
+  try {
+    const cloudStaff = await fetchStaffFromSupabase();
+    if (cloudStaff && cloudStaff.length > 0) {
+      try {
+        localStorage.setItem(STAFF_STORAGE_KEY, JSON.stringify(cloudStaff));
+      } catch {}
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent(STAFF_EVENT_NAME, { detail: cloudStaff }));
+      }
+      return cloudStaff;
+    }
+
+    // Seed defaults to cloud if cloud is empty
+    const local = getStaffMembers();
+    if (local.length > 0) {
+      await syncStaffToSupabase(local);
+    }
+    return local;
+  } catch (err) {
+    console.warn('Could not load staff from cloud:', err);
+    return getStaffMembers();
+  }
+}
+
 export function saveStaffMembers(staff: StaffMember[]): void {
   try {
     localStorage.setItem(STAFF_STORAGE_KEY, JSON.stringify(staff));
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent(STAFF_EVENT_NAME, { detail: staff }));
+    }
   } catch (e) {
     console.error('Error saving staff members:', e);
   }
+
+  // Persist to Supabase Cloud Database
+  syncStaffToSupabase(staff).catch((err) => {
+    console.warn('Failed to sync staff to Supabase cloud:', err);
+  });
 }
 
 export function addStaffMember(member: Omit<StaffMember, 'id' | 'createdAt'>): StaffMember[] {

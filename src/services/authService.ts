@@ -99,7 +99,7 @@ export function loginAdmin(
         ? 'المدير التنفيذي • خالد'
         : cleanUser.includes('vip')
         ? 'مدير كونسيرج كبار الشخصيات'
-        : 'المشرف العام - ميسورة',
+        : 'المشرف العام - ميسورا',
       role: 'super_admin',
       title: 'الرئيس التنفيذي',
       department: 'الإدارة العليا',

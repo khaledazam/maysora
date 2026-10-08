@@ -19,6 +19,7 @@ import {
   type StaffRole,
   type StaffPermissions,
   getStaffMembers,
+  loadStaffFromCloud,
   addStaffMember,
   updateStaffMember,
   deleteStaffMember,
@@ -51,6 +52,9 @@ export const StaffManager: React.FC = () => {
 
   useEffect(() => {
     setStaffList(getStaffMembers());
+    loadStaffFromCloud().then((cloud) => {
+      if (cloud && cloud.length > 0) setStaffList(cloud);
+    });
   }, []);
 
   const showNotification = (msg: string) => {
@@ -130,7 +134,7 @@ export const StaffManager: React.FC = () => {
         email: formData.email,
         phone: formData.phone,
         password: formData.password,
-        title: formData.title || 'موظف ميسورة',
+        title: formData.title || 'موظف ميسورا',
         department: formData.department,
         role: formData.role,
         permissions: formData.permissions,

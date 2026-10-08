@@ -52,7 +52,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
   const handleWhatsAppRedirect = () => {
     trackEvent('whatsapp_click', { location: 'contact_section' });
     const text = encodeURIComponent(
-      `السلام عليكم ورحمة الله، أود التواصل مع بشمهندس أحمد رمضان بخصوص خدمات ميسورة VIP (حج / عمرة / كونسيرج خاص).`
+      `السلام عليكم ورحمة الله، أود التواصل مع بشمهندس أحمد رمضان بخصوص خدمات ميسورا VIP (حج / عمرة / كونسيرج خاص).`
     );
     window.open(`https://wa.me/201011860173?text=${text}`, '_blank');
   };
@@ -344,7 +344,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                 الموقع الجغرافي • خريطة الوصول
               </span>
               <h3 className="text-xl sm:text-2xl font-bold font-arabic-heading text-[#F8F5F0]">
-                مقر مكتب ميسورة الرئيسي
+                مقر مكتب ميسورا الرئيسي
               </h3>
               <p className="text-xs text-[#C0B7A6] mt-0.5">
                 مدينة برج العرب الجديدة، حوض سكرة وأبو حمد، الإسكندرية
@@ -375,7 +375,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
           <div className="rounded-3xl overflow-hidden glass-gold-card border border-[#D4AF37]/30 shadow-2xl h-80 sm:h-[440px] relative">
             {/* Real Interactive Google Maps Embed */}
             <iframe
-              title="موقع مقر مكتب ميسورة الرئيسي على خريطة Google"
+              title="موقع مقر مكتب ميسورا الرئيسي على خريطة Google"
               src="https://maps.google.com/maps?q=%D9%85%D8%AF%D9%8A%D9%86%D8%A9%20%D8%A8%D8%B1%D8%AC%20%D8%A7%D9%84%D8%B9%D8%B1%D8%A8%20%D8%A7%D9%84%D8%AC%D8%AF%D9%8A%D8%AF%D8%A9%D8%8C%20%D8%AD%D9%88%D8%B6%20%D8%B3%D9%83%D8%B1%D8%A9%20%D9%88%D8%A3%D8%A8%D9%88%20%D8%AD%D9%85%D8%AF%D8%8C%20%D8%A7%D9%84%D8%A5%D8%B3%D9%83%D9%86%D8%AF%D8%B1%D9%8A%D8%A9&t=&z=14&ie=UTF8&iwloc=&output=embed"
               className="w-full h-full border-0 filter contrast-105"
               loading="lazy"
@@ -394,7 +394,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({
                     المقر الرئيسي المعتمد • الإسكندرية
                   </span>
                   <h4 className="text-sm font-bold text-[#F8F5F0]">
-                    مكتب ميسورة لخدمات الحج والعمرة
+                    مكتب ميسورا لخدمات الحج والعمرة
                   </h4>
                 </div>
               </div>

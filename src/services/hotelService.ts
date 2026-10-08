@@ -198,10 +198,19 @@ export const DEFAULT_HOTELS: ManagedHotel[] = [
   }
 ];
 
+import { fetchHotelsFromSupabase, syncHotelsToSupabase } from './supabaseClient';
+
 const HOTELS_STORAGE_KEY = 'maysora_managed_hotels_v1';
 const HOTELS_EVENT_NAME = 'maysora_hotels_updated';
 
+let hasStartedHotelsCloudFetch = false;
+
 export const getManagedHotels = (): ManagedHotel[] => {
+  if (typeof window !== 'undefined' && !hasStartedHotelsCloudFetch) {
+    hasStartedHotelsCloudFetch = true;
+    loadManagedHotelsFromCloud().catch(() => {});
+  }
+
   try {
     const raw = localStorage.getItem(HOTELS_STORAGE_KEY);
     if (!raw) return DEFAULT_HOTELS;
@@ -215,6 +224,34 @@ export const getManagedHotels = (): ManagedHotel[] => {
   return DEFAULT_HOTELS;
 };
 
+/**
+ * Loads hotels directly from Supabase Cloud Database.
+ */
+export const loadManagedHotelsFromCloud = async (): Promise<ManagedHotel[]> => {
+  try {
+    const cloudHotels = await fetchHotelsFromSupabase();
+    if (cloudHotels && cloudHotels.length > 0) {
+      try {
+        localStorage.setItem(HOTELS_STORAGE_KEY, JSON.stringify(cloudHotels));
+      } catch {}
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent(HOTELS_EVENT_NAME, { detail: cloudHotels }));
+      }
+      return cloudHotels;
+    }
+
+    // If cloud is empty, seed defaults to cloud
+    const local = getManagedHotels();
+    if (local.length > 0) {
+      await syncHotelsToSupabase(local);
+    }
+    return local;
+  } catch (err) {
+    console.warn('Could not load hotels from cloud:', err);
+    return getManagedHotels();
+  }
+};
+
 export const saveManagedHotels = (hotels: ManagedHotel[]): void => {
   try {
     localStorage.setItem(HOTELS_STORAGE_KEY, JSON.stringify(hotels));
@@ -222,6 +259,11 @@ export const saveManagedHotels = (hotels: ManagedHotel[]): void => {
   } catch (e) {
     console.error('Error saving hotels to storage:', e);
   }
+
+  // Persist to Supabase Cloud Database
+  syncHotelsToSupabase(hotels).catch((err) => {
+    console.warn('Failed to sync hotels to Supabase cloud:', err);
+  });
 };
 
 export const addManagedHotel = (newHotel: Omit<ManagedHotel, 'id'>): ManagedHotel[] => {

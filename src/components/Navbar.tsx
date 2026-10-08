@@ -66,7 +66,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 MAYSORA
               </span>
               <span className="text-[10px] sm:text-[11px] text-[#C0B7A6] tracking-widest font-light">
-                {lang === 'en' ? 'EST. ROYAL PILGRIMAGE & CONCIERGE' : (lang === 'ar-sa' ? 'مكتب ميسورة • ضيافة الحج الفاخرة' : 'مكتب ميسورة • ضيافة الحج والعمرة الفاخرة')}
+                {lang === 'en' ? 'EST. ROYAL PILGRIMAGE & CONCIERGE' : (lang === 'ar-sa' ? 'مكتب ميسورا • ضيافة الحج الفاخرة' : 'مكتب ميسورا • ضيافة الحج والعمرة الفاخرة')}
               </span>
             </div>
           </a>

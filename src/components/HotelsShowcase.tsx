@@ -17,7 +17,8 @@ import type { Language, TranslationContent } from '../data/translations';
 import {
   type ManagedHotel,
   getManagedHotels,
-  subscribeToHotelUpdates
+  subscribeToHotelUpdates,
+  loadManagedHotelsFromCloud
 } from '../services/hotelService';
 
 interface HotelsShowcaseProps {
@@ -44,6 +45,13 @@ export const HotelsShowcase: React.FC<HotelsShowcaseProps> = ({
     if (list.length > 0) {
       setActiveHotelId(list[0].id);
     }
+
+    loadManagedHotelsFromCloud().then((cloud) => {
+      if (cloud && cloud.length > 0) {
+        setHotels(cloud);
+        if (!activeHotelId) setActiveHotelId(cloud[0].id);
+      }
+    });
 
     const unsubscribe = subscribeToHotelUpdates((updated) => {
       setHotels(updated);

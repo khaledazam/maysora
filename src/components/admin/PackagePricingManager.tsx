@@ -15,6 +15,7 @@ import {
   type ManagedPackage,
   getManagedPackages,
   saveManagedPackages,
+  loadManagedPackagesFromCloud,
   clearAllManagedPackages
 } from '../../services/pricingService';
 import { getManagedHotels } from '../../services/hotelService';
@@ -53,6 +54,11 @@ export const PackagePricingManager: React.FC<PackagePricingManagerProps> = ({ on
 
   useEffect(() => {
     setPackages(getManagedPackages());
+    loadManagedPackagesFromCloud().then((cloud) => {
+      if (cloud && cloud.length > 0) {
+        setPackages(cloud);
+      }
+    });
   }, []);
 
   const handleUpdateField = (id: string, field: keyof ManagedPackage, value: any) => {

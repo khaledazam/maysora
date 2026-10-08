@@ -45,7 +45,7 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onSuccess, onBackToSite 
           className="inline-flex items-center gap-2 text-sm text-[#C0B7A6] hover:text-[#D4AF37] transition-colors"
         >
           <ArrowRight className="w-4 h-4 rtl:rotate-180" />
-          <span>العودة إلى موقع ميسورة</span>
+          <span>العودة إلى موقع ميسورا</span>
         </button>
 
         <span className="text-xs px-2.5 py-1 rounded-full bg-[#D4AF37]/10 text-[#D4AF37] border border-[#D4AF37]/30 flex items-center gap-1.5 font-medium">
@@ -65,7 +65,7 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({ onSuccess, onBackToSite 
             تسجيل دخول المشرفين
           </h1>
           <p className="text-xs text-[#C0B7A6]">
-            مكتب ميسورة لخدمات الحج والعمرة الفاخرة والكونسيرج الملكي
+            مكتب ميسورا لخدمات الحج والعمرة الفاخرة والكونسيرج الملكي
           </p>
         </div>
 

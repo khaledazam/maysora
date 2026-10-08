@@ -412,7 +412,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToSite, on
   const getWhatsAppLink = (phone: string, name: string) => {
     const cleanPhone = phone.replace(/[^0-9]/g, '');
     const message = encodeURIComponent(
-      `السلام عليكم ورحمة الله وبركاته، سعادة ${name} المحترم.\nمعكم مكتب ميسورة لخدمات الحج والعمرة الفاخرة والكونسيرج والسياحة الملكية. نسعد بتواصلكم ونود متابعة تفاصيل رحلتكم وتقديم أرقى التسهيلات لكريمتكم.`
+      `السلام عليكم ورحمة الله وبركاته، سعادة ${name} المحترم.\nمعكم مكتب ميسورا لخدمات الحج والعمرة الفاخرة والكونسيرج والسياحة الملكية. نسعد بتواصلكم ونود متابعة تفاصيل رحلتكم وتقديم أرقى التسهيلات لكريمتكم.`
     );
     return `https://wa.me/${cleanPhone}?text=${message}`;
   };

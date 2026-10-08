@@ -63,7 +63,7 @@ export const BrochureModal: React.FC<BrochureModalProps> = ({
     const rtlDir = isEn ? 'ltr' : 'rtl';
     const titleText = isEn
       ? 'MAYSORA Luxury Concierge - Executive Portfolio 2026'
-      : 'مكتب ميسورة - دليل باقات الحج والعمرة الفاخرة والخدمات الملكية 2026';
+      : 'مكتب ميسورا - دليل باقات الحج والعمرة الفاخرة والخدمات الملكية 2026';
 
     printWindow.document.write(`
       <!DOCTYPE html>
@@ -178,7 +178,7 @@ export const BrochureModal: React.FC<BrochureModalProps> = ({
         </div>
 
         <div class="footer">
-          <p>جميع الحقوق محفوظة © مكتب ميسورة 2026 • للتواصل المباشر: 01011860173 - 01017776863</p>
+          <p>جميع الحقوق محفوظة © مكتب ميسورا 2026 • للتواصل المباشر: 01011860173 - 01017776863</p>
         </div>
         <script>
           window.onload = function() {
@@ -225,7 +225,7 @@ export const BrochureModal: React.FC<BrochureModalProps> = ({
             <p className="text-sm text-[#C0B7A6] leading-relaxed max-w-sm mx-auto">
               {isEn
                 ? 'Your PDF brochure has been generated. A copy has also been registered with your concierge advisor.'
-                : 'تم فتح وتجهيز نسختك الرقمية. كما تم إشعار فريق كونسيرج ميسورة للتواصل وتقديم أي استشارات إضافية.'}
+                : 'تم فتح وتجهيز نسختك الرقمية. كما تم إشعار فريق كونسيرج ميسورا للتواصل وتقديم أي استشارات إضافية.'}
             </p>
             <div className="pt-4 flex flex-col sm:flex-row gap-3 justify-center">
               <button

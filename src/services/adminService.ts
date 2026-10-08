@@ -368,7 +368,7 @@ export function exportBookingsToCSV(bookings: AdminBooking[]): void {
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
   link.setAttribute('href', url);
-  link.setAttribute('download', `كشف_حجوزات_وعملاء_ميسورة_${new Date().toISOString().split('T')[0]}.csv`);
+  link.setAttribute('download', `كشف_حجوزات_وعملاء_ميسورا_${new Date().toISOString().split('T')[0]}.csv`);
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);

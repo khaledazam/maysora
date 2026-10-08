@@ -1,3 +1,5 @@
+import { fetchPackagesFromSupabase, syncPackagesToSupabase } from './supabaseClient';
+
 export interface ManagedPackage {
   id: string;
   name: string;
@@ -20,13 +22,20 @@ export const TEMPLATE_PACKAGES: ManagedPackage[] = [];
 const STORAGE_KEY = 'maysora_managed_packages_pricing_prod_v1';
 const EVENT_NAME = 'maysora_prices_updated';
 
+let hasStartedCloudFetch = false;
+
 export const getManagedPackages = (): ManagedPackage[] => {
+  // Trigger background cloud fetch on first access
+  if (typeof window !== 'undefined' && !hasStartedCloudFetch) {
+    hasStartedCloudFetch = true;
+    loadManagedPackagesFromCloud().catch(() => {});
+  }
+
   try {
     localStorage.removeItem('maysora_managed_packages_pricing_v1');
     localStorage.removeItem('maysora_managed_packages_pricing_v2');
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify([]));
       return [];
     }
     const parsed = JSON.parse(raw);
@@ -39,6 +48,35 @@ export const getManagedPackages = (): ManagedPackage[] => {
   return [];
 };
 
+/**
+ * Loads packages directly from Supabase Cloud Database.
+ * Updates local cache and dispatches update event so UI updates immediately.
+ */
+export const loadManagedPackagesFromCloud = async (): Promise<ManagedPackage[]> => {
+  try {
+    const cloudPkgs = await fetchPackagesFromSupabase();
+    if (cloudPkgs && cloudPkgs.length > 0) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(cloudPkgs));
+      } catch {}
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent(EVENT_NAME, { detail: cloudPkgs }));
+      }
+      return cloudPkgs;
+    }
+
+    // If cloud is empty but local has items, upload local items to cloud
+    const local = getManagedPackages();
+    if (local.length > 0) {
+      await syncPackagesToSupabase(local);
+    }
+    return local;
+  } catch (err) {
+    console.warn('Could not load packages from cloud:', err);
+    return getManagedPackages();
+  }
+};
+
 export const saveManagedPackages = (packages: ManagedPackage[]): void => {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(packages));
@@ -46,6 +84,11 @@ export const saveManagedPackages = (packages: ManagedPackage[]): void => {
   } catch (e) {
     console.error('Error saving managed packages:', e);
   }
+
+  // Persist to Supabase Cloud Database
+  syncPackagesToSupabase(packages).catch((err) => {
+    console.warn('Failed to sync packages to Supabase cloud:', err);
+  });
 };
 
 export const updateSinglePackagePrice = (

@@ -24,7 +24,7 @@ export const Hero: React.FC<HeroProps> = ({
           <source srcSet="/images/hero_bg.webp" type="image/webp" />
           <img
             src="/images/hero_bg.jpg"
-            alt={isRtl ? "المسجد الحرام والكعبة المشرفة - باقات الحج والعمرة الفاخرة وأجنحة فندق الصفوة ميسورة" : "Masjid al-Haram Kaaba - Luxury Hajj and Umrah Concierge MAYSORA"}
+            alt={isRtl ? "المسجد الحرام والكعبة المشرفة - باقات الحج والعمرة الفاخرة وأجنحة فندق الصفوة ميسورا" : "Masjid al-Haram Kaaba - Luxury Hajj and Umrah Concierge MAYSORA"}
             width={1440}
             height={810}
             loading="eager"
@@ -62,7 +62,7 @@ export const Hero: React.FC<HeroProps> = ({
                 <source srcSet="/images/logo.webp" type="image/webp" />
                 <img
                   src="/images/logo.jpg"
-                  alt={isRtl ? "شعار مكتب ميسورة لخدمات الحج والعمرة الفاخرة والكونسيرج الملكي" : "MAYSORA Luxury Hajj & Umrah Concierge Logo"}
+                  alt={isRtl ? "شعار مكتب ميسورا لخدمات الحج والعمرة الفاخرة والكونسيرج الملكي" : "MAYSORA Luxury Hajj & Umrah Concierge Logo"}
                   width={112}
                   height={112}
                   loading="eager"

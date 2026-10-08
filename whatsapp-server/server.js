@@ -47,14 +47,14 @@ const sessions = {
     id: 'session2',
     label: 'الخط الثاني (خدمة العملاء / المبيعات VIP)',
     defaultPhone: '',
-    defaultName: 'خدمة عملاء ميسورة',
+    defaultName: 'خدمة عملاء ميسورا',
     authDir: path.join(__dirname, 'auth_session_2'),
     sock: null,
     currentQR: null,
     rawQRString: null,
     isConnected: false,
     userPhone: null,
-    userName: 'خدمة عملاء ميسورة',
+    userName: 'خدمة عملاء ميسورا',
     isConnecting: false,
   }
 };

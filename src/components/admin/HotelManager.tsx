@@ -21,6 +21,7 @@ import {
 import {
   type ManagedHotel,
   getManagedHotels,
+  loadManagedHotelsFromCloud,
   addManagedHotel,
   updateManagedHotel,
   deleteManagedHotel,
@@ -62,6 +63,9 @@ export const HotelManager: React.FC = () => {
 
   useEffect(() => {
     setHotels(getManagedHotels());
+    loadManagedHotelsFromCloud().then((cloud) => {
+      if (cloud && cloud.length > 0) setHotels(cloud);
+    });
     const unsubscribe = subscribeToHotelUpdates((updated) => {
       setHotels(updated);
     });

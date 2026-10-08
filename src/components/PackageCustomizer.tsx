@@ -37,7 +37,7 @@ export const PackageCustomizer: React.FC<PackageCustomizerProps> = ({
 
   const handleWhatsAppCustom = () => {
     trackEvent('whatsapp_click', { location: 'customizer', package: customSummaryText });
-    let msg = `السلام عليكم مكتب ميسورة، قمت بتصميم باقة مخصصة عبر الموقع وأود تأكيدها:\n- النوع: ${activeTypeObj.label}\n- الإقامة: ${activeAccObj.label}\n- الطيران والتنقل: ${activeTransportObj.label}\n- المزايا الإضافية: ${activeFinancialObj.label}`;
+    let msg = `السلام عليكم مكتب ميسورا، قمت بتصميم باقة مخصصة عبر الموقع وأود تأكيدها:\n- النوع: ${activeTypeObj.label}\n- الإقامة: ${activeAccObj.label}\n- الطيران والتنقل: ${activeTransportObj.label}\n- المزايا الإضافية: ${activeFinancialObj.label}`;
     if (lang === 'en') {
       msg = `Hello MAYSORA Concierge, I have tailored a bespoke package on your website and would like to confirm availability:\n- Type: ${activeTypeObj.label}\n- Accommodation: ${activeAccObj.label}\n- Transport: ${activeTransportObj.label}\n- Concierge Perk: ${activeFinancialObj.label}`;
     }
