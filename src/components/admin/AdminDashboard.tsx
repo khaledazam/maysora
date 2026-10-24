@@ -424,8 +424,8 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToSite, on
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
           {/* Logo & Portal Title */}
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#D4AF37] to-[#8C7335] flex items-center justify-center text-[#0D0D0D] font-bold shadow-md shadow-[#D4AF37]/20 font-serif">
-              M
+            <div className="w-10 h-10 rounded-xl bg-black/60 border border-[#D4AF37]/40 flex items-center justify-center p-1 shadow-md shadow-[#D4AF37]/20">
+              <img src="/images/favicon.png" alt="MAYSORA" className="w-full h-full object-contain" />
             </div>
             <div>
               <div className="flex items-center gap-2">

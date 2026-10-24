@@ -44,31 +44,19 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="flex items-center justify-between">
           
           {/* Logo & Brand */}
-          <a href="#home" className="flex items-center gap-3 group">
-            <div className="relative w-11 h-11 rounded-full p-[1px] bg-gradient-to-r from-[#D4AF37] via-[#FFF0B3] to-[#9A7B1C] shadow-lg shadow-[#D4AF37]/20 group-hover:scale-105 transition-transform">
-              <div className="w-full h-full bg-[#0D0D0D] rounded-full flex items-center justify-center overflow-hidden">
-                <picture>
-                  <source srcSet="/images/logo.webp" type="image/webp" />
-                  <img 
-                    src="/images/logo.jpg" 
-                    alt="MAYSORA Logo" 
-                    width={44}
-                    height={44}
-                    loading="eager"
-                    decoding="async"
-                    className="w-full h-full object-cover"
-                  />
-                </picture>
-              </div>
-            </div>
-            <div className="flex flex-col">
-              <span className="text-xl sm:text-2xl font-serif-en tracking-wider text-gold-gradient font-bold leading-tight">
-                MAYSORA
-              </span>
-              <span className="text-[10px] sm:text-[11px] text-[#C0B7A6] tracking-widest font-light">
-                {lang === 'en' ? 'EST. ROYAL PILGRIMAGE & CONCIERGE' : (lang === 'ar-sa' ? 'مكتب ميسورا • ضيافة الحج الفاخرة' : 'مكتب ميسورا • ضيافة الحج والعمرة الفاخرة')}
-              </span>
-            </div>
+          <a href="#home" className="flex items-center gap-3 group py-1">
+            <picture>
+              <source srcSet="/images/logo.webp" type="image/webp" />
+              <img 
+                src="/images/logo.png" 
+                alt="مجموعة ميسورا - MAYSORA Group" 
+                width={160}
+                height={52}
+                loading="eager"
+                decoding="async"
+                className="h-10 sm:h-12 w-auto object-contain drop-shadow-[0_2px_12px_rgba(212,175,55,0.25)] group-hover:scale-105 transition-all"
+              />
+            </picture>
           </a>
 
           {/* Desktop Navigation Links */}

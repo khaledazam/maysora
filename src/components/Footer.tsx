@@ -21,14 +21,17 @@ export const Footer: React.FC<FooterProps> = ({ t }) => {
           {/* Col 1: Brand Info */}
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full p-[1px] bg-gold-gradient">
-                <div className="w-full h-full bg-[#0D0D0D] rounded-full overflow-hidden flex items-center justify-center">
-                  <img src="/images/logo.jpg" alt="MAYSORA Logo" className="w-full h-full object-cover" />
-                </div>
-              </div>
-              <span className="text-2xl font-serif-en text-gold-gradient font-bold tracking-wider">
-                MAYSORA
-              </span>
+              <picture>
+                <source srcSet="/images/logo.webp" type="image/webp" />
+                <img
+                  src="/images/logo.png"
+                  alt="مجموعة ميسورا - MAYSORA Group"
+                  width={150}
+                  height={50}
+                  className="h-11 sm:h-12 w-auto object-contain drop-shadow-[0_2px_10px_rgba(212,175,55,0.2)]"
+                  loading="lazy"
+                />
+              </picture>
             </div>
 
             <p className="text-xs leading-relaxed text-[#C0B7A6]/80 font-light">

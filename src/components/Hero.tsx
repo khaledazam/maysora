@@ -54,23 +54,21 @@ export const Hero: React.FC<HeroProps> = ({
           </span>
         </div>
 
-        {/* Hero Logo Emblem */}
-        <div className="mb-6 flex justify-center">
-          <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full p-[2px] bg-gradient-to-tr from-[#D4AF37] via-[#FFF0B3] to-[#9A7B1C] shadow-2xl shadow-[#D4AF37]/30">
-            <div className="w-full h-full bg-[#0D0D0D] rounded-full overflow-hidden flex items-center justify-center p-1">
-              <picture>
-                <source srcSet="/images/logo.webp" type="image/webp" />
-                <img
-                  src="/images/logo.jpg"
-                  alt={isRtl ? "شعار مكتب ميسورا لخدمات الحج والعمرة الفاخرة والكونسيرج الملكي" : "MAYSORA Luxury Hajj & Umrah Concierge Logo"}
-                  width={112}
-                  height={112}
-                  loading="eager"
-                  decoding="async"
-                  className="w-full h-full object-cover"
-                />
-              </picture>
-            </div>
+        {/* Hero Official Logo */}
+        <div className="mb-8 flex justify-center">
+          <div className="inline-flex p-3 sm:p-4 rounded-3xl bg-black/60 border border-[#D4AF37]/35 shadow-2xl shadow-[#D4AF37]/20 backdrop-blur-xl hover:scale-105 transition-all">
+            <picture>
+              <source srcSet="/images/logo.webp" type="image/webp" />
+              <img
+                src="/images/logo.png"
+                alt={isRtl ? "شعار مجموعة ميسورا الرسمي لخدمات الحج والعمرة" : "MAYSORA Group Official Logo"}
+                width={260}
+                height={108}
+                loading="eager"
+                decoding="async"
+                className="h-16 sm:h-20 md:h-24 w-auto object-contain drop-shadow-[0_4px_16px_rgba(212,175,55,0.3)]"
+              />
+            </picture>
           </div>
         </div>
 
