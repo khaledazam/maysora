@@ -3,6 +3,7 @@ import { Star, Sparkles, Sparkle, Building2, PlaneTakeoff, ShieldCheck, CheckCir
 import type { Language, TranslationContent } from '../data/translations';
 import { PackageCustomizer } from './PackageCustomizer';
 import { PackageComparison } from './PackageComparison';
+import { OctoberProgramsSchedule } from './OctoberProgramsSchedule';
 import {
   getManagedPackages,
   subscribeToPriceUpdates,
@@ -25,7 +26,7 @@ export const PackagesHub: React.FC<PackagesHubProps> = ({
   onSelectCustomPackage,
   onOpenBrochureModal
 }) => {
-  const [activeTab, setActiveTab] = useState<'packages' | 'customizer' | 'comparison'>('packages');
+  const [activeTab, setActiveTab] = useState<'october' | 'packages' | 'customizer' | 'comparison'>('october');
   const [managedPackages, setManagedPackages] = useState<ManagedPackage[]>(getManagedPackages());
   const isRtl = lang !== 'en';
 
@@ -92,8 +93,25 @@ export const PackagesHub: React.FC<PackagesHubProps> = ({
 
         {/* Master Tabbed Switcher (Segmented Luxury Pill) */}
         <div className="flex justify-center mb-16">
-          <div className="inline-flex p-1.5 rounded-full bg-black/70 border border-[#D4AF37]/35 backdrop-blur-xl shadow-2xl max-w-full overflow-x-auto">
+          <div className="inline-flex p-1.5 rounded-full bg-black/70 border border-[#D4AF37]/35 backdrop-blur-xl shadow-2xl max-w-full overflow-x-auto gap-1">
             
+            {/* Tab 0: October Economic Programs (Exclusive Official Flyer) */}
+            <button
+              type="button"
+              onClick={() => setActiveTab('october')}
+              className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all flex items-center gap-2 cursor-pointer whitespace-nowrap ${
+                activeTab === 'october'
+                  ? 'bg-gold-gradient text-[#0D0D0D] shadow-lg shadow-[#D4AF37]/25'
+                  : 'text-[#C0B7A6] hover:text-[#D4AF37]'
+              }`}
+            >
+              <Sparkles className="w-4 h-4 text-[#25D366]" />
+              <span>{isRtl ? 'برامج شهر أكتوبر (سعر اقتصادي)' : 'October Programs (Economic)'}</span>
+              <span className="px-2 py-0.5 rounded-full bg-[#25D366]/20 text-[#25D366] text-[10px] font-extrabold border border-[#25D366]/40">
+                {isRtl ? 'عرض الشهر' : 'Special'}
+              </span>
+            </button>
+
             {/* Tab 1: Ready Packages */}
             <button
               type="button"
@@ -138,6 +156,16 @@ export const PackagesHub: React.FC<PackagesHubProps> = ({
 
           </div>
         </div>
+
+        {/* Tab 0 Content: Official October Economic Schedule */}
+        {activeTab === 'october' && (
+          <div className="animate-fadeIn space-y-12">
+            <OctoberProgramsSchedule
+              lang={lang}
+              onSelectBooking={onSelectPackage}
+            />
+          </div>
+        )}
 
         {/* Tab 1 Content: Ready Featured Packages Cards */}
         {activeTab === 'packages' && (

@@ -31,3 +31,10 @@ dist-ssr
 whatsapp-server/node_modules
 whatsapp-server/auth_*
 whatsapp-server/*.log
+
+# Scraped leads data & browser profiles
+*.csv
+*.xlsx
+scripts/fb_browser_profile/
+__pycache__/
+*.pyc

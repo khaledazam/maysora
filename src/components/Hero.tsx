@@ -76,6 +76,7 @@ export const Hero: React.FC<HeroProps> = ({
 
         {/* Main Headline */}
         <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight mb-6 leading-tight">
+          <span className="sr-only">مجموعة ميسورا لخدمات الحج والعمرة الفاخرة والاقتصادية • MAYSORA Group</span>
           <span className="block text-[#F8F5F0] font-arabic-heading font-serif-en">
             {t.hero.title}
           </span>
